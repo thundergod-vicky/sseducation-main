@@ -93,11 +93,17 @@ export function Footer() {
             <div>
               <h4 className="font-extrabold uppercase tracking-wide text-base">Quick Links</h4>
               <ul className="mt-4 grid grid-cols-2 gap-3 text-sm text-primary-foreground/80">
-                {["Career", "Investor", "Terms & Conditions", "Refund Policy"].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="inline-flex items-center gap-1.5 hover:text-accent-glow transition-colors">
+                {[
+                  { label: "MBBS Admission", href: "/mbbs" },
+                  { label: "Career", href: "#" },
+                  { label: "Investor", href: "#" },
+                  { label: "Terms & Conditions", href: "#" },
+                  { label: "Refund Policy", href: "#" },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="inline-flex items-center gap-1.5 hover:text-accent-glow transition-colors">
                       <span className="h-1 w-1 rounded-full bg-accent-glow" />
-                      {link}
+                      {link.label}
                     </a>
                   </li>
                 ))}

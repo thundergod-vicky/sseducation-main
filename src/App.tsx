@@ -20,6 +20,7 @@ const App = () => (
           <Route path="/rv-college-btech-admission-2026" element={<CollegeRoute configKey="rvce" />} />
           <Route path="/ramaiah-institute-btech-admission-2026" element={<CollegeRoute configKey="ramaiah" />} />
           <Route path="/iem-kolkata-btech-admission-2026" element={<CollegeRoute configKey="iem" />} />
+          <Route path="/mbbs" element={<CollegeRoute configKey="mbbs" />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

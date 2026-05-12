@@ -8,6 +8,8 @@ import iemCampus from "@/assets/iem-campus.jpg";
 import iemBuilding from "@/assets/iem-building.jpg";
 import iemLab from "@/assets/iem-lab.jpg";
 import celebrateImg from "@/assets/students-celebrate.jpg";
+import mbbsHero from "@/assets/mbbs-hero.png";
+import medicalBuilding from "@/assets/medical-building.png";
 
 export type CollegeConfig = {
   slug: string;
@@ -315,6 +317,92 @@ export const COLLEGES: Record<string, CollegeConfig> = {
     seo: {
       title: "IEM Kolkata B.Tech Admission 2026 — Direct Seat | SS Education",
       description: "Get direct B.Tech admission in IEM Kolkata 2026. West Bengal's top private engineering college. Affordable ₹5-7L fees. Closest premium college for Bihar & Jharkhand. Call +91 99456 67977.",
+    },
+  },
+
+  mbbs: {
+    slug: "mbbs-admission-india-2026",
+    short: "MBBS India",
+    name: "MBBS Admission in India",
+    city: "Pan",
+    state: "India",
+    hero: {
+      eyebrow: "NMC-Approved Medical Admissions 2026",
+      headline: "Get Direct MBBS Admission in",
+      headlineHighlight: "India 2026",
+      subline: "Top Private & Deemed Medical Colleges — Pan India Support",
+      subhead:
+        "Secure your medical career in India's top-ranked medical institutions. We provide expert guidance for NEET UG qualified students seeking admission in NMC-approved colleges across the country.",
+    },
+    trustStats: [
+      { value: "NMC", label: "Approved" },
+      { value: "100%", label: "Transparency" },
+      { value: "NEET", label: "Guidance" },
+    ],
+    carousel: [
+      { img: mbbsHero, eyebrow: "Future Doctors", title: "Premier Medical Education", subtitle: "Start your journey in India's top medical colleges" },
+      { img: medicalBuilding, eyebrow: "Modern Infrastructure", title: "World-Class Medical Labs", subtitle: "State-of-the-art facilities for clinical learning" },
+      { img: celebrateImg, eyebrow: "Successful Admissions", title: "Join 500+ Future Medicos", subtitle: "Our students are studying in India's best colleges" },
+    ],
+    snapshot: [
+      { label: "Location", value: "Pan India" },
+      { label: "Course", value: "MBBS (UG)" },
+      { label: "Duration", value: "5.5 Years" },
+      { label: "Eligibility", value: "NEET UG Qualified" },
+      { label: "Recognition", value: "NMC, WHO Approved" },
+      { label: "Admission", value: "Direct & Counselling" },
+    ],
+    about: {
+      eyebrow: "About MBBS in India",
+      title: "Pursue Your Medical Dream with",
+      titleHighlight: "NMC Approved Colleges",
+      body: "Pursuing an MBBS in India is the primary goal for every medical aspirant. With over 600+ medical colleges, India offers world-class medical education recognized globally. SS Education specializes in helping students navigate the complex admission landscape of private and deemed medical universities. We ensure that you get into colleges that are NMC (National Medical Commission) approved and have excellent clinical exposure. Our team provides end-to-end support for students from Bihar, Jharkhand, and beyond to secure seats in prestigious Indian medical hubs.",
+      image: medicalBuilding,
+      imageAlt: "Modern medical college building in India",
+      floatStat: { value: "600+", label: "Medical Colleges" },
+      floatStat2: { value: "NMC", label: "Approved" },
+    },
+    why: {
+      title: "Why Choose MBBS",
+      titleHighlight: "Admission in India",
+      image: mbbsHero,
+      imageAlt: "Indian medical students in campus",
+      imageOverlayTitle: "Quality Medical Education",
+      imageOverlaySubtitle: "Clinical exposure in top-tier hospitals",
+      points: [
+        { title: "NMC & WHO Recognition", desc: "Degrees are valid across India and globally.", iconKey: "award" },
+        { title: "Excellent Clinical Exposure", desc: "Learn in hospitals with high patient inflow.", iconKey: "building" },
+        { title: "No Language Barrier", desc: "Education and patient interaction in English/Hindi.", iconKey: "map" },
+        { title: "Standardized Curriculum", desc: "Follows the latest CBME medical curriculum.", iconKey: "code" },
+        { title: "Expert Counselling Support", desc: "Personalized college shortlisting based on NEET score.", iconKey: "users" },
+        { title: "100% Transparent Process", desc: "Clear fee structure and direct seat coordination.", iconKey: "sparkles" },
+        { title: "NEET UG Mandatory Guidance", desc: "Helping you maximize your NEET performance.", iconKey: "trophy" },
+        { title: "End-to-End Handholding", desc: "From application to hostel accommodation.", iconKey: "check" },
+      ],
+    },
+    process: [
+      { title: "Expert Consultation", desc: "Initial discussion about your NEET score and budget." },
+      { title: "College Shortlisting", desc: "Identify best-fit NMC approved colleges for you." },
+      { title: "Application Support", desc: "Guided documentation and registration for counselling." },
+      { title: "Counselling Guidance", desc: "Strategic choice filling for All India & State rounds." },
+      { title: "Admission Lockdown", desc: "Final seat allotment and college joining formalities." },
+    ],
+    faqs: [
+      { q: "Is NEET UG mandatory for MBBS in India?", a: "Yes, qualifying NEET UG is mandatory for admission to any medical college in India, including private and deemed universities." },
+      { q: "Can SS Education help with management quota seats?", a: "Yes, we provide legitimate guidance for management and NRI quota seats in private medical colleges as per government norms." },
+      { q: "Which states are best for MBBS admission in India?", a: "Karnataka, Maharashtra, and Tamil Nadu have some of the best private medical colleges with excellent hospital attachments." },
+      { q: "What services does SS Education provide?", a: "We provide career counselling, college selection, documentation help, and support throughout the entire counselling process." },
+    ],
+    cta: {
+      eyebrow: "MBBS 2026 Admissions Now Open",
+      title: "Start Your Medical Journey in",
+      titleHighlight: "India Today",
+      subline: "Speak with our MBBS admission experts and secure your seat in a top NMC-approved college.",
+      image: celebrateImg,
+    },
+    seo: {
+      title: "MBBS Admission in India 2026 — Direct Seat | SS Education",
+      description: "Secure your MBBS admission in India 2026. Get into top NMC-approved private & deemed medical colleges. Expert counselling for NEET UG qualified students. Call +91 99330 85333.",
     },
   },
 };
