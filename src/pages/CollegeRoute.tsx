@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { CollegePage } from "@/components/college/CollegePage";
+import { MBBSPage } from "@/components/college/MBBSPage";
 import { COLLEGES, type CollegeConfig } from "@/data/colleges";
 
 export const CollegeRoute = ({ configKey }: { configKey: keyof typeof COLLEGES }) => {
@@ -19,6 +20,10 @@ export const CollegeRoute = ({ configKey }: { configKey: keyof typeof COLLEGES }
     setMeta("og:title", config.seo.title, "property");
     setMeta("og:description", config.seo.description, "property");
   }, [config]);
+
+  if (configKey === "mbbs") {
+    return <MBBSPage config={config} />;
+  }
 
   return <CollegePage config={config} />;
 };
