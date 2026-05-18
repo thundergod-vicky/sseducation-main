@@ -136,7 +136,12 @@ export const Navbar = () => {
         <div className="hidden lg:flex items-center gap-3">
           <a
             href="tel:+919933085333"
-            className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-primary/20 font-bold text-sm text-primary hover:bg-primary/5 transition-all"
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-full border-2 font-bold text-sm transition-all",
+              isNavVisible
+                ? "border-primary/20 text-primary hover:bg-primary/5"
+                : "border-white/70 text-white hover:bg-white/10"
+            )}
           >
             <Phone className="h-4 w-4" />
             +91 99330 85333
