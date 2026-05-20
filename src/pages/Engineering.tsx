@@ -5,7 +5,6 @@ import { WhyChoose } from "@/components/landing/WhyChoose";
 import { Process } from "@/components/landing/Process";
 import { FAQ } from "@/components/landing/FAQ";
 import { CTASection } from "@/components/landing/CTASection";
-import { Footer } from "@/components/landing/Footer";
 import { useEffect } from "react";
 
 const Index = () => {
@@ -41,7 +40,6 @@ const Index = () => {
       <Process />
       <FAQ />
       <CTASection />
-      <Footer />
     </main>
   );
 };
