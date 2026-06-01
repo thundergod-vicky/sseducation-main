@@ -119,6 +119,7 @@ export function Footer() {
                   { label: "MBBS Guide India 2026", href: "/mbbs-admission-guide-india" },
                   { label: "IEM Kolkata Guide 2026", href: "/iem-kolkata-admission-2026" },
                   { label: "Heritage Institute of Technology (HITK), Kolkata", href: "/heritage-institute-of-technology-hitk-kolkata" },
+                  { label: "Techno Main Salt Lake (TMSL), Kolkata", href: "/techno-main-salt-lake-tmsl-kolkata" },
                   { label: "Career", href: "#" },
                   { label: "Investor", href: "#" },
                   { label: "Terms & Conditions", href: "#" },

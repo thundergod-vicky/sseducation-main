@@ -20,6 +20,7 @@ import BTechAdmissionBengaluru2026 from "./pages/BTechAdmissionBengaluru2026.tsx
 import MbbsAdmissionGuideIndia from "./pages/MbbsAdmissionGuideIndia.tsx";
 import IemKolkataAdmission2026 from "./pages/IemKolkataAdmission2026.tsx";
 import HeritageKolkataAdmission2026 from "./pages/HeritageKolkataAdmission2026.tsx";
+import TechnoMainSaltLakeAdmission2026 from "./pages/TechnoMainSaltLakeAdmission2026.tsx";
 import { MainLayout } from "./components/layout/MainLayout";
 
 const queryClient = new QueryClient();
@@ -73,6 +74,9 @@ const App = () => (
           
           {/* Standing Landing Page for Heritage Kolkata Admission 2026 */}
           <Route path="/heritage-institute-of-technology-hitk-kolkata" element={<MainLayout><HeritageKolkataAdmission2026 /></MainLayout>} />
+          
+          {/* Standing Landing Page for Techno Main Salt Lake 2026 */}
+          <Route path="/techno-main-salt-lake-tmsl-kolkata" element={<MainLayout><TechnoMainSaltLakeAdmission2026 /></MainLayout>} />
           
           {/* Catch-all */}
           <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
