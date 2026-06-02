@@ -21,6 +21,10 @@ import MbbsAdmissionGuideIndia from "./pages/MbbsAdmissionGuideIndia.tsx";
 import IemKolkataAdmission2026 from "./pages/IemKolkataAdmission2026.tsx";
 import HeritageKolkataAdmission2026 from "./pages/HeritageKolkataAdmission2026.tsx";
 import TechnoMainSaltLakeAdmission2026 from "./pages/TechnoMainSaltLakeAdmission2026.tsx";
+import HaldiaAdmission2026 from "./pages/HaldiaAdmission2026.tsx";
+import KiitBhubaneswarAdmission2026 from "./pages/KiitBhubaneswarAdmission2026.tsx";
+import SoaBhubaneswarAdmission2026 from "./pages/SoaBhubaneswarAdmission2026.tsx";
+import MsRamaiahBangaloreAdmission2026 from "./pages/MsRamaiahBangaloreAdmission2026.tsx";
 import ThankYou from "./pages/ThankYou.tsx";
 import { MainLayout } from "./components/layout/MainLayout";
 
@@ -44,9 +48,9 @@ const App = () => (
           <Route path="/blog/:slug" element={<MainLayout><BlogPost /></MainLayout>} />
           
           {/* College Pages */}
-          <Route path="/college/kiit" element={<MainLayout><Engineering /></MainLayout>} />
+          <Route path="/college/kiit" element={<MainLayout><KiitBhubaneswarAdmission2026 /></MainLayout>} />
           <Route path="/rv-college-btech-admission-2026" element={<MainLayout><CollegeRoute configKey="rvce" /></MainLayout>} />
-          <Route path="/ramaiah-institute-btech-admission-2026" element={<MainLayout><CollegeRoute configKey="ramaiah" /></MainLayout>} />
+          <Route path="/ramaiah-institute-btech-admission-2026" element={<MainLayout><MsRamaiahBangaloreAdmission2026 /></MainLayout>} />
           <Route path="/iem-kolkata-btech-admission-2026" element={<MainLayout><CollegeRoute configKey="iem" /></MainLayout>} />
           <Route path="/srm-university-btech-admission-2026" element={<MainLayout><CollegeRoute configKey="srm" /></MainLayout>} />
           <Route path="/mbbs" element={<MainLayout><CollegeRoute configKey="mbbs" /></MainLayout>} />
@@ -79,6 +83,15 @@ const App = () => (
           
           {/* Standing Landing Page for Techno Main Salt Lake 2026 */}
           <Route path="/techno-main-salt-lake-tmsl-kolkata" element={<MainLayout><TechnoMainSaltLakeAdmission2026 /></MainLayout>} />
+          
+          {/* Standing Landing Page for Haldia Institute of Technology 2026 */}
+          <Route path="/haldia-institute-of-technology-hit-haldia" element={<MainLayout><HaldiaAdmission2026 /></MainLayout>} />
+          
+          {/* Standing Landing Page for KIIT Bhubaneswar 2026 */}
+          <Route path="/kiit-university-bhubaneswar-admission-2026" element={<MainLayout><KiitBhubaneswarAdmission2026 /></MainLayout>} />
+          
+          {/* Standing Landing Page for SOA University Bhubaneswar 2026 */}
+          <Route path="/soa-university-bhubaneswar-admission-2026" element={<MainLayout><SoaBhubaneswarAdmission2026 /></MainLayout>} />
           
           {/* Catch-all */}
           <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
