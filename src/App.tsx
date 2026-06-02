@@ -21,6 +21,7 @@ import MbbsAdmissionGuideIndia from "./pages/MbbsAdmissionGuideIndia.tsx";
 import IemKolkataAdmission2026 from "./pages/IemKolkataAdmission2026.tsx";
 import HeritageKolkataAdmission2026 from "./pages/HeritageKolkataAdmission2026.tsx";
 import TechnoMainSaltLakeAdmission2026 from "./pages/TechnoMainSaltLakeAdmission2026.tsx";
+import ThankYou from "./pages/ThankYou.tsx";
 import { MainLayout } from "./components/layout/MainLayout";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/engineering" element={<MainLayout><Engineering /></MainLayout>} /> {/* Current landing page */}
           <Route path="/results" element={<MainLayout><Results /></MainLayout>} />
           <Route path="/contact" element={<MainLayout><Contact /></MainLayout>} />
+          <Route path="/thank-you" element={<MainLayout><ThankYou /></MainLayout>} />
           <Route path="/faq" element={<MainLayout><FAQ /></MainLayout>} />
           <Route path="/blog" element={<MainLayout><Blog /></MainLayout>} />
           <Route path="/blog/:slug" element={<MainLayout><BlogPost /></MainLayout>} />
