@@ -47,6 +47,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 // College campus image for high-end aesthetic
 import campusHero from "@/assets/heritage-campus.webp";
@@ -80,6 +82,89 @@ const leadFormSchema = z.object({
 type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function HeritageKolkataAdmission2026() {
+  useSeo({
+    title: "Heritage Institute of Technology (HITK) Kolkata B.Tech Admission 2026",
+    description: "Get B.Tech Admission guidance for Heritage Institute of Technology (HITK), Kolkata. Review placement packages, fees, and WBJEE cutoff marks."
+  });
+
+  // Dynamic College, FAQ, and Breadcrumb Schema Markup
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://ssadmission.in/heritage-institute-of-technology-hitk-kolkata/#college",
+        "name": "Heritage Institute of Technology (HITK), Kolkata",
+        "alternateName": "Heritage Kolkata",
+        "url": "https://www.heritageit.edu",
+        "description": "Heritage Institute of Technology (HITK) is a highly-ranked private autonomous engineering college in Anandapur, Kolkata, West Bengal, affiliated with MAKAUT.",
+        "logo": "https://www.heritageit.edu/images/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "994, Madurdaha, Chowbaga Road, Anandapur",
+          "addressLocality": "Kolkata",
+          "addressRegion": "West Bengal",
+          "postalCode": "700107",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/heritage-institute-of-technology-hitk-kolkata/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Heritage Institute of Technology autonomous?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Heritage Institute of Technology, Kolkata (HITK) is an autonomous engineering college affiliated with Maulana Abul Kalam Azad University of Technology (MAKAUT), West Bengal."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the fee structure for B.Tech at Heritage Institute of Technology?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The B.Tech tuition fee at Heritage Kolkata is approximately ₹1,10,000 per year (or ₹55,000 per semester), bringing the total 4-year tuition fee to ~₹4.40 Lakhs. Other fees such as security deposits, registration, and examinations are separate."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the placement record at Heritage Institute of Technology?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Heritage Kolkata has a strong placement track record, placing around 85-90% of students annually. The B.Tech average package is ₹5.50 LPA, and the highest package offered has reached ₹44 LPA in recent recruitment drives. Key recruiters include TCS, Cognizant, Wipro, Infosys, and Capgemini."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/heritage-institute-of-technology-hitk-kolkata/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Colleges",
+            "item": "https://ssadmission.in/engineering"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Heritage Kolkata B.Tech Admission 2026",
+            "item": "https://ssadmission.in/heritage-institute-of-technology-hitk-kolkata"
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});

@@ -44,6 +44,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 // Custom Assets
 const campusHero = "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHEQW83j-IP5qSviHLaYF5kLAj9wlyVdlqeW0RnxfznFvI1uIh8wZGLT4usUMQKdq5_6p21kdgZdSJuSa-GTv5M1TpCd7b5MrXAuXxSl2FUIZTr-eFsz-Q_4_GLMjXwzGpzM8Zi=s1360-w1360-h1020-rw";
@@ -77,6 +79,105 @@ const leadFormSchema = z.object({
 type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function KiitBhubaneswarAdmission2026() {
+  useSeo({
+    title: "KIIT University Bhubaneswar B.Tech Admission 2026",
+    description: "Get direct B.Tech admission guidance in KIIT University Bhubaneswar for 2026. Review placement packages, fees, eligibility, and KIITEE cutoffs."
+  });
+
+  // Dynamic College, FAQ, and Breadcrumb Schema Markup
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://ssadmission.in/kiit-university-bhubaneswar-admission-2026/#college",
+        "name": "Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar",
+        "alternateName": "KIIT University",
+        "url": "https://www.kiit.ac.in",
+        "description": "Kalinga Institute of Industrial Technology (KIIT) is a NAAC A++ rated deemed university in Bhubaneswar, Odisha offering courses in engineering, medicine, management, and law.",
+        "logo": "https://www.kiit.ac.in/wp-content/themes/kiit/images/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Campus-1 to Campus-25, KIIT Road, Patia",
+          "addressLocality": "Bhubaneswar",
+          "addressRegion": "Odisha",
+          "postalCode": "751024",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/kiit-university-bhubaneswar-admission-2026/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the fee structure for B.Tech CSE at KIIT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For CSE and all specialisations, the tuition fee is ₹1,75,000 per semester, which amounts to ₹3.50 Lakhs per year. The 4-year tuition fee total is ₹14.91 Lakhs. There is a one-time registration and laptop bundle fee of ₹75,000 due at the time of admission, plus a semester examination fee of ₹1,000."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the KIITEE exam free to apply?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. KIITEE (Kalinga Institute of Industrial Technology Entrance Examination) is completely free, and the university charges zero application or examination fees. Registration for subsequent phases generally closes around May 30."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the hostel and mess charges at KIIT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "KIIT offers excellent, fully residential separate hostels for boys and girls. Semester charges range from ₹28,000 for standard non-AC double rooms up to ₹60,000 for premium AC suites. Mess charges and accommodation total approximately ₹1.2 Lakhs to ₹1.8 Lakhs per year."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the B.Tech admission eligibility criteria?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Candidates must have passed Class 12 (10+2) with Physics, Chemistry, and Mathematics (PCM) scoring a minimum of 60% aggregate in PCM. Candidates must be born on or after July 1, 2005. Ranks are determined by the KIITEE 2026 entrance exam, while JEE Main marks are also considered for specific quotas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the placement record at KIIT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "KIIT boasts a consistent 92.50% placement rate. The B.Tech average package is ₹8.50 LPA, with the B.Tech median package recorded at ₹7.40 LPA. During the ongoing 2026 placements, over 3,500+ job offers have already been secured, with the highest package hitting ₹44.52 LPA. Leading recruiters include Amazon, Microsoft, YugaByte, TCS, and Capgemini."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/kiit-university-bhubaneswar-admission-2026/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Colleges",
+            "item": "https://ssadmission.in/engineering"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "KIIT Bhubaneswar B.Tech Admission 2026",
+            "item": "https://ssadmission.in/kiit-university-bhubaneswar-admission-2026"
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});

@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Calendar, User, Share2, Facebook, Twitter, Linkedin, MessageCircle, ArrowLeft, Clock } from "lucide-react";
+import { useJsonLd } from "@/hooks/useJsonLd";
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -46,6 +47,57 @@ const BlogPost = () => {
       </p>
     `
   };
+
+  // Dynamic Article & Breadcrumb Schema Injection
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `https://ssadmission.in/blog/${slug}/#article`,
+        "headline": post.title,
+        "datePublished": "2024-05-10T08:00:00+05:30",
+        "dateModified": "2026-06-03T11:36:11+05:30",
+        "author": {
+          "@type": "Person",
+          "name": post.author
+        },
+        "publisher": {
+          "@id": "https://ssadmission.in/#organization"
+        },
+        "description": "Direct B.Tech Admission in Bangalore 2026: A Complete Guide by expert admissions counselors at SS Educational Services.",
+        "image": post.image,
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://ssadmission.in/blog/${slug}`
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `https://ssadmission.in/blog/${slug}/#breadcrumb`,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://ssadmission.in/blog"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": post.title,
+            "item": `https://ssadmission.in/blog/${slug}`
+          }
+        ]
+      }
+    ]
+  });
 
   return (
     <main className="pt-24 pb-24 min-h-screen">

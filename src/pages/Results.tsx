@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useSeo } from "@/hooks/useSeo";
 import { 
   Building2, 
   MapPin, 
@@ -150,6 +151,11 @@ const MEDICAL_COLLEGES = [
 ];
 
 const Results = () => {
+  useSeo({
+    title: "Compare Colleges & Universities 2026 | SS Educational Services",
+    description: "Compare top B.Tech engineering and MBBS medical colleges side-by-side. Analyze authentic placement records, detailed fees, and board cutoffs."
+  });
+
   const [activeTab, setActiveTab] = useState<"engineering" | "medical">("engineering");
   
   // Interactive Selector matchups states

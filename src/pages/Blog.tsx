@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Search, Calendar, User, ArrowRight, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSeo } from "@/hooks/useSeo";
 
 const BLOG_POSTS = [
   {
@@ -42,6 +43,11 @@ const BLOG_POSTS = [
 ];
 
 const Blog = () => {
+  useSeo({
+    title: "SS Education Insights - Admissions Blog & News 2026",
+    description: "Read our latest news, admission guides, and expert advice for students and parents looking for colleges and universities in India."
+  });
+
   return (
     <main className="pt-24 min-h-screen">
       {/* Header */}
