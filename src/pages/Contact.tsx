@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, MessageCircle, Send, Clock } from "lucide-react";
+import { useSeo } from "@/hooks/useSeo";
 
 const OFFICES = [
   {
@@ -26,6 +27,11 @@ const OFFICES = [
 ];
 
 const Contact = () => {
+  useSeo({
+    title: "Contact Us | SS Educational Services",
+    description: "Get in touch with SS Educational Services. Visit our head office in Durgapur, or branches in Patna and Kolkata. Get 24/7 expert admission support."
+  });
+
   return (
     <main className="pt-24">
       {/* Header */}

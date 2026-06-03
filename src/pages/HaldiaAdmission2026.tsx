@@ -47,6 +47,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 // Custom Assets
 const campusHero = "https://lh3.googleusercontent.com/gps-cs-s/APNQkAECrPD2UStPt_JeHFiYbKGKGw4IQ_pNq1Hi_7nsaEczL65IKa57PxSF_fAzlc2yqGGdGiBbJyzJPAGZKsgUFAAgZx_3Cav9zyzQuhOt_dQNn81qat2GqQFsLl8-NAa0ibasYMmt=s1360-w1360-h1020-rw";
@@ -80,6 +82,105 @@ const leadFormSchema = z.object({
 type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function HaldiaAdmission2026() {
+  useSeo({
+    title: "Haldia Institute of Technology (HIT) B.Tech Admission 2026",
+    description: "Get B.Tech Admission in Haldia Institute of Technology (HIT), Haldia. Expert guidance by SS Educational Services. Review fees, eligibility, and cutoffs."
+  });
+
+  // Dynamic College, FAQ, and Breadcrumb Schema Markup
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://ssadmission.in/haldia-institute-of-technology-hit-haldia/#college",
+        "name": "Haldia Institute of Technology (HIT), Haldia",
+        "alternateName": "HIT Haldia",
+        "url": "https://www.hithaldia.ac.in",
+        "description": "Haldia Institute of Technology (HIT) is West Bengal's oldest self-financed degree engineering college under ICARE, offering courses affiliated with MAKAUT.",
+        "logo": "https://hithaldia.ac.in/images/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ICARE Complex, Hatiberia",
+          "addressLocality": "Haldia",
+          "addressRegion": "West Bengal",
+          "postalCode": "721657",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/haldia-institute-of-technology-hit-haldia/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Haldia Institute of Technology autonomous?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Haldia Institute of Technology (HIT), Haldia, has been granted autonomous status by the University Grants Commission (UGC) under Maulana Abul Kalam Azad University of Technology (MAKAUT) since 2021. This enables the college to maintain a highly contemporary, industry-aligned syllabus (such as integrating Python across all engineering branches for 2026)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the highest package at HIT Haldia?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The highest package secured at HIT Haldia has reached ₹33 LPA in recent placements. The median package offered stands steadily at ₹5 LPA. During the latest 2025 placement season, 1,105 B.Tech students out of 1,380 were successfully placed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the B.Tech fee structures at HIT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For flagship branches (CSE, IT, ECE, EE, ME, Civil, CHE, Biotech), the annual fee is ~₹1,40,000, bringing the 4-year tuition total to ~₹5.82 Lakhs. The semester-wise breakdown is ₹1,91,700 for the first year (inclusive of hostels) and ₹1,64,000 for each subsequent year. For Agricultural Engineering, the total B.Tech fee is ~₹4.84 Lakhs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are separate hostel facilities available for out-of-state students?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. HIT Haldia is West Bengal's first fully residential private engineering college, featuring 14 distinct hostels (5 Boys + 4 Girls) with 1,200+ capacity. Standard hostel charges are ₹24,000/year, and AC hostels are available at ₹30,000/year. Mess charges are ₹3,000/month serving both veg and non-veg options."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which entrance exams are accepted for B.Tech admission?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "80% of total seats are allocated through West Bengal Joint Entrance Examination (WBJEE) counseling, 10% through JEE Main ranks, and 10% are reserved under Management Quota for eligible board candidates. WBJEE CSE Round 2 closing cutoff ranks generally close around ~15,815, and IT closes around ~47,114."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/haldia-institute-of-technology-hit-haldia/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Colleges",
+            "item": "https://ssadmission.in/engineering"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "HIT Haldia B.Tech Admission 2026",
+            "item": "https://ssadmission.in/haldia-institute-of-technology-hit-haldia"
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});

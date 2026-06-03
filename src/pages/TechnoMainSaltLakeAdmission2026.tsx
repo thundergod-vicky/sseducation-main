@@ -48,6 +48,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 // College campus image for high-end aesthetic
 import campusHero from "@/assets/techno-campus.jpg";
@@ -81,6 +83,105 @@ const leadFormSchema = z.object({
 type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function TechnoMainSaltLakeAdmission2026() {
+  useSeo({
+    title: "Techno Main Salt Lake (TMSL) B.Tech Admission 2026",
+    description: "Get B.Tech Admission guidance for Techno Main Salt Lake (TMSL) Kolkata. Review placement records, fees, eligibility, and WBJEE cutoffs."
+  });
+
+  // Dynamic College, FAQ, and Breadcrumb Schema Markup
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://ssadmission.in/techno-main-salt-lake-tmsl-kolkata/#college",
+        "name": "Techno Main Salt Lake (TMSL), Kolkata",
+        "alternateName": "Techno Main Salt Lake",
+        "url": "https://www.technomainsaltlake.ticollege.ac.in",
+        "description": "Techno Main Salt Lake (TMSL) is a premier private engineering institute under the Techno India Group, located in the Sector V IT hub in Kolkata, West Bengal.",
+        "logo": "https://www.ticollege.ac.in/images/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "EM-4/1, Sector V, Salt Lake Electronics Complex",
+          "addressLocality": "Kolkata",
+          "addressRegion": "West Bengal",
+          "postalCode": "700091",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/techno-main-salt-lake-tmsl-kolkata/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Where is Techno Main Salt Lake (TMSL) located?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "TMSL is located at EM-4/1, Sector V, Salt Lake Electronics Complex, Kolkata – 700091. Its premier location in Sector V is directly opposite the Wipro office, in the absolute heart of Kolkata's largest IT and tech hub."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the highest and average package at TMSL?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For the recent 2024 placement batch, the highest package reached an international offer exceeding ₹60 LPA (secured by a B.Tech CSE AI & ML student). The average B.Tech package for CSE and IT departments is consistently in the range of ₹6–7 LPA."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Techno Main Salt Lake affiliated to MAKAUT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Techno Main Salt Lake is fully affiliated with Maulana Abul Kalam Azad University of Technology (MAKAUT), West Bengal. It is also approved by the All India Council for Technical Education (AICTE), UGC, and features multiple NBA accredited departments."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the fee structure for B.Tech CSE at TMSL?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The total fee for B.Tech CSE is ₹4.84 Lakhs over 4 years. The B.Tech CSE with AI & ML fee is ₹6.05 Lakhs. Semester fees are ₹97,500 for the 1st semester, ₹95,000 for the 2nd semester, and ₹87,500 per semester from the 3rd semester onwards."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What scholarships are available at TMSL?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Up to 100% tuition fee scholarships are available based on outstanding academic marks and extracurricular records. Top rankers in WBJEE or JEE Main can secure specialized merit concessions. Additionally, government scholarships like the Swami Vivekananda Merit-cum-Means (SVMCM) scholarship are fully supported."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/techno-main-salt-lake-tmsl-kolkata/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Colleges",
+            "item": "https://ssadmission.in/engineering"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Techno Main Salt Lake B.Tech Admission 2026",
+            "item": "https://ssadmission.in/techno-main-salt-lake-tmsl-kolkata"
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});

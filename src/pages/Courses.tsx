@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap, Stethoscope, Briefcase, Scale, Laptop, BarChart3, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSeo } from "@/hooks/useSeo";
 
 const COURSE_LIST = [
   {
@@ -66,6 +67,11 @@ const COURSE_LIST = [
 ];
 
 const Courses = () => {
+  useSeo({
+    title: "Professional Courses & Careers Guidance | SS Educational Services",
+    description: "Explore top professional courses in India: B.Tech Engineering, MBBS, MBA, Law, BCA, MCA, BBA, and B.Com. Get expert stream mapping and career counseling."
+  });
+
   return (
     <main className="pt-24">
       {/* Header */}

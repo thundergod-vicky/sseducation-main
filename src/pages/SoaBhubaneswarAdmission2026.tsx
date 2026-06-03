@@ -44,6 +44,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 // Custom Assets
 const campusHero = "https://scontent.fccu4-3.fna.fbcdn.net/v/t39.30808-6/350636934_956727338907772_546172555446015561_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=V9XkqnBS-uMQ7kNvwHr9FlO&_nc_oc=Ado8yBgbaExiQBJhOnmQWltdhflzRmI6ScI9RhwaiaGYJjwEOFV2-JzbgSxMTEhnONM&_nc_zt=23&_nc_ht=scontent.fccu4-3.fna&_nc_gid=N4bewpGUIDA6oj-7kZcAEg&_nc_ss=7b2a8&oh=00_Af8RJiv58F2iNlhoy0mw7UHypycGPCso8m8buE1bqULakw&oe=6A2493E1";
@@ -77,6 +79,105 @@ const leadFormSchema = z.object({
 type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function SoaBhubaneswarAdmission2026() {
+  useSeo({
+    title: "SOA University Bhubaneswar B.Tech Admission 2026",
+    description: "Get B.Tech Admission guidance for Siksha 'O' Anusandhan (SOA) University / ITER Bhubaneswar. Review placement stats, fees, and SAAT cutoff guides."
+  });
+
+  // Dynamic College, FAQ, and Breadcrumb Schema Markup
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://ssadmission.in/soa-university-bhubaneswar-admission-2026/#college",
+        "name": "Siksha 'O' Anusandhan University (SOA), Bhubaneswar",
+        "alternateName": "SOA University / ITER",
+        "url": "https://www.soa.ac.in",
+        "description": "Siksha 'O' Anusandhan (SOA) is a NAAC A++ rated deemed university in Bhubaneswar, Odisha. Its engineering school is the Institute of Technical Education and Research (ITER).",
+        "logo": "https://www.soa.ac.in/assets/images/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Khandagiri Square, Jagamara",
+          "addressLocality": "Bhubaneswar",
+          "addressRegion": "Odisha",
+          "postalCode": "751030",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/soa-university-bhubaneswar-admission-2026/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is ITER in SOA University?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ITER (Institute of Technical Education and Research) is the flagship engineering wing of Siksha 'O' Anusandhan (SOA) Deemed University, renowned as one of India's best engineering schools (ranked #22 in NIRF 2025)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the fee structure for B.Tech CSE at ITER?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For B.Tech CSE and CSE AI/ML, the tuition fee is ₹1,57,500 per semester, which brings the 4-year total to ~₹12.20 Lakhs. For other branches (IT, ECE, EE, ME, Civil, CHE), the semester fee is ₹1,17,500, bringing the total to ~₹5.10 Lakhs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What entrance exams are accepted for ITER admissions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Primary entrance is SAAT (SOA's own admissions test), which is conducted in multiple phases. JEE Main and CUET scores are also accepted for engineering quotas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the placement record at SOA?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "During the 2025 placements, 1,836 students were successfully placed with an average package of ₹5.75 LPA. The highest package reached ₹46 LPA. B.Tech median package stands strongly at ₹6 LPA as verified by NIRF."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are SUM Hospital facilities available on-campus?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. SOA has its own SUM Medical Hospital on campus, providing student healthcare, emergency checkups, and advanced clinical learning modules."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/soa-university-bhubaneswar-admission-2026/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Colleges",
+            "item": "https://ssadmission.in/engineering"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "SOA University Bhubaneswar B.Tech Admission 2026",
+            "item": "https://ssadmission.in/soa-university-bhubaneswar-admission-2026"
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});

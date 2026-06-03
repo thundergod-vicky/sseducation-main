@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { History, Target, Users, MapPin, Phone, Mail, Clock, ShieldCheck } from "lucide-react";
+import { useSeo } from "@/hooks/useSeo";
 
 const TEAM = [
   { name: "S.K. Basu", role: "Founder & Director", bio: "15+ years of experience in educational consultancy.", image: "https://i.pravatar.cc/150?u=1" },
@@ -32,6 +33,11 @@ const OFFICES = [
 ];
 
 const About = () => {
+  useSeo({
+    title: "About Us | SS Educational Services",
+    description: "Learn about SS Educational Services, East India's leading educational consultancy since 2010. We help students bridge the gap to their dream careers."
+  });
+
   return (
     <main className="pt-24">
       {/* Hero Header */}

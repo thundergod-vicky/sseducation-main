@@ -44,6 +44,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 // Custom Assets
 const campusHero = "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHhw7wuopyfjQ9v3oRr7au7ojx4D_0py5G4hqdJnsNHa6By4ZvX_xwd18Hz2iHY-slvTgudMzAsAZNWSPdATKUQG-W7Rbo2EqD219rCbIJbUBH-Ueng4SX8hdRNGaNDs0b28FBU3w=s1360-w1360-h1020-rw";
@@ -77,6 +79,105 @@ const leadFormSchema = z.object({
 type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function MsRamaiahBangaloreAdmission2026() {
+  useSeo({
+    title: "MS Ramaiah Institute of Technology (MSRIT) B.Tech Admission 2026",
+    description: "Get B.Tech Admission guidance for M.S. Ramaiah Institute of Technology (MSRIT) Bangalore. Review placement records, fees, and COMEDK/KCET cutoffs."
+  });
+
+  // Dynamic College, FAQ, and Breadcrumb Schema Markup
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://ssadmission.in/ramaiah-institute-btech-admission-2026/#college",
+        "name": "M.S. Ramaiah Institute of Technology (MSRIT), Bangalore",
+        "alternateName": "Ramaiah Institute of Technology",
+        "url": "https://www.msrit.edu",
+        "description": "Ramaiah Institute of Technology (RIT), formerly MSRIT, is an autonomous engineering college affiliated with Visvesvaraya Technological University (VTU) in Bangalore, Karnataka.",
+        "logo": "https://www.msrit.edu/images/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "MSR Nagar, Yeshwantpur",
+          "addressLocality": "Bengaluru",
+          "addressRegion": "Karnataka",
+          "postalCode": "560054",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/ramaiah-institute-btech-admission-2026/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is M.S. Ramaiah Institute of Technology autonomous?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Ramaiah Institute of Technology (RIT), formerly MSRIT, was granted academic autonomy under Visvesvaraya Technological University (VTU) in 2007. This allows RIT to compile its own contemporary syllabus and conduct examinations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the fee structure at Ramaiah for out-of-state students?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For out-of-state students admitting via COMEDK UGET, the annual tuition fee is ~₹3.30 Lakhs, bringing the tuition total to ~₹13.20 Lakhs. Under the Management Quota, B.E. tuition fees are ₹4,75,975 per year plus a one-time development fee depending on branch demand."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the B.Tech admission eligibility criteria?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Candidates must have passed Class 12 (10+2) with Physics and Mathematics as compulsory subjects + Chemistry/Computer Science, scoring a minimum of 45% in PCM aggregate (40% for reserved categories). Ranks are determined by KCET, COMEDK UGET, or JEE Main."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the COMEDK Cutoff ranks for CSE at MSRIT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For Computer Science & Engineering (CSE) at RIT Bangalore, the COMEDK Round 1 closing cutoff generally closes around ~Rank 875, while the KCET general Round 1 cutoff rank closes around ~Rank 1,100."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the placement record at RIT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "RIT maintains a consistent 94–95% placement rate. The B.Tech average package is ₹8.25 LPA, with the B.Tech highest package reaching ₹58 LPA in 2025. B.Tech median salary package is ₹7.50 LPA as verified by recent NIRF reports. Top recruiters include Goldman Sachs, JP Morgan, Microsoft, and Amazon."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/ramaiah-institute-btech-admission-2026/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Colleges",
+            "item": "https://ssadmission.in/engineering"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "MS Ramaiah Bangalore B.Tech Admission 2026",
+            "item": "https://ssadmission.in/ramaiah-institute-btech-admission-2026"
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Stats } from "@/components/landing/Stats";
 import { CollegeCard } from "@/components/landing/CollegeCard";
 import { LeadForm } from "@/components/landing/LeadForm";
+import { useSeo } from "@/hooks/useSeo";
 
 // Sample images (I'll use placeholder-like paths or existing ones)
 import kiitImg from "@/assets/rvce-campus.jpg"; // Placeholder
@@ -54,6 +55,11 @@ const COURSES = [
 ];
 
 const Home = () => {
+  useSeo({
+    title: "Direct College Admission & Career Guidance 2026 | SS Educational Services",
+    description: "SS Educational Services is East India's most trusted educational consultancy. We provide expert admission guidance for top B.Tech, MBBS, and MBA colleges in India."
+  });
+
   return (
     <main className="overflow-hidden">
       {/* Hero Section - Single Section Landing */}

@@ -114,14 +114,17 @@ export function Footer() {
               <h4 className="font-extrabold uppercase tracking-wide text-base">Quick Links</h4>
               <ul className="mt-4 grid grid-cols-2 gap-3 text-sm text-primary-foreground/80">
                 {[
-                  { label: "MBBS Admission", href: "/mbbs" },
-                  { label: "BTech Bengaluru 2026", href: "/btech-admission-bengaluru-2026" },
-                  { label: "MBBS Guide India 2026", href: "/mbbs-admission-guide-india" },
-                  { label: "IEM Kolkata Guide 2026", href: "/iem-kolkata-admission-2026" },
-                  { label: "Heritage Institute of Technology (HITK), Kolkata", href: "/heritage-institute-of-technology-hitk-kolkata" },
-                  { label: "Techno Main Salt Lake (TMSL), Kolkata", href: "/techno-main-salt-lake-tmsl-kolkata" },
-                  { label: "Career", href: "#" },
-                  { label: "Investor", href: "#" },
+                  { label: "MBBS Admission Guide", href: "/mbbs-admission-guide-india" },
+                  { label: "BTech Bengaluru Guide", href: "/btech-admission-bengaluru-2026" },
+                  { label: "RV College BTech", href: "/rv-college-btech-admission-2026" },
+                  { label: "MS Ramaiah BTech", href: "/ramaiah-institute-btech-admission-2026" },
+                  { label: "KIIT University BTech", href: "/kiit-university-bhubaneswar-admission-2026" },
+                  { label: "SOA University BTech", href: "/soa-university-bhubaneswar-admission-2026" },
+                  { label: "IEM Kolkata BTech", href: "/iem-kolkata-admission-2026" },
+                  { label: "Heritage Kolkata BTech", href: "/heritage-institute-of-technology-hitk-kolkata" },
+                  { label: "Techno Main Salt Lake BTech", href: "/techno-main-salt-lake-tmsl-kolkata" },
+                  { label: "HIT Haldia BTech", href: "/haldia-institute-of-technology-hit-haldia" },
+                  { label: "SRM University BTech", href: "/srm-university-btech-admission-2026" },
                   { label: "Terms & Conditions", href: "#" },
                   { label: "Refund Policy", href: "#" },
                 ].map((link) => (

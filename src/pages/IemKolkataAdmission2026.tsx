@@ -44,6 +44,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 import iemCampus from "@/assets/iem-campus-new.png";
 import iemBuilding from "@/assets/iem-building.jpg";
@@ -78,6 +80,89 @@ const leadFormSchema = z.object({
 type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function IemKolkataAdmission2026() {
+  useSeo({
+    title: "IEM Kolkata B.Tech Admission 2026",
+    description: "Get B.Tech Admission guidance for Institute of Engineering & Management (IEM), Kolkata. Review placement records, fees, and WBJEE/JEE cutoffs."
+  });
+
+  // Dynamic College, FAQ, and Breadcrumb Schema Markup
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://ssadmission.in/iem-kolkata-admission-2026/#college",
+        "name": "Institute of Engineering & Management (IEM), Kolkata",
+        "alternateName": "IEM Kolkata",
+        "url": "https://iem.edu.in",
+        "description": "Institute of Engineering & Management (IEM) is a premier private engineering college located in Salt Lake, Sector V, Kolkata, West Bengal, offering highly-rated B.Tech courses.",
+        "logo": "https://iem.edu.in/wp-content/uploads/2016/10/IEM-logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Sector V, Salt Lake",
+          "addressLocality": "Kolkata",
+          "addressRegion": "West Bengal",
+          "postalCode": "700091",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/iem-kolkata-admission-2026/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is IEM Kolkata autonomous?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, IEM Kolkata is an autonomous institute affiliated with Maulana Abul Kalam Azad University of Technology (MAKAUT), West Bengal, meaning it compiles its own industry-aligned syllabus."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the fee structure for B.Tech at IEM Kolkata?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The B.Tech tuition fee at IEM Kolkata is approximately ₹1.85 Lakhs per year (or ₹92,500 per semester), amounting to roughly ₹7.40 Lakhs for the 4-year tuition total. Other university registration and exam fees are separate."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the placement record at IEM Kolkata?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "IEM Kolkata maintains a near-100% placement rate. The B.Tech average package is around ₹5.50 to ₹6.50 LPA, with the highest package reaching up to ₹72 LPA in recent years. Top recruiters include TCS, Cognizant, Wipro, Capgemini, and IBM."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/iem-kolkata-admission-2026/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Colleges",
+            "item": "https://ssadmission.in/engineering"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "IEM Kolkata B.Tech Admission 2026",
+            "item": "https://ssadmission.in/iem-kolkata-admission-2026"
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
