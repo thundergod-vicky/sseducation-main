@@ -410,9 +410,9 @@ export default function MahatmaGandhiJaipurAdmission2026() {
       </header>
 
       {/* 3. PRIMARY BLUE NAV BAR (AIIMS Style) */}
-      <nav className="bg-[#002d62] text-white sticky top-0 z-45 shadow-md border-b border-[#00214d]">
-        <div className="container mx-auto px-4 max-w-7xl flex justify-between items-center overflow-x-auto whitespace-nowrap scrollbar-hide py-1">
-          <div className="flex">
+      <nav className="bg-[#002d62] text-white sticky top-[64px] z-45 shadow-md border-b border-[#00214d]">
+        <div className="container mx-auto px-4 max-w-7xl flex justify-between items-center py-1">
+          <div className="flex overflow-x-auto whitespace-nowrap scrollbar-hide flex-grow mr-4">
             {menuItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -435,7 +435,7 @@ export default function MahatmaGandhiJaipurAdmission2026() {
           </div>
           <button
             onClick={scrollToForm}
-            className="bg-amber-400 text-slate-900 hover:bg-amber-500 font-sans font-black text-[10px] uppercase tracking-widest px-5 py-2.5 rounded-lg border border-amber-500 shadow-md transition-all active:scale-95 ml-4 hidden md:block"
+            className="bg-amber-400 text-slate-900 hover:bg-amber-500 font-sans font-black text-[10px] uppercase tracking-widest px-5 py-2.5 rounded-lg border border-amber-500 shadow-md transition-all active:scale-95 ml-4 shrink-0 hidden md:block"
           >
             Counseling Desk
           </button>

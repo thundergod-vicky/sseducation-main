@@ -64,8 +64,10 @@ export const Navbar = () => {
     setActiveDropdown(null);
   }, [location]);
 
-  const isTransparentRoute = ["/", "/engineering", "/mbbs"].includes(location.pathname) || 
-    location.pathname.includes("-admission-2026") || 
+  const isTransparentRoute =
+    ["/", "/engineering", "/mbbs"].includes(location.pathname) ||
+    (location.pathname.includes("-admission-2026") &&
+      location.pathname !== "/mahatma-gandhi-medical-college-jaipur-admission-2026") ||
     location.pathname.startsWith("/college/") ||
     [
       "/dayananda-sagar-college-of-engineering-bangalore",
@@ -83,8 +85,6 @@ export const Navbar = () => {
       "/bms-college-of-engineering-bangalore",
       "/bmsit-bangalore"
     ].includes(location.pathname);
-    (location.pathname.includes("-admission-2026") && location.pathname !== "/mahatma-gandhi-medical-college-jaipur-admission-2026") || 
-    location.pathname.startsWith("/college/");
   const isNavVisible = scrolled || !isTransparentRoute;
 
   return (
