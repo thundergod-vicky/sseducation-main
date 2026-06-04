@@ -25,6 +25,7 @@ const NAV_LINKS = [
       
       { label: "Medical Admissions", isHeader: true },
       { label: "MBBS Admission India", href: "/mbbs" },
+      { label: "MGMCH Jaipur MBBS", href: "/mahatma-gandhi-medical-college-jaipur-admission-2026" },
       
       { label: "Management & Others", isHeader: true },
       { label: "MBA / Management", href: "/courses#mba" },
@@ -53,7 +54,7 @@ export const Navbar = () => {
   }, [location]);
 
   const isTransparentRoute = ["/", "/engineering", "/mbbs"].includes(location.pathname) || 
-    location.pathname.includes("-admission-2026") || 
+    (location.pathname.includes("-admission-2026") && location.pathname !== "/mahatma-gandhi-medical-college-jaipur-admission-2026") || 
     location.pathname.startsWith("/college/");
   const isNavVisible = scrolled || !isTransparentRoute;
 

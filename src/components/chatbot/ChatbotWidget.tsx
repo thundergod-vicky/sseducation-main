@@ -74,7 +74,7 @@ export default function ChatbotWidget() {
       /^(hi|hello|hey|greetings|good\s*morning|good\s*afternoon|good\s*evening|yo|hola|hello\s*bot)/.test(query);
     if (isGreeting) {
       return {
-        text: `Hello! 👋 How can I help you today? I am fully prepared to answer questions about:\n\n- **Colleges:** RVCE, MS Ramaiah, IEM Kolkata, SRM University, KIIT, and MBBS guides.\n- **Admissions:** Fee structures, highest & average packages, eligibility criteria, and step-by-step processes.\n- **Support:** Direct/Management quota seat availability.\n\nLet me know what is on your mind!`
+        text: `Hello! 👋 How can I help you today? I am fully prepared to answer questions about:\n\n- **Colleges:** RVCE, MS Ramaiah, IEM Kolkata, SRM University, KIIT, MGMCH Jaipur, and MBBS guides.\n- **Admissions:** Fee structures, highest & average packages, eligibility criteria, and step-by-step processes.\n- **Support:** Direct/Management quota seat availability.\n\nLet me know what is on your mind!`
       };
     }
 
@@ -90,7 +90,7 @@ export default function ChatbotWidget() {
     const isExit = /^(bye|goodbye|cya|see\s*you|quit|exit|talk\s*later)/.test(query);
     if (isExit) {
       return {
-        text: "Goodbye! 👋 Wishing you all the absolute best in your college admissions journey. Remember, our admissions team is here to support you at **+91 99330 85333** whenever you need!"
+        text: "Goodbye! 👋 Wishing you all the absolute best in your college admissions journey. Remember, our admissions team is here to support you at **+91 99456 67977** whenever you need!"
       };
     }
 
@@ -141,6 +141,7 @@ export default function ChatbotWidget() {
     const isIEM = query.includes("iem") || query.includes("institute of engineering");
     const isSRM = query.includes("srm") || query.includes("srmist") || query.includes("chennai");
     const isMBBS = query.includes("mbbs") || query.includes("medical") || query.includes("neet") || query.includes("doctor");
+    const isMGMCH = query.includes("mahatma gandhi") || query.includes("mgmch") || query.includes("mgumst") || query.includes("jaipur medical");
 
     // Topic indicators
     const isFee = query.includes("fee") || query.includes("cost") || query.includes("expensive") || query.includes("price") || query.includes("charge");
@@ -162,7 +163,7 @@ export default function ChatbotWidget() {
         };
       }
       return {
-        text: "**R.V. College of Engineering (RVCE), Bangalore:**\n- Located in India's Tech Capital (Bangalore, Karnataka).\n- Ranked among the **Top 50 Engineering Institutions** in India.\n- **Admissions Guidance:** SS Education specializes in helping out-of-state students (from Bihar, Jharkhand, and West Bengal) secure seats under direct/management quota seats. KCET is not mandatory for these seats.\n- **Call us at +91 99330 85333** to check current seat availability!"
+        text: "**R.V. College of Engineering (RVCE), Bangalore:**\n- Located in India's Tech Capital (Bangalore, Karnataka).\n- Ranked among the **Top 50 Engineering Institutions** in India.\n- **Admissions Guidance:** SS Education specializes in helping out-of-state students (from Bihar, Jharkhand, and West Bengal) secure seats under direct/management quota seats. KCET is not mandatory for these seats.\n- **Call us at +91 99456 67977** to check current seat availability!"
       };
     }
 
@@ -170,7 +171,7 @@ export default function ChatbotWidget() {
     if (isRamaiah) {
       if (isFee) {
         return {
-          text: "**Ramaiah Institute of Technology (RIT) Fees:**\n- The total B.Tech fee at Ramaiah ranges from **₹7 Lakhs to ₹10 Lakhs** depending on the category and branch.\n- Direct management quota fee details can be shared on a personalized call. Call us at +91 99330 85333 for immediate details."
+          text: "**Ramaiah Institute of Technology (RIT) Fees:**\n- The B.Tech fee at Ramaiah ranges from **₹7 Lakhs to ₹10 Lakhs** depending on the category and branch.\n- Direct management quota fee details can be shared on a personalized call. Call us at +91 99456 67977 for immediate details."
         };
       }
       if (isPlacement) {
@@ -230,7 +231,24 @@ export default function ChatbotWidget() {
         };
       }
       return {
-        text: "**MBBS Admissions in India:**\n- Focus on **NMC (National Medical Commission)** and WHO approved medical colleges for high clinical exposure and valid degrees.\n- **Guidance:** Detailed support for NEET counselling rounds (All India & State levels), deemed universities, and management/NRI quota seats in medical hubs like Karnataka, Maharashtra, etc.\n- Call our medical expert directly: **+91 99330 85333** for customized shortlisting."
+        text: "**MBBS Admissions in India:**\n- Focus on **NMC (National Medical Commission)** and WHO approved medical colleges for high clinical exposure and valid degrees.\n- **Guidance:** Detailed support for NEET counselling rounds (All India & State levels), deemed universities, and management/NRI quota seats in medical hubs like Karnataka, Maharashtra, etc.\n- Call our medical expert directly: **+91 99456 67977** for customized shortlisting."
+      };
+    }
+
+    // Mahatma Gandhi Medical College (MGMCH), Jaipur
+    if (isMGMCH) {
+      if (isFee) {
+        return {
+          text: "**Mahatma Gandhi Medical College (MGMCH) Jaipur Fees:**\n- **Government/State Quota:** ₹19,50,000 per year.\n- **Management Quota:** ₹26,75,000 per year.\n- **NRI Quota:** $45,000 per year (~₹31.5 Lakhs).\n- Hostel fees range from ₹2.24 Lakhs to ₹3.92 Lakhs per year. Contact our counsellors to verify current development fees and secure bank guarantee guidelines."
+        };
+      }
+      if (isEligibility || query.includes("cutoff") || query.includes("cut-off") || query.includes("rank")) {
+        return {
+          text: "**MGMCH Jaipur Cutoff & Eligibility:**\n- **Eligibility:** Must qualify NEET UG 2026.\n- **Expected Cutoff Scores:** State Quota General: **560-590 marks**, Management Quota: **350-480 marks**.\n- Admissions are handled strictly via the Rajasthan State NEET UG counselling portal."
+        };
+      }
+      return {
+        text: "**Mahatma Gandhi Medical College and Hospital (MGMCH), Jaipur:**\n- Constituent of Mahatma Gandhi University of Medical Sciences & Technology (MGUMST).\n- **Total Seats:** 250 MBBS seats approved by the NMC.\n- **Clinical Exposure:** Attached 1000+ bed tertiary care hospital with high patient flow.\n- We provide complete profile mapping, fee checks, and choice optimization under both state and management quotas.\n- **Call us at +91 99456 67977** to verify seat availability!"
       };
     }
 
@@ -239,7 +257,7 @@ export default function ChatbotWidget() {
     // Contact details
     if (needsContactDetails) {
       return {
-        text: "**SS Education Contact Information:**\n- 📞 **Helpline Call Support:** +91 99330 85333\n- 💬 **WhatsApp Chat:** +91 99330 85333\n- ✉️ **Email Support:** info@sseducation.co.in\n- Our expert counsellors are available **24/7** to resolve your college admission doubts!"
+        text: "**SS Education Contact Information:**\n- 📞 **Helpline Call Support:** +91 99456 67977\n- 💬 **WhatsApp Chat:** +91 99456 67977\n- ✉️ **Email Support:** info@sseducation.co.in\n- Our expert counsellors are available **24/7** to resolve your college admission doubts!"
       };
     }
 
@@ -267,7 +285,7 @@ export default function ChatbotWidget() {
     // List of fees if asked generally
     if (isFee) {
       return {
-        text: "**B.Tech & Course Fees Overview (Estimated Total Fees):**\n- **IEM Kolkata:** ₹5 – ₹7 Lakhs (Highly affordable)\n- **RVCE Bangalore:** ₹6 – ₹8 Lakhs (Branch/quota dependent)\n- **Ramaiah Bangalore:** ₹7 – ₹10 Lakhs\n- **SRM Chennai:** ₹2.5 – ₹4.5 Lakhs per year\n- **MBBS/Medical:** Depends on deemed university structures.\n\nFor exact management quota fees, please contact us at **+91 99330 85333**."
+        text: "**B.Tech & Course Fees Overview (Estimated Total Fees):**\n- **IEM Kolkata:** ₹5 – ₹7 Lakhs (Highly affordable)\n- **RVCE Bangalore:** ₹6 – ₹8 Lakhs (Branch/quota dependent)\n- **Ramaiah Bangalore:** ₹7 – ₹10 Lakhs\n- **SRM Chennai:** ₹2.5 – ₹4.5 Lakhs per year\n- **MBBS/Medical:** Depends on deemed university structures.\n\nFor exact management quota fees, please contact us at **+91 99456 67977**."
       };
     }
 
@@ -332,14 +350,14 @@ export default function ChatbotWidget() {
         actions: responseObj.isFallback
           ? [
               {
-                label: "Call +91 99330 85333",
-                href: "tel:+919933085333",
+                label: "Call +91 99456 67977",
+                href: "tel:+919945667977",
                 iconClass: "bi-telephone-fill",
                 style: "bg-primary hover:bg-primary-glow text-white shadow-lg shadow-primary/20"
               },
               {
                 label: "Chat on WhatsApp",
-                href: "https://wa.me/919933085333",
+                href: "https://wa.me/919945667977",
                 iconClass: "bi-whatsapp",
                 style: "bg-green-600 hover:bg-green-500 text-white shadow-lg shadow-green-600/20"
               }
