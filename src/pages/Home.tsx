@@ -348,22 +348,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Building Reveal Section */}
-      <section className="relative bg-white overflow-hidden border-b border-slate-100 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="w-full"
-        >
-          <img 
-            src="/src/assets/buildings.png" 
-            alt="SS Education Campus" 
-            className="w-full h-auto block"
-          />
-        </motion.div>
-      </section>
 
       {/* Trusted by Leading Colleges Section */}
       <section className="py-20 bg-[#0B1D4B] text-white relative z-20">
