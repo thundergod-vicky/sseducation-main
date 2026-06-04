@@ -302,7 +302,7 @@ export default function BTechAdmissionBengaluru2026() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-50 overflow-x-hidden font-sans text-slate-800">
+    <main className="min-h-screen bg-slate-50 font-sans text-slate-800">
       
       {/* Search Ads Callout Banner */}
       <div className="bg-slate-900 py-3 text-center border-b border-white/5 relative z-30">

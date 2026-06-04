@@ -447,7 +447,7 @@ export default function MbbsAdmissionGuideIndia() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-50 overflow-x-hidden font-sans text-slate-800 antialiased">
+    <main className="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
       
       {/* Dynamic Ad Callout Banner */}
       <div className="bg-[#0f172a] py-3 text-center border-b border-teal-500/20 relative z-30">
