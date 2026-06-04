@@ -26,6 +26,7 @@ import KiitBhubaneswarAdmission2026 from "./pages/KiitBhubaneswarAdmission2026.t
 import SoaBhubaneswarAdmission2026 from "./pages/SoaBhubaneswarAdmission2026.tsx";
 import MsRamaiahBangaloreAdmission2026 from "./pages/MsRamaiahBangaloreAdmission2026.tsx";
 import RvceBangaloreAdmission2026 from "./pages/RvceBangaloreAdmission2026.tsx";
+import MahatmaGandhiJaipurAdmission2026 from "./pages/MahatmaGandhiJaipurAdmission2026.tsx";
 import ThankYou from "./pages/ThankYou.tsx";
 import DayanandaSagarAdmission from "./pages/DayanandaSagarAdmission.tsx";
 import RvitmAdmission from "./pages/RvitmAdmission.tsx";
@@ -137,6 +138,8 @@ const App = () => (
 
           {/* Standing Landing Page for BMS Institute of Technology & Management (BMSIT&M) */}
           <Route path="/bmsit-bangalore" element={<MainLayout><BmsitAdmission /></MainLayout>} />
+          {/* Standing Landing Page for Mahatma Gandhi Medical College, Jaipur 2026 */}
+          <Route path="/mahatma-gandhi-medical-college-jaipur-admission-2026" element={<MainLayout><MahatmaGandhiJaipurAdmission2026 /></MainLayout>} />
           
           {/* Catch-all */}
           <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
