@@ -98,7 +98,7 @@ const App = () => (
           {/* Standing Landing Page for Mahatma Gandhi Medical College, Jaipur 2026 */}
           <Route path="/mahatma-gandhi-medical-college-jaipur-admission-2026" element={<MainLayout><MahatmaGandhiJaipurAdmission2026 /></MainLayout>} />
           
-          {/* Standing Landing Page for National Institute of Medical Sciences & Research, Jaipur 2026 */}
+          {/* Standing Landing Page for NIMS Medical College, Jaipur 2026 */}
           <Route path="/national-institute-of-medical-sciences-jaipur-admission-2026" element={<MainLayout><NationalInstituteOfMedicalSciencesJaipurAdmission2026 /></MainLayout>} />
           
           {/* Catch-all */}

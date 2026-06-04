@@ -375,7 +375,7 @@ export default function MahatmaGandhiJaipurAdmission2026() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-100 font-sans text-slate-800 antialiased selection:bg-[#002d62] selection:text-white pt-20">
+    <main className="min-h-screen bg-slate-100 font-sans text-slate-800 antialiased selection:bg-[#002d62] selection:text-white pt-16">
       
       {/* 2. BILINGUAL INSTITUTION LOGO HEADER (AIIMS Style) */}
       <header className="bg-white border-b-4 border-[#d4af37] py-4 relative z-40 shadow-sm">

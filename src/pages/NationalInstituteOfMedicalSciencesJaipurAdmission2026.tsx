@@ -20,6 +20,7 @@ import {
   Briefcase,
   Calendar,
   ArrowRight,
+  Phone,
   MessageCircle,
   Star,
   ChevronDown,
@@ -46,13 +47,12 @@ import { useJsonLd } from "@/hooks/useJsonLd";
 import { useSeo } from "@/hooks/useSeo";
 
 // Medical assets from project
-import medicalBuilding from "@/assets/medical-building.png";
+import nimsCampus from "@/assets/nims-campus.png";
+import nimsDirector from "@/assets/nims-director.png";
+import nimsLab from "@/assets/nims-lab.png";
 import mbbsHero from "@/assets/mbbs-hero.png";
-import mbbs1 from "@/assets/mbbs1.webp";
-import mbbs2 from "@/assets/mbbs2.webp";
-import mbbs3 from "@/assets/mbbs3.webp";
 
-const backgroundImages = [medicalBuilding, mbbsHero, mbbs2];
+const backgroundImages = [nimsCampus, nimsLab, mbbsHero];
 
 // Form Validation Schema
 const leadFormSchema = z.object({
@@ -72,8 +72,8 @@ type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() {
   useSeo({
-    title: "NIMS Medical College Jaipur MBBS Admission 2026 | Fees, Cutoff, Process",
-    description: "Get complete details on B.Tech and MBBS Admission at National Institute of Medical Sciences and Research (NIMS), Jaipur. Explore fees structure, seat intake, cutoffs, and counseling support."
+    title: "National Institute of Medical Sciences (NIMS) Jaipur MBBS Admission 2026",
+    description: "Explore MBBS Admission at National Institute of Medical Sciences and Research (NIMS), Jaipur. Find tuition fees, seat matrix, NEET cutoff scores, and counselor support."
   });
 
   useJsonLd({
@@ -83,9 +83,9 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
         "@type": "CollegeOrUniversity",
         "@id": "https://ssadmission.in/national-institute-of-medical-sciences-jaipur-admission-2026/#college",
         "name": "National Institute of Medical Sciences and Research (NIMS), Jaipur",
-        "alternateName": "NIMS Medical College Jaipur",
-        "url": "https://www.nationalinstituteofmedicalsciences.com",
-        "description": "National Institute of Medical Sciences & Research is a constituent unit of Nims University, Jaipur, recognized by the National Medical Commission (NMC).",
+        "alternateName": "NIMS Jaipur",
+        "url": "https://nimsuniversity.org",
+        "description": "National Institute of Medical Sciences and Research, Jaipur is a leading private medical college in Rajasthan, constituent under Nims University (Deemed-to-be-University).",
         "logo": "https://ssadmission.in/assets/main logo.png",
         "address": {
           "@type": "PostalAddress",
@@ -231,7 +231,7 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
     googleFormData.append("entry.921865976", parsed.data.state);
     googleFormData.append(
       "entry.85122333",
-      `NIMS Jaipur - NEET Score: ${parsed.data.neetScore} | Category: ${parsed.data.category} | Preferred Quota: ${parsed.data.preferredQuota} | (NIMS Format)`
+      `NIMS Jaipur - NEET Score: ${parsed.data.neetScore} | Category: ${parsed.data.category} | Preferred Quota: ${parsed.data.preferredQuota} | (AIIMS Format)`
     );
 
     try {
@@ -258,43 +258,43 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
   const getEligibilityAnalysis = (score: number, cat: string) => {
     if (score >= 540) {
       return {
-        status: "Excellent State Merit Range",
-        text: "You have a solid chance for State Quota counseling rounds at National Institute of Medical Sciences (NIMS) Jaipur. Highly recommended to configure your state counseling choices accurately.",
-        color: "text-blue-900 border-blue-200 bg-blue-50",
-        quotaAdvice: "Target State counseling Round 1 & Round 2.",
-        btnStyle: "bg-blue-800 hover:bg-blue-900 text-white"
+        status: "Excellent Merit Score",
+        text: "You have a stellar chance of getting state-quota merit allocations at NIMS, Jaipur. Strongly recommended to list NIMS as your top preference.",
+        color: "text-emerald-900 border-emerald-250 bg-emerald-50/50",
+        quotaAdvice: "Target State counseling Round 1.",
+        btnStyle: "bg-emerald-800 hover:bg-emerald-900 text-white"
       };
-    } else if (score >= 450) {
+    } else if (score >= 460) {
       return {
-        status: "Highly Competitive (State / Management)",
-        text: "You hold strong eligibility margins for the open Management Quota seats and can compete actively in State counseling rounds at NIMS Medical College.",
-        color: "text-sky-900 border-sky-200 bg-sky-50",
+        status: "Competitive (State / Management)",
+        text: "You are highly competitive for State Quota rounds and hold an absolute guarantee for Management Quota seat allocations at NIMS Jaipur.",
+        color: "text-teal-900 border-teal-200 bg-teal-50",
         quotaAdvice: "Fill choices for both State and Management seats.",
-        btnStyle: "bg-sky-700 hover:bg-sky-850 text-white"
+        btnStyle: "bg-teal-700 hover:bg-teal-850 text-white"
       };
-    } else if (score >= 240) {
+    } else if (score >= 280) {
       return {
         status: "Management Quota Eligible",
-        text: "You qualify perfectly for the open Management Quota seats at National Institute of Medical Sciences and Research (NIMS), Jaipur. Strategic choice-filling is advised.",
+        text: "You qualify perfectly for the open Management Quota seats at National Institute of Medical Sciences, Jaipur. Optimal choice filling will secure your seat.",
         color: "text-amber-900 border-amber-200 bg-amber-50/40",
         quotaAdvice: "Explore Management seats and secure counselling guidance.",
         btnStyle: "bg-amber-800 hover:bg-amber-900 text-white"
       };
     } else if (score >= 130) {
       return {
-        status: "Eligible (NRI / Vacancy Seats)",
-        text: "You qualify NEET UG. Admissions will depend heavily on NRI-sponsored quota seats, stray vacancy rounds, or customized deemed counseling optimization.",
+        status: "NRI / Sponsored Pathway",
+        text: "You have qualified NEET UG. Admission pathways will rely heavily on NRI-sponsored quota, vacancy configurations, or deemed university counselling.",
         color: "text-slate-800 border-slate-200 bg-slate-100/50",
-        quotaAdvice: "Connect for NRI quota rules and seat matrix checks.",
+        quotaAdvice: "Request NRI quota structure and fee balance check.",
         btnStyle: "bg-slate-700 hover:bg-slate-800 text-white"
       };
     } else {
       return {
         status: "Qualifying Score Required",
-        text: "Your score is below the estimated qualifying cutoff. Qualifying NEET UG is legally mandatory for all MBBS and medical course allocations in India.",
-        color: "text-red-950 border-red-200 bg-red-50/20",
-        quotaAdvice: "Connect for NEET coaching paths or alternative medical programs.",
-        btnStyle: "bg-red-900 hover:bg-red-950 text-white"
+        text: "Your score is below the estimated qualifying cutoff. NEET qualification is mandatory for all medical seat matrix allocations in India.",
+        color: "text-rose-950 border-rose-200 bg-rose-50/20",
+        quotaAdvice: "Connect for NEET coaching suggestions or alternative medical courses.",
+        btnStyle: "bg-rose-900 hover:bg-rose-950 text-white"
       };
     }
   };
@@ -313,104 +313,104 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
   ] as const;
 
   const highlights = [
-    { title: "Established Year", value: "2004", desc: "Over two decades of academic growth", icon: Calendar },
-    { title: "Affiliated Body", value: "Nims University", desc: "Constituent unit of a leading private university", icon: Building },
+    { title: "Established Year", value: "2004", desc: "Two decades of medical education excellence", icon: Calendar },
+    { title: "Affiliated Body", value: "Nims University", desc: "Constituent unit of a leading deemed-to-be university", icon: Building },
     { title: "NMC Approval Status", value: "Approved", desc: "Recognized by National Medical Commission", icon: ShieldCheck },
-    { title: "MBBS Intake Capacity", value: "250 Seats", desc: "Approved seat matrix per academic session", icon: Users },
-    { title: "Clinical Support", value: "1100+ Beds", desc: "Attached multi-specialty Nims Hospital with massive OPD flow", icon: HeartPulse },
-    { title: "Strategic Location", value: "Jaipur Highway", desc: "Shobha Nagar, Jaipur-Delhi Highway (NH-11C)", icon: MapPin },
+    { title: "MBBS Intake Capacity", value: "250 Seats", desc: "Substantial annual intake of medical seats", icon: Users },
+    { title: "Clinical Support", value: "1350+ Beds", desc: "Attached super-specialty hospital with high patient volume", icon: HeartPulse },
+    { title: "Aesthetic Location", value: "Jaipur", desc: "Shobha Nagar, Jaipur-Delhi Highway, Jaipur", icon: MapPin },
   ];
 
   const feeStructure = [
-    { quota: "State / Government Quota", annualFee: "₹24,00,000", remark: "Allocated based on Rajasthan state merit list" },
-    { quota: "Management Quota (All India)", annualFee: "₹30,00,000", remark: "Open to merit candidates across all Indian states" },
-    { quota: "NRI / Sponsored Quota", annualFee: "$45,000 (Approx ₹31.5L)", remark: "Dedicated seats for NRI sponsored candidates" },
+    { quota: "State / Government Quota", annualFee: "₹24,00,000", remark: "Reserved for Rajasthan Domicile merit holders" },
+    { quota: "Management Quota (All India)", annualFee: "₹30,00,000", remark: "Open to candidates from all Indian States" },
+    { quota: "NRI / Sponsored Quota", annualFee: "₹31,50,000 (Approx)", remark: "NRI sponsored seats & global applicants" },
   ];
 
   const cutoffs = [
-    { category: "State Quota - General (UR)", scoreRange: "520 - 550 Marks", percentile: "95.0%+" },
-    { category: "State Quota - OBC", scoreRange: "500 - 530 Marks", percentile: "93.5%+" },
+    { category: "State Quota - General (UR)", scoreRange: "520 - 550 Marks", percentile: "95.5%+" },
+    { category: "State Quota - OBC", scoreRange: "500 - 530 Marks", percentile: "94.0%+" },
     { category: "State Quota - SC / ST", scoreRange: "380 - 420 Marks", percentile: "82.0%+" },
-    { category: "Management Quota (All India Open)", scoreRange: "200 - 320 Marks", percentile: "70.0%+" },
+    { category: "Management Quota (All India Open)", scoreRange: "280 - 380 Marks", percentile: "75.0%+" },
   ];
 
   const admissionSteps = [
-    { title: "Qualifying NEET UG", desc: "Candidates must qualify the national level NEET-UG exam with the required category cutoff percentile." },
-    { title: "State Counseling Registration", desc: "Register on the Rajasthan State Medical Counselling Board portal for State or Management Quota rounds." },
-    { title: "Choice-Filling Strategy", desc: "Position National Institute of Medical Sciences & Research (NIMS), Jaipur as a preferred option in the choices entry list." },
-    { title: "Seat Allotment & Reporting", desc: "Once seat is allocated, report to the counseling committee with all original eligibility and domicile documents." },
-    { title: "Fee Remittance & Verification", desc: "Submit the first-year tuition fee, complete security deposits, and arrange bank guarantees to confirm enrollment." }
+    { title: "Appearing for NEET UG", desc: "Must qualify the NTA NEET-UG exam with the minimum required category-wise percentile." },
+    { title: "State Counseling Registration", desc: "Register on the Rajasthan State Medical Counselling portal as a Domicile or All-India Management candidate." },
+    { title: "Preference Choice-Filling", desc: "Select National Institute of Medical Sciences & Research, Jaipur (NIMS) as your high-priority choice during active rounds." },
+    { title: "Seat Allotment & Document Verification", desc: "Report to the counseling board for verification of scorecards, domicile certificates, and physical fitness certificates." },
+    { title: "Fee Remittance & Final Enrollment", desc: "Pay the first-year annual tuition fee and submit the bank guarantee to secure the MBBS seat." }
   ];
 
   const facilities = [
-    { title: "1100+ Bed Attached Hospital", desc: "Nims Hospital features diagnostic suites, advanced ICCU units, and emergency operations blocks with a massive daily patient OPD.", icon: HeartPulse },
-    { title: "Advanced Medical Labs", desc: "Fully-equipped departments, biochemistry research centers, and digital pathology labs for academic and practical study.", icon: Activity },
-    { title: "Smart Lecture Halls", desc: "Large amphitheater-style classrooms featuring integrated acoustics, projectors, and interactive displays.", icon: BookOpen },
-    { title: "Huge Central Library", desc: "Spans a massive area with thousands of medical texts, international journals, digital databases, and individual study booths.", icon: FileText },
-    { title: "Comfortable Hostels", desc: "Separate in-campus residence wings for boys and girls with AC/Non-AC room selections, dining facilities, and security wardens.", icon: Building },
-    { title: "Recreation & Sports Complexes", desc: "Excellent indoor gaming sections, gymnasiums, and green athletic fields to foster campus life and physical health.", icon: Sparkles }
+    { title: "1350+ Bed Attached Hospital", desc: "Super-specialty clinical care blocks, critical care divisions, and operating suites handling massive daily OPD flow.", icon: HeartPulse },
+    { title: "Advanced Skill Simulation Labs", desc: "Highly advanced clinical simulation models providing hands-on training for complex medical procedures.", icon: Activity },
+    { title: "AC Smart Classrooms", desc: "Auditorium-style lecture theatres featuring electronic screens and digital acoustic systems.", icon: BookOpen },
+    { title: "24/7 Central Library", desc: "Expansive library layout, equipped with international journal indices, high-speed Wi-Fi, and cubicle spaces.", icon: FileText },
+    { title: "In-Campus Hostels", desc: "Spacious, modern boys and girls hostels with AC room options, high-standard mess, and 24/7 security wardens.", icon: Building },
+    { title: "Elite Sports Center", desc: "Lush outdoor playfields, indoor games club, and fitness gymnasium to promote physical well-being.", icon: Sparkles }
   ];
 
   const faqItems = [
     {
-      q: "Where is National Institute of Medical Sciences and Research (NIMS) located?",
-      a: "NIMS is situated at Shobha Nagar, Jaipur-Delhi Highway (NH-11C), Jaipur, Rajasthan - 303121. The campus is well-connected to public transit, hotels, and the Jaipur airport."
+      q: "Where is National Institute of Medical Sciences (NIMS) located?",
+      a: "NIMS is located in Shobha Nagar, Jaipur-Delhi Highway (NH-11C), Jaipur, Rajasthan - 303121. It is highly accessible via the Jaipur International Airport and the railway junctions."
     },
     {
-      q: "What is the annual intake of MBBS seats at NIMS Jaipur?",
-      a: "NIMS Medical College has an approved intake capacity of 250 MBBS seats per academic year, which are filled via the Rajasthan NEET UG counseling process."
+      q: "What is the annual MBBS intake capacity at NIMS Jaipur?",
+      a: "The college has an approved intake capacity of 250 MBBS seats per academic year, which are allocated through the Rajasthan NEET UG counseling process."
     },
     {
-      q: "Is NIMS Medical College approved by the National Medical Commission (NMC)?",
-      a: "Yes, the National Institute of Medical Sciences and Research is a constituent unit of Nims University, and is fully recognized and approved by the NMC (formerly MCI) for its medical programs."
+      q: "Is NEET qualification mandatory for admission at NIMS Jaipur?",
+      a: "Yes, NEET UG qualification is strictly mandatory for all categories of seats, including State Quota, Management Quota, and NRI Quota. No candidate can secure MBBS admission without qualifying NEET."
     },
     {
-      q: "What is the fee structure for Management Quota MBBS seats at NIMS?",
-      a: "The annual tuition fee for Management Quota seats is approximately ₹30,00,000. Additional deposits, hostel fees (~₹1 Lakh per year), and security charges apply."
+      q: "What are the hostel charges at Nims University?",
+      a: "The hostel fees range between approximately ₹1.5 Lakhs to ₹3.5 Lakhs per year depending on the preference of single/double occupancy, AC/Non-AC, and attached bathroom configurations."
     },
     {
-      q: "Can out-of-state candidates apply for seats at NIMS Jaipur?",
-      a: "Yes. Non-domicile/out-of-state candidates are eligible to apply for Management Quota seats at NIMS, usually starting from Round 2 of the Rajasthan state NEET counselling."
+      q: "Which university is NIMS affiliated with?",
+      a: "NIMS is a constituent college of Nims University, Jaipur, which is a recognized private deemed-to-be-university."
     }
   ];
 
   return (
-    <main className="min-h-screen bg-slate-100 font-sans text-slate-800 antialiased selection:bg-[#002d62] selection:text-white pt-20">
+    <main className="min-h-screen bg-slate-100 font-sans text-slate-800 antialiased selection:bg-[#0c4a24] selection:text-white pt-16">
       
-      {/* BILINGUAL INSTITUTION LOGO HEADER (AIIMS Style) */}
+      {/* 2. BILINGUAL INSTITUTION LOGO HEADER (AIIMS Style) */}
       <header className="bg-white border-b-4 border-[#d4af37] py-4 relative z-40 shadow-sm">
         <div className="container mx-auto px-4 max-w-7xl flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-4 text-center md:text-left">
             {/* Mock crest/shield */}
-            <div className="h-16 w-16 bg-[#002d62] text-white rounded-full flex items-center justify-center border-2 border-[#d4af37] shrink-0 font-serif font-black shadow-md text-xl">
-              NI
+            <div className="h-16 w-16 bg-[#0c4a24] text-white rounded-full flex items-center justify-center border-2 border-[#d4af37] shrink-0 font-serif font-black shadow-md text-xl">
+              NM
             </div>
             <div className="flex flex-col">
-              <h2 className="text-[#002d62] text-base font-black tracking-wide font-sans block leading-none">
-                राष्ट्रीय चिकित्सा विज्ञान संस्थान एवं अनुसंधान, जयपुर
+              <h2 className="text-[#0c4a24] text-base font-black tracking-wide font-sans block leading-none">
+                राष्ट्रीय आयुर्विज्ञान संस्थान एवं अनुसंधान, जयपुर
               </h2>
-              <h1 className="text-[#002d62] text-xl sm:text-2xl font-serif font-black tracking-tight leading-tight mt-1">
+              <h1 className="text-[#0c4a24] text-xl sm:text-2xl font-serif font-black tracking-tight leading-tight mt-1">
                 NATIONAL INSTITUTE OF MEDICAL SCIENCES & RESEARCH, JAIPUR
               </h1>
               <p className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5 leading-none">
-                Constituent Unit of Nims University, Jaipur (NMC Approved Programs)
+                Constituent Unit of Nims University, Jaipur
               </p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="bg-[#f0f4fa] border border-[#d2dbe5] rounded-xl px-4 py-2 flex items-center gap-3">
-              <ShieldCheck className="h-8 w-8 text-[#002d62]" />
+            <div className="bg-[#f0fdf4] border border-emerald-200 rounded-xl px-4 py-2 flex items-center gap-3">
+              <ShieldCheck className="h-8 w-8 text-[#0c4a24]" />
               <div>
                 <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-widest leading-none">Academic status</span>
-                <span className="block text-xs font-black text-[#002d62] mt-0.5 font-sans">NMC APPROVED PORTAL</span>
+                <span className="block text-xs font-black text-[#0c4a24] mt-0.5 font-sans">NMC APPROVED PORTAL</span>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* PRIMARY BLUE NAV BAR (AIIMS Style) */}
-      <nav className="bg-[#002d62] text-white sticky top-0 z-45 shadow-md border-b border-[#00214d]">
+      {/* 3. PRIMARY EMERALD NAV BAR (AIIMS Style) */}
+      <nav className="bg-[#0c4a24] text-white sticky top-0 z-45 shadow-md border-b border-[#062f18]">
         <div className="container mx-auto px-4 max-w-7xl flex justify-between items-center overflow-x-auto whitespace-nowrap scrollbar-hide py-1">
           <div className="flex">
             {menuItems.map((item) => {
@@ -419,15 +419,15 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`py-3.5 px-5 text-xs font-black uppercase tracking-widest transition-colors relative border-r border-[#001f4d] ${
+                  className={`py-3.5 px-5 text-xs font-black uppercase tracking-widest transition-colors relative border-r border-[#062f18] ${
                     isActive 
                       ? "bg-[#d4af37] text-slate-900" 
-                      : "hover:bg-[#001f4d] text-white/90 hover:text-white"
+                      : "hover:bg-[#062f18] text-white/90 hover:text-white"
                   }`}
                 >
                   {item.label}
                   {isActive && (
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-amber-400" />
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#d4af37]" />
                   )}
                 </button>
               );
@@ -435,14 +435,14 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
           </div>
           <button
             onClick={scrollToForm}
-            className="bg-amber-400 text-slate-900 hover:bg-amber-500 font-sans font-black text-[10px] uppercase tracking-widest px-5 py-2.5 rounded-lg border border-amber-500 shadow-md transition-all active:scale-95 ml-4 hidden md:block"
+            className="bg-[#d4af37] text-slate-900 hover:bg-[#c5a030] font-sans font-black text-[10px] uppercase tracking-widest px-5 py-2.5 rounded-lg border border-[#c5a030] shadow-md transition-all active:scale-95 ml-4 hidden md:block"
           >
             Counseling Desk
           </button>
         </div>
       </nav>
 
-      {/* CAROUSEL BANNER & NOTICE TICKER */}
+      {/* 4. CAROUSEL BANNER & NOTICE TICKER */}
       <section className="relative z-10 overflow-hidden bg-slate-900 text-white h-[260px] sm:h-[360px] md:h-[440px]">
         <AnimatePresence initial={false}>
           <motion.img
@@ -460,19 +460,19 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
         
         <div className="container mx-auto px-4 max-w-7xl h-full relative z-20 flex flex-col justify-end pb-8 sm:pb-12">
           <div className="max-w-3xl space-y-4">
-            <span className="inline-block bg-amber-400 text-slate-900 font-sans font-black text-[9px] uppercase tracking-[0.2em] px-4 py-1.5 rounded-md">
+            <span className="inline-block bg-[#d4af37] text-slate-900 font-sans font-black text-[9px] uppercase tracking-[0.2em] px-4 py-1.5 rounded-md">
               ADMISSIONS & INFORMATION CENTER 2026-27
             </span>
             <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif font-black tracking-tight leading-tight text-white drop-shadow-md">
-              NIMS Jaipur MBBS Admission Guide & seat matrix checking
+              MBBS Admission Guide & Counseling Seat Matrix Mapping
             </h1>
             <p className="text-slate-200 text-xs sm:text-sm font-sans font-semibold max-w-2xl drop-shadow-sm leading-relaxed">
-              Explore National Institute of Medical Sciences & Research, Jaipur. Direct advisory interface to verify seat configurations, tuition fee structures, and category-wise NEET cutoff ranges.
+              Explore National Institute of Medical Sciences & Research, Jaipur. Direct interface to check seat availabilities, actual annual fees, category eligibility matrices, and live NEET UG state-quota cutoffs.
             </p>
             <div className="pt-2">
               <Button
                 onClick={scrollToForm}
-                className="bg-amber-400 hover:bg-amber-500 text-slate-900 border border-amber-500 font-sans font-black text-xs uppercase tracking-widest px-6 py-2.5 rounded-lg active:scale-95 shadow-lg"
+                className="bg-[#d4af37] hover:bg-[#c5a030] text-slate-900 border border-[#c5a030] font-sans font-black text-xs uppercase tracking-widest px-6 py-2.5 rounded-lg active:scale-95 shadow-lg"
               >
                 Apply Online Counseling <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
@@ -481,57 +481,57 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
         </div>
       </section>
 
-      {/* NOTICE TICKER BAR (AIIMS Style) */}
-      <div className="bg-amber-400 text-slate-900 py-3 relative z-30 font-bold border-y border-amber-500 shadow-sm overflow-hidden text-xs">
+      {/* 5. NOTICE TICKER BAR (AIIMS Style) */}
+      <div className="bg-[#d4af37] text-slate-900 py-3 relative z-30 font-bold border-y border-[#c5a030] shadow-sm overflow-hidden text-xs">
         <div className="container mx-auto px-4 max-w-7xl flex items-center gap-4">
-          <span className="bg-slate-900 text-amber-400 px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded flex items-center gap-1.5 shrink-0 animate-pulse">
+          <span className="bg-slate-900 text-[#d4af37] px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded flex items-center gap-1.5 shrink-0 animate-pulse">
             <Bell className="h-3.5 w-3.5" /> LATEST NOTICE
           </span>
           <div className="overflow-hidden relative w-full h-5">
             <marquee behavior="scroll" direction="left" className="absolute inset-0 font-sans font-bold text-xs uppercase tracking-wide">
-              📢 NEET UG 2026 Rajasthan state counseling registrations open. | NIMS Jaipur MBBS seat allocation configurations are live. | Complete counseling profile below for seat prediction.
+              📢 NEET UG 2026 Rajasthan state counseling registrations started. | NIMS Jaipur seat matrix mapping is live. | Submit profile below for eligibility checks. | Hostel allotments scheduled.
             </marquee>
           </div>
         </div>
       </div>
 
-      {/* DOUBLE-COLUMN ADMINISTRATIVE INFO GRID (AIIMS Style) */}
+      {/* 6. DOUBLE-COLUMN ADMINISTRATIVE INFO GRID (AIIMS Style) */}
       <div className="container mx-auto px-4 max-w-7xl py-12">
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT: DEAN'S WELCOME DESK */}
           <div className="lg:col-span-4 bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-6">
             <div className="border-b border-slate-100 pb-4">
-              <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.22em]">Welcome Desk</span>
-              <h3 className="text-lg font-serif font-black text-[#002d62] mt-1">Dean & Principal's Message</h3>
+              <span className="block text-[8px] font-sans font-black text-[#0c4a24] uppercase tracking-[0.22em]">Welcome Desk</span>
+              <h3 className="text-lg font-serif font-black text-[#0c4a24] mt-1">Director's Message</h3>
             </div>
             
             <div className="space-y-4">
               {/* Profile image container */}
               <div className="relative rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 aspect-[4/3] flex items-center justify-center">
-                <Stethoscope className="h-16 w-16 text-slate-350 text-slate-300 absolute" />
+                <Stethoscope className="h-16 w-16 text-slate-300 absolute" />
                 <img 
-                  src={mbbs3}
-                  className="w-full h-full object-cover object-center opacity-70 relative z-10"
-                  alt="Principal Portrait"
+                  src={nimsDirector}
+                  className="w-full h-full object-cover object-center relative z-10"
+                  alt="Director Portrait"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-[#002d62]/90 text-white p-3 z-20 text-center">
-                  <span className="block text-xs font-bold font-sans">Dr. Mukesh Tiwari</span>
-                  <span className="block text-[9px] text-amber-300 uppercase tracking-widest font-sans font-black mt-0.5">Principal & Dean</span>
+                <div className="absolute bottom-0 left-0 right-0 bg-[#0c4a24]/90 text-white p-3 z-20 text-center">
+                  <span className="block text-xs font-bold font-sans">Dr. Anurag Tomar</span>
+                  <span className="block text-[9px] text-[#d4af37] uppercase tracking-widest font-sans font-black mt-0.5">Director Academics</span>
                 </div>
               </div>
 
               <p className="text-xs text-slate-650 leading-relaxed font-sans font-medium text-slate-500 italic">
-                "Welcome to National Institute of Medical Sciences & Research, Jaipur. We aim to nurture future-ready medical experts with a rich research foundation and patient-centric training. Our massive 1100-bed campus and attached tertiary facilities prepare students to manage critical clinical assignments with absolute confidence."
+                "Welcome to National Institute of Medical Sciences & Research, Jaipur. Our mission is to educate and cultivate compassionate, clinically sound medical practitioners who are prepared to meet global clinical challenges. Our attached 1350-bed hospital provides our students with a rigorous, patient-centered learning platform."
               </p>
               <div className="border-t border-slate-100 pt-4 flex gap-4 text-xs font-sans text-slate-700">
                 <div>
                   <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-widest">Office Desk</span>
-                  <span className="block font-bold text-slate-900 mt-0.5">Nims Campus, Jaipur</span>
+                  <span className="block font-bold text-slate-900 mt-0.5">NIMS Campus</span>
                 </div>
                 <div className="border-l border-slate-200 pl-4">
                   <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-widest">Inquiries</span>
-                  <a href="mailto:info@nimsuniversity.org" className="block font-bold text-teal-800 hover:underline mt-0.5">dean.medical@nimsuniversity.org</a>
+                  <a href="mailto:info@nimsuniversity.org" className="block font-bold text-teal-800 hover:underline mt-0.5">admissions@nims.edu</a>
                 </div>
               </div>
             </div>
@@ -545,7 +545,7 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
               <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-4">
                 <div>
                   <span className="block text-[8px] font-sans font-black text-teal-600 uppercase tracking-[0.2em]">Counselling Updates</span>
-                  <h3 className="text-lg font-serif font-black text-[#002d62] mt-0.5">Admissions Notice Board</h3>
+                  <h3 className="text-lg font-serif font-black text-[#0c4a24] mt-0.5">Admissions Notice Board</h3>
                 </div>
                 <span className="text-[9px] font-sans font-black uppercase text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
                   SESSION 2026
@@ -554,15 +554,15 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
 
               <div className="divide-y divide-slate-100 text-xs font-sans text-slate-700 font-semibold">
                 {[
-                  { text: "Nims University MBBS fee configurations guidelines and security deposit norms", date: "June 04, 2026", tag: "FEE STRUCTURE" },
-                  { text: "NMC verification of seat matrices (250 seats) for the current medical batch", date: "June 02, 2026", tag: "NMC MATRIX" },
-                  { text: "Rajasthan NEET UG State counseling choice filling priorities for NIMS Medical College", date: "May 30, 2026", tag: "COUNSELING" },
-                  { text: "Hostel room specifications and security deposits rules for MBBS first-year students", date: "May 26, 2026", tag: "HOSTELS" },
+                  { text: "Detailed Fee guidelines and concessions for Management Quota MBBS seats at NIMS", date: "June 04, 2026", tag: "FEE NOTICE" },
+                  { text: "NMC Seat Matrix verification for Nims University Medical Programs", date: "June 02, 2026", tag: "SEAT MATRIX" },
+                  { text: "Rajasthan NEET UG State counseling registration steps and option-entry guide", date: "May 29, 2026", tag: "COUNSELING" },
+                  { text: "Hostel rooms allocation criteria (Single / Double sharing) for MBBS 1st Year", date: "May 25, 2026", tag: "HOSTEL" },
                 ].map((item, idx) => (
                   <div key={idx} className="py-3 flex justify-between items-start gap-4 hover:bg-slate-50/50 rounded-xl px-2 transition-colors">
                     <div className="space-y-1">
                       <span className="text-[8px] font-sans font-black text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded uppercase tracking-wider mr-2">{item.tag}</span>
-                      <a href="#predictor" onClick={() => scrollToSection("predictor")} className="text-[#002d62] hover:text-blue-900 font-bold hover:underline">{item.text}</a>
+                      <a href="#predictor" onClick={() => scrollToSection("predictor")} className="text-[#0c4a24] hover:text-green-900 font-bold hover:underline">{item.text}</a>
                     </div>
                     <span className="text-[9px] text-slate-400 font-sans font-bold whitespace-nowrap">{item.date}</span>
                   </div>
@@ -571,9 +571,9 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
             </div>
 
             {/* LIVE PREDICTOR WIDGET (Styled as Online Mapping System) */}
-            <section id="predictor" ref={sectionsRef["predictor"]} className="scroll-mt-28 bg-[#001f4d] text-white rounded-3xl p-6 sm:p-8 shadow-md border border-[#002d62]">
+            <section id="predictor" ref={sectionsRef["predictor"]} className="scroll-mt-28 bg-[#062f18] text-white rounded-3xl p-6 sm:p-8 shadow-md border border-[#0c4a24]">
               <div className="border-b border-white/10 pb-4 mb-6">
-                <span className="block text-[8px] font-sans font-black text-amber-400 uppercase tracking-widest">NIMS Online Portal</span>
+                <span className="block text-[8px] font-sans font-black text-[#d4af37] uppercase tracking-widest">NIMS Online Portal</span>
                 <h3 className="text-xl font-serif font-bold text-white mt-0.5 flex items-center gap-1.5">
                   NEET UG Score Predictor & Eligibility Matcher
                 </h3>
@@ -583,7 +583,7 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                      <Label className="text-xs font-bold uppercase tracking-wider text-slate-300 font-sans">Slide Your NEET Score</Label>
-                    <span className="text-xl font-black font-serif text-slate-900 bg-amber-400 px-3.5 py-1 rounded-xl shadow border border-amber-500">
+                    <span className="text-xl font-black font-serif text-slate-900 bg-[#d4af37] px-3.5 py-1 rounded-xl shadow border border-[#c5a030]">
                       {predictorScore} <span className="text-[9px] font-sans font-bold text-slate-700">/ 720</span>
                     </span>
                   </div>
@@ -595,11 +595,11 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
                     step="5"
                     value={predictorScore}
                     onChange={(e) => handlePredictorScoreChange(Number(e.target.value))}
-                    className="w-full h-1.5 bg-[#002d62] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                    className="w-full h-1.5 bg-[#0c4a24] rounded-lg appearance-none cursor-pointer accent-[#d4af37]"
                   />
                   <div className="flex justify-between text-[9px] text-white/50 font-sans font-bold">
                     <span>Min (100)</span>
-                    <span>State Cutoff (500+)</span>
+                    <span>State Cutoff (520+)</span>
                     <span>Perfect (720)</span>
                   </div>
                 </div>
@@ -644,8 +644,8 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
                     className={`p-4.5 rounded-2xl border bg-white/5 border-white/10 text-white space-y-2`}
                   >
                     <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-amber-400" />
-                      <h4 className="font-extrabold text-xs uppercase tracking-wide font-sans text-amber-400">{currentAnalysis.status}</h4>
+                      <span className="h-2 w-2 rounded-full bg-[#d4af37]" />
+                      <h4 className="font-extrabold text-xs uppercase tracking-wide font-sans text-[#d4af37]">{currentAnalysis.status}</h4>
                     </div>
                     <p className="text-xs leading-relaxed font-sans text-white/80 font-semibold">{currentAnalysis.text}</p>
                     <div className="pt-2 border-t border-white/5 flex flex-wrap justify-between items-center gap-2">
@@ -668,7 +668,7 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
         </div>
       </div>
 
-      {/* REGISTRATION INTEGRATION & TABS */}
+      {/* 7. REGISTRATION INTEGRATION & TABS (AIIMS Style double column) */}
       <div className="container mx-auto px-4 max-w-7xl py-12">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           
@@ -678,16 +678,16 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
             {/* OVERVIEW SECTION */}
             <section id="overview" ref={sectionsRef["overview"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
               <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Institutional Matrix</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Overview of NIMS Medical College</h3>
+                <span className="block text-[8px] font-sans font-black text-[#0c4a24] uppercase tracking-[0.2em]">Institutional Matrix</span>
+                <h3 className="text-xl font-serif font-black text-[#0c4a24] mt-0.5">Overview of National Institute of Medical Sciences & Research</h3>
               </div>
               
               <div className="text-xs sm:text-sm text-slate-600 font-semibold leading-relaxed font-sans space-y-4">
                 <p>
-                  Established in <strong>2004</strong>, the <strong>National Institute of Medical Sciences and Research (NIMS), Jaipur</strong> is a constituent college under **Nims University, Jaipur**. Known as a premium center of medical pedagogy and multi-specialty clinical research in Rajasthan, the college is fully recognized and approved by the <strong>National Medical Commission (NMC)</strong>.
+                  Established in the year 2004, the <strong>National Institute of Medical Sciences and Research (NIMS), Jaipur</strong> is one of the premier private medical colleges in Rajasthan and North India. As a constituent unit of Nims University, Jaipur (Deemed-to-be-University), the college is fully approved by the <strong>National Medical Commission (NMC)</strong>.
                 </p>
                 <p>
-                  Spanning a massive highway campus along the Jaipur-Delhi Highway (NH-11C), NIMS features state-of-the-art diagnostic facilities and labs. The college is attached to the **Nims Super Specialty Hospital** featuring 1100+ beds, providing students with heavy OPD patient exposure across cardiology, neurology, pediatrics, and emergency medicine.
+                  NIMS Jaipur has evolved into a premier center for advanced healthcare and high-quality medical pedagogy. Spanning an expansive 250+ acre campus along the Jaipur-Delhi highway, the college is attached to a massive 1350+ bed multi-specialty teaching hospital, ensuring students receive exceptional hands-on clinical exposure and practical diagnostics training.
                 </p>
               </div>
             </section>
@@ -695,8 +695,8 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
             {/* KEY HIGHLIGHTS GRID */}
             <section id="highlights" ref={sectionsRef["highlights"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
               <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Operational Indicators</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Key Institutional Highlights</h3>
+                <span className="block text-[8px] font-sans font-black text-[#0c4a24] uppercase tracking-[0.2em]">Operational Indicators</span>
+                <h3 className="text-xl font-serif font-black text-[#0c4a24] mt-0.5">Key Institutional Highlights</h3>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
@@ -704,11 +704,11 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
                   const IconComp = hl.icon;
                   return (
                     <div key={idx} className="bg-slate-50 border border-slate-200/50 p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all duration-300">
-                      <div className="h-8 w-8 rounded-xl bg-slate-100 flex items-center justify-center text-[#002d62] border border-slate-200 mb-4 shrink-0">
+                      <div className="h-8 w-8 rounded-xl bg-slate-100 flex items-center justify-center text-[#0c4a24] border border-slate-200 mb-4 shrink-0">
                         <IconComp className="h-4.5 w-4.5" />
                       </div>
                       <div>
-                        <span className="block text-base font-serif font-black text-[#002d62] leading-none mb-1">{hl.value}</span>
+                        <span className="block text-base font-serif font-black text-[#0c4a24] leading-none mb-1">{hl.value}</span>
                         <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-wider">{hl.title}</span>
                         <span className="block text-[9px] font-sans font-semibold text-slate-500 leading-tight mt-1">{hl.desc}</span>
                       </div>
@@ -721,15 +721,15 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
             {/* FEE STRUCTURE SECTION */}
             <section id="fees" ref={sectionsRef["fees"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
               <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Financial Matrix</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Tuition Fee Details</h3>
+                <span className="block text-[8px] font-sans font-black text-[#0c4a24] uppercase tracking-[0.2em]">Financial Matrix</span>
+                <h3 className="text-xl font-serif font-black text-[#0c4a24] mt-0.5">Tuition Fee Details</h3>
               </div>
 
               <div className="bg-white border border-slate-250 rounded-2xl overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse min-w-[500px]">
                     <thead>
-                      <tr className="bg-[#002d62] text-white text-[9px] font-sans font-bold uppercase tracking-widest border-b border-slate-200">
+                      <tr className="bg-[#0c4a24] text-white text-[9px] font-sans font-bold uppercase tracking-widest border-b border-slate-200">
                         <th className="p-4">Seat Quota Category</th>
                         <th className="p-4">Annual Tuition Fee</th>
                         <th className="p-4">Remarks</th>
@@ -739,7 +739,7 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
                       {feeStructure.map((f, idx) => (
                         <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
                           <td className="p-4 font-bold text-slate-900">{f.quota}</td>
-                          <td className="p-4 text-[#002d62] font-black text-sm">{f.annualFee}</td>
+                          <td className="p-4 text-[#0c4a24] font-black text-sm">{f.annualFee}</td>
                           <td className="p-4 text-slate-500 text-[10px]">{f.remark}</td>
                         </tr>
                       ))}
@@ -753,9 +753,9 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
                   <AlertTriangle className="h-4.5 w-4.5" /> Additional Fee Guidelines
                 </div>
                 <ul className="list-disc list-inside text-[11px] text-slate-650 leading-relaxed font-sans font-medium text-slate-600 space-y-1">
-                  <li><strong>Hostel Fees:</strong> Hostel charges range around ₹1,000,000 to ₹2,50,000 annually depending on double/single occupancy and AC choices.</li>
-                  <li><strong>Refundable Security:</strong> One-time security deposit of ₹2,00,000 is collected during enrollment.</li>
-                  <li><strong>Guarantee Policy:</strong> Safe deposit or bank guarantee for the balance fee structure is required by state medical counseling norms.</li>
+                  <li><strong>Hostel Fees:</strong> Standard hostel charges range from ₹1.5 Lakhs to ₹3.5 Lakhs per year depending on room AC configuration & occupancy.</li>
+                  <li><strong>Caution Deposit:</strong> A one-time refundable caution deposit is applicable during campus reporting.</li>
+                  <li><strong>Bank Guarantee:</strong> A bank guarantee for remaining course years is mandatory as per state directives.</li>
                 </ul>
               </div>
             </section>
@@ -763,48 +763,45 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
             {/* CUTOFFS SECTION */}
             <section id="cutoff" ref={sectionsRef["cutoff"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
               <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Merit benchmarks</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Rajasthan State NEET UG Cutoff Ranges</h3>
+                <span className="block text-[8px] font-sans font-black text-[#0c4a24] uppercase tracking-[0.2em]">Merit benchmarks</span>
+                <h3 className="text-xl font-serif font-black text-[#0c4a24] mt-0.5">Rajasthan State NEET UG Cutoff Ranges</h3>
               </div>
 
               <div className="bg-white border border-slate-250 rounded-2xl overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse min-w-[500px]">
                     <thead>
-                      <tr className="bg-[#002d62] text-white text-[9px] font-sans font-bold uppercase tracking-widest border-b border-slate-200">
-                        <th className="p-4">Category Quota</th>
-                        <th className="p-4">NEET Score Range</th>
-                        <th className="p-4">Estimated State Ranks</th>
+                      <tr className="bg-[#0c4a24] text-white text-[9px] font-sans font-bold uppercase tracking-widest border-b border-slate-200">
+                        <th className="p-4">Counselling Category</th>
+                        <th className="p-4">Estimated Cutoff Range</th>
+                        <th className="p-4">Percentile Score Required</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-150 text-xs font-sans text-slate-700 font-semibold">
                       {cutoffs.map((c, idx) => (
                         <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
                           <td className="p-4 font-bold text-slate-900">{c.category}</td>
-                          <td className="p-4 text-[#002d62] font-black text-sm">{c.scoreRange}</td>
-                          <td className="p-4 text-emerald-800 font-bold text-xs">{c.percentile}</td>
+                          <td className="p-4 text-emerald-800 font-black text-sm">{c.scoreRange}</td>
+                          <td className="p-4 text-slate-500 font-bold text-[10px]">{c.percentile}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               </div>
-              <p className="text-[10px] text-slate-400 font-sans font-semibold leading-relaxed">
-                * Note: Score ranges represent estimated values of general and management category counseling lists. Cutoffs are subject to annual variations based on candidate rankings.
-              </p>
             </section>
 
-            {/* ADMISSION PROCESS SECTION */}
+            {/* ADMISSION STEPS SECTION */}
             <section id="process" ref={sectionsRef["process"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
               <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Compliance Steps</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">MBBS Admission Registration Process</h3>
+                <span className="block text-[8px] font-sans font-black text-[#0c4a24] uppercase tracking-[0.2em]">Counselling Roadmap</span>
+                <h3 className="text-xl font-serif font-black text-[#0c4a24] mt-0.5">Step-by-Step Admissions Procedure</h3>
               </div>
 
               <div className="relative border-l border-slate-200 pl-6 ml-4 space-y-8">
                 {admissionSteps.map((step, idx) => (
                   <div key={idx} className="relative">
-                    <div className="absolute -left-[35px] top-0 h-6.5 w-6.5 rounded-full bg-[#002d62] text-white flex items-center justify-center text-xs font-sans font-black shadow">
+                    <div className="absolute -left-[35px] top-0 h-6.5 w-6.5 rounded-full bg-[#0c4a24] text-white flex items-center justify-center text-xs font-sans font-black shadow">
                       {idx + 1}
                     </div>
                     <h4 className="text-sm font-bold text-slate-900 font-sans uppercase tracking-wider">{step.title}</h4>
@@ -817,8 +814,8 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
             {/* FACILITIES SECTION */}
             <section id="facilities" ref={sectionsRef["facilities"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
               <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Campus Infrastructure</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Clinical & Student Facilities</h3>
+                <span className="block text-[8px] font-sans font-black text-[#0c4a24] uppercase tracking-[0.2em]">Campus Infrastructure</span>
+                <h3 className="text-xl font-serif font-black text-[#0c4a24] mt-0.5">Clinical & Student Facilities</h3>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-6">
@@ -826,7 +823,7 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
                   const IconComp = fac.icon;
                   return (
                     <div key={idx} className="flex gap-4 items-start bg-slate-50 p-5 rounded-2xl border border-slate-200/50">
-                      <div className="h-8 w-8 rounded-lg bg-slate-100 text-[#002d62] border border-slate-200 flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="h-8 w-8 rounded-lg bg-slate-100 text-[#0c4a24] border border-slate-200 flex items-center justify-center shrink-0 mt-0.5">
                         <IconComp className="h-4.5 w-4.5" />
                       </div>
                       <div>
@@ -842,8 +839,8 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
             {/* FAQS SECTION */}
             <section id="faqs" ref={sectionsRef["faqs"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
               <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Notice details</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Frequently Asked Questions</h3>
+                <span className="block text-[8px] font-sans font-black text-[#0c4a24] uppercase tracking-[0.2em]">Notice details</span>
+                <h3 className="text-xl font-serif font-black text-[#0c4a24] mt-0.5">Frequently Asked Questions</h3>
               </div>
 
               <div className="space-y-4">
@@ -891,11 +888,11 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
 
           {/* RIGHT: COUNSELING ONLINE PORTAL REGISTRATION */}
           <div className="lg:col-span-4 w-full sticky top-[100px] self-start space-y-6" ref={formRef}>
-            <div className="bg-white border-t-8 border-t-[#002d62] border border-slate-250 rounded-3xl p-6 shadow-sm space-y-6">
+            <div className="bg-white border-t-8 border-t-[#0c4a24] border border-slate-250 rounded-3xl p-6 shadow-sm space-y-6">
               <div className="border-b border-slate-100 pb-4">
                 <span className="block text-[8px] font-sans font-black text-amber-600 uppercase tracking-widest">Registration Form</span>
-                <h3 className="text-lg font-serif font-black text-[#002d62] mt-0.5">Online Counseling Portal</h3>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">Submit eligibility check mapping for MBBS allocations at NIMS.</p>
+                <h3 className="text-lg font-serif font-black text-[#0c4a24] mt-0.5">Online Counseling Portal</h3>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">Submit eligibility check mapping for MBBS allocations.</p>
               </div>
 
               {submitted ? (
@@ -1023,7 +1020,7 @@ export default function NationalInstituteOfMedicalSciencesJaipurAdmission2026() 
 
                   <Button
                     type="submit"
-                    className="w-full h-11 bg-[#002d62] hover:bg-[#00214d] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
+                    className="w-full h-11 bg-[#0c4a24] hover:bg-[#062f18] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
                     disabled={submitting}
                   >
                     {submitting ? "Processing..." : (<>Register Counseling Profile <ArrowRight className="h-4 w-4" /></>)}

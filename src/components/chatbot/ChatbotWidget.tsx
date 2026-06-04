@@ -74,7 +74,7 @@ export default function ChatbotWidget() {
       /^(hi|hello|hey|greetings|good\s*morning|good\s*afternoon|good\s*evening|yo|hola|hello\s*bot)/.test(query);
     if (isGreeting) {
       return {
-        text: `Hello! 👋 How can I help you today? I am fully prepared to answer questions about:\n\n- **Colleges:** RVCE, MS Ramaiah, IEM Kolkata, SRM University, KIIT, MGMCH, NIMS Jaipur, and MBBS guides.\n- **Admissions:** Fee structures, highest & average packages, eligibility criteria, and step-by-step processes.\n- **Support:** Direct/Management quota seat availability.\n\nLet me know what is on your mind!`
+        text: `Hello! 👋 How can I help you today? I am fully prepared to answer questions about:\n\n- **Colleges:** RVCE, MS Ramaiah, IEM Kolkata, SRM University, KIIT, MGMCH Jaipur, NIMS Jaipur, and MBBS guides.\n- **Admissions:** Fee structures, highest & average packages, eligibility criteria, and step-by-step processes.\n- **Support:** Direct/Management quota seat availability.\n\nLet me know what is on your mind!`
       };
     }
 
@@ -142,7 +142,7 @@ export default function ChatbotWidget() {
     const isSRM = query.includes("srm") || query.includes("srmist") || query.includes("chennai");
     const isMBBS = query.includes("mbbs") || query.includes("medical") || query.includes("neet") || query.includes("doctor");
     const isMGMCH = query.includes("mahatma gandhi") || query.includes("mgmch") || query.includes("mgumst") || query.includes("jaipur medical");
-    const isNIMS = query.includes("national institute") || query.includes("nims") || query.includes("nims university") || query.includes("nims jaipur");
+    const isNIMS = query.includes("nims") || query.includes("national institute of medical sciences") || query.includes("national institute");
 
     // Topic indicators
     const isFee = query.includes("fee") || query.includes("cost") || query.includes("expensive") || query.includes("price") || query.includes("charge");
@@ -253,20 +253,20 @@ export default function ChatbotWidget() {
       };
     }
 
-    // National Institute of Medical Sciences & Research (NIMS), Jaipur
+    // National Institute of Medical Sciences (NIMS), Jaipur
     if (isNIMS) {
       if (isFee) {
         return {
-          text: "**NIMS Medical College Jaipur Fees:**\n- **Government/State Quota:** ₹24,00,000 per year.\n- **Management Quota:** ₹30,00,000 per year.\n- **NRI Quota:** $45,000 per year (~₹31.5 Lakhs).\n- Hostel fees range around ₹1 Lakh to ₹2.5 Lakhs per year. Contact our counsellors to verify current development fees and secure bank guarantee guidelines."
+          text: "**NIMS Medical College Jaipur Fees:**\n- **Government/State Quota:** ₹24,00,000 per year.\n- **Management Quota:** ₹30,00,000 per year.\n- **NRI Quota:** ₹31,50,000 per year (Approx).\n- Hostel fees range from ₹1.5 Lakhs to ₹3.5 Lakhs per year. Contact our counsellors to verify details and bank guarantee guidelines."
         };
       }
       if (isEligibility || query.includes("cutoff") || query.includes("cut-off") || query.includes("rank")) {
         return {
-          text: "**NIMS Jaipur Cutoff & Eligibility:**\n- **Eligibility:** Must qualify NEET UG 2026.\n- **Expected Cutoff Scores:** State Quota General: **520-550 marks**, Management Quota: **200-320 marks**.\n- Admissions are handled strictly via the Rajasthan State NEET UG counselling portal."
+          text: "**NIMS Jaipur Cutoff & Eligibility:**\n- **Eligibility:** Must qualify NEET UG 2026.\n- **Expected Cutoff Scores:** State Quota General: **520-550 marks**, Management Quota: **280-380 marks**.\n- Admissions are strictly via the Rajasthan State NEET UG counselling portal."
         };
       }
       return {
-        text: "**National Institute of Medical Sciences & Research (NIMS), Jaipur:**\n- Constituent of Nims University, Jaipur.\n- **Total Seats:** 250 MBBS seats approved by the NMC.\n- **Clinical Exposure:** Attached 1100+ bed tertiary care hospital with high patient flow.\n- We provide complete profile mapping, fee checks, and choice optimization under both state and management quotas.\n- **Call us at +91 99456 67977** to verify seat availability!"
+        text: "**National Institute of Medical Sciences and Research (NIMS), Jaipur:**\n- Constituent unit of Nims University, Jaipur.\n- **Total Seats:** 250 MBBS seats approved by the NMC.\n- **Clinical Support:** Attached 1350+ bed tertiary care hospital with massive daily patient flow.\n- We provide full counseling assistance, choice-entry checklist mapping, and eligibility checks.\n- **Call us at +91 99456 67977** to check seat matrix allocations!"
       };
     }
 
