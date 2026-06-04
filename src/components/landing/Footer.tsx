@@ -115,6 +115,7 @@ export function Footer() {
               <ul className="mt-4 grid grid-cols-2 gap-3 text-sm text-primary-foreground/80">
                 {[
                   { label: "MBBS Admission Guide", href: "/mbbs-admission-guide-india" },
+                  { label: "MGMCH Jaipur MBBS", href: "/mahatma-gandhi-medical-college-jaipur-admission-2026" },
                   { label: "BTech Bengaluru Guide", href: "/btech-admission-bengaluru-2026" },
                   { label: "RV College BTech", href: "/rv-college-btech-admission-2026" },
                   { label: "MS Ramaiah BTech", href: "/ramaiah-institute-btech-admission-2026" },

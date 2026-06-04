@@ -25,6 +25,7 @@ import HaldiaAdmission2026 from "./pages/HaldiaAdmission2026.tsx";
 import KiitBhubaneswarAdmission2026 from "./pages/KiitBhubaneswarAdmission2026.tsx";
 import SoaBhubaneswarAdmission2026 from "./pages/SoaBhubaneswarAdmission2026.tsx";
 import MsRamaiahBangaloreAdmission2026 from "./pages/MsRamaiahBangaloreAdmission2026.tsx";
+import MahatmaGandhiJaipurAdmission2026 from "./pages/MahatmaGandhiJaipurAdmission2026.tsx";
 import ThankYou from "./pages/ThankYou.tsx";
 import { MainLayout } from "./components/layout/MainLayout";
 
@@ -92,6 +93,9 @@ const App = () => (
           
           {/* Standing Landing Page for SOA University Bhubaneswar 2026 */}
           <Route path="/soa-university-bhubaneswar-admission-2026" element={<MainLayout><SoaBhubaneswarAdmission2026 /></MainLayout>} />
+          
+          {/* Standing Landing Page for Mahatma Gandhi Medical College, Jaipur 2026 */}
+          <Route path="/mahatma-gandhi-medical-college-jaipur-admission-2026" element={<MainLayout><MahatmaGandhiJaipurAdmission2026 /></MainLayout>} />
           
           {/* Catch-all */}
           <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />

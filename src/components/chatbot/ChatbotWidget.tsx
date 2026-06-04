@@ -74,7 +74,7 @@ export default function ChatbotWidget() {
       /^(hi|hello|hey|greetings|good\s*morning|good\s*afternoon|good\s*evening|yo|hola|hello\s*bot)/.test(query);
     if (isGreeting) {
       return {
-        text: `Hello! 👋 How can I help you today? I am fully prepared to answer questions about:\n\n- **Colleges:** RVCE, MS Ramaiah, IEM Kolkata, SRM University, KIIT, and MBBS guides.\n- **Admissions:** Fee structures, highest & average packages, eligibility criteria, and step-by-step processes.\n- **Support:** Direct/Management quota seat availability.\n\nLet me know what is on your mind!`
+        text: `Hello! 👋 How can I help you today? I am fully prepared to answer questions about:\n\n- **Colleges:** RVCE, MS Ramaiah, IEM Kolkata, SRM University, KIIT, MGMCH Jaipur, and MBBS guides.\n- **Admissions:** Fee structures, highest & average packages, eligibility criteria, and step-by-step processes.\n- **Support:** Direct/Management quota seat availability.\n\nLet me know what is on your mind!`
       };
     }
 
@@ -141,6 +141,7 @@ export default function ChatbotWidget() {
     const isIEM = query.includes("iem") || query.includes("institute of engineering");
     const isSRM = query.includes("srm") || query.includes("srmist") || query.includes("chennai");
     const isMBBS = query.includes("mbbs") || query.includes("medical") || query.includes("neet") || query.includes("doctor");
+    const isMGMCH = query.includes("mahatma gandhi") || query.includes("mgmch") || query.includes("mgumst") || query.includes("jaipur medical");
 
     // Topic indicators
     const isFee = query.includes("fee") || query.includes("cost") || query.includes("expensive") || query.includes("price") || query.includes("charge");
@@ -231,6 +232,23 @@ export default function ChatbotWidget() {
       }
       return {
         text: "**MBBS Admissions in India:**\n- Focus on **NMC (National Medical Commission)** and WHO approved medical colleges for high clinical exposure and valid degrees.\n- **Guidance:** Detailed support for NEET counselling rounds (All India & State levels), deemed universities, and management/NRI quota seats in medical hubs like Karnataka, Maharashtra, etc.\n- Call our medical expert directly: **+91 99330 85333** for customized shortlisting."
+      };
+    }
+
+    // Mahatma Gandhi Medical College (MGMCH), Jaipur
+    if (isMGMCH) {
+      if (isFee) {
+        return {
+          text: "**Mahatma Gandhi Medical College (MGMCH) Jaipur Fees:**\n- **Government/State Quota:** ₹19,50,000 per year.\n- **Management Quota:** ₹26,75,000 per year.\n- **NRI Quota:** $45,000 per year (~₹31.5 Lakhs).\n- Hostel fees range from ₹2.24 Lakhs to ₹3.92 Lakhs per year. Contact our counsellors to verify current development fees and secure bank guarantee guidelines."
+        };
+      }
+      if (isEligibility || query.includes("cutoff") || query.includes("cut-off") || query.includes("rank")) {
+        return {
+          text: "**MGMCH Jaipur Cutoff & Eligibility:**\n- **Eligibility:** Must qualify NEET UG 2026.\n- **Expected Cutoff Scores:** State Quota General: **560-590 marks**, Management Quota: **350-480 marks**.\n- Admissions are handled strictly via the Rajasthan State NEET UG counselling portal."
+        };
+      }
+      return {
+        text: "**Mahatma Gandhi Medical College and Hospital (MGMCH), Jaipur:**\n- Constituent of Mahatma Gandhi University of Medical Sciences & Technology (MGUMST).\n- **Total Seats:** 250 MBBS seats approved by the NMC.\n- **Clinical Exposure:** Attached 1000+ bed tertiary care hospital with high patient flow.\n- We provide complete profile mapping, fee checks, and choice optimization under both state and management quotas.\n- **Call us at +91 99330 85333** to verify seat availability!"
       };
     }
 
