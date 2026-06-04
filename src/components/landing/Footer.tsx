@@ -116,6 +116,7 @@ export function Footer() {
                 {[
                   { label: "MBBS Admission Guide", href: "/mbbs-admission-guide-india" },
                   { label: "MGMCH Jaipur MBBS", href: "/mahatma-gandhi-medical-college-jaipur-admission-2026" },
+                  { label: "NIMS Jaipur MBBS", href: "/national-institute-of-medical-sciences-jaipur-admission-2026" },
                   { label: "BTech Bengaluru Guide", href: "/btech-admission-bengaluru-2026" },
                   { label: "RV College BTech", href: "/rv-college-btech-admission-2026" },
                   { label: "MS Ramaiah BTech", href: "/ramaiah-institute-btech-admission-2026" },
