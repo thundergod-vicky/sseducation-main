@@ -25,8 +25,20 @@ import HaldiaAdmission2026 from "./pages/HaldiaAdmission2026.tsx";
 import KiitBhubaneswarAdmission2026 from "./pages/KiitBhubaneswarAdmission2026.tsx";
 import SoaBhubaneswarAdmission2026 from "./pages/SoaBhubaneswarAdmission2026.tsx";
 import MsRamaiahBangaloreAdmission2026 from "./pages/MsRamaiahBangaloreAdmission2026.tsx";
+import RvceBangaloreAdmission2026 from "./pages/RvceBangaloreAdmission2026.tsx";
 import MahatmaGandhiJaipurAdmission2026 from "./pages/MahatmaGandhiJaipurAdmission2026.tsx";
 import ThankYou from "./pages/ThankYou.tsx";
+import DayanandaSagarAdmission from "./pages/DayanandaSagarAdmission.tsx";
+import RvitmAdmission from "./pages/RvitmAdmission.tsx";
+import RvUniversityAdmission from "./pages/RvUniversityAdmission.tsx";
+import SriMvitAdmission from "./pages/SriMvitAdmission.tsx";
+import VitVelloreAdmission from "./pages/VitVelloreAdmission.tsx";
+import MitManipalAdmission from "./pages/MitManipalAdmission.tsx";
+import AmritaAdmission from "./pages/AmritaAdmission.tsx";
+import BitsPilaniAdmission from "./pages/BitsPilaniAdmission.tsx";
+import NmitAdmission from "./pages/NmitAdmission.tsx";
+import BmsceAdmission from "./pages/BmsceAdmission.tsx";
+import BmsitAdmission from "./pages/BmsitAdmission.tsx";
 import { MainLayout } from "./components/layout/MainLayout";
 
 const queryClient = new QueryClient();
@@ -50,7 +62,7 @@ const App = () => (
           
           {/* College Pages */}
           <Route path="/college/kiit" element={<MainLayout><KiitBhubaneswarAdmission2026 /></MainLayout>} />
-          <Route path="/rv-college-btech-admission-2026" element={<MainLayout><CollegeRoute configKey="rvce" /></MainLayout>} />
+          <Route path="/rv-college-btech-admission-2026" element={<MainLayout><RvceBangaloreAdmission2026 /></MainLayout>} />
           <Route path="/ramaiah-institute-btech-admission-2026" element={<MainLayout><MsRamaiahBangaloreAdmission2026 /></MainLayout>} />
           <Route path="/iem-kolkata-btech-admission-2026" element={<MainLayout><CollegeRoute configKey="iem" /></MainLayout>} />
           <Route path="/srm-university-btech-admission-2026" element={<MainLayout><CollegeRoute configKey="srm" /></MainLayout>} />
@@ -94,6 +106,38 @@ const App = () => (
           {/* Standing Landing Page for SOA University Bhubaneswar 2026 */}
           <Route path="/soa-university-bhubaneswar-admission-2026" element={<MainLayout><SoaBhubaneswarAdmission2026 /></MainLayout>} />
           
+          {/* Standing Landing Page for Dayananda Sagar College of Engineering (DSCE) */}
+          <Route path="/dayananda-sagar-college-of-engineering-bangalore" element={<MainLayout><DayanandaSagarAdmission /></MainLayout>} />
+          
+          {/* Standing Landing Page for RV Institute of Technology & Management (RVITM) */}
+          <Route path="/rv-institute-of-technology-management-bangalore" element={<MainLayout><RvitmAdmission /></MainLayout>} />
+          
+          {/* Standing Landing Page for RV University (RVU) */}
+          <Route path="/rv-university-bengaluru" element={<MainLayout><RvUniversityAdmission /></MainLayout>} />
+          
+          {/* Standing Landing Page for Sri Venkateshwara Institute of Technology (Sri MVIT) */}
+          <Route path="/sri-mvit-bangalore" element={<MainLayout><SriMvitAdmission /></MainLayout>} />
+          
+          {/* Standing Landing Page for Vellore Institute of Technology (VIT) Vellore */}
+          <Route path="/vit-vellore" element={<MainLayout><VitVelloreAdmission /></MainLayout>} />
+
+          {/* Standing Landing Page for MIT Manipal */}
+          <Route path="/mit-manipal" element={<MainLayout><MitManipalAdmission /></MainLayout>} />
+
+          {/* Standing Landing Page for Amrita Vishwa Vidyapeetham */}
+          <Route path="/amrita-vishwa-vidyapeetham" element={<MainLayout><AmritaAdmission /></MainLayout>} />
+
+          {/* Standing Landing Page for BITS Pilani */}
+          <Route path="/bits-pilani" element={<MainLayout><BitsPilaniAdmission /></MainLayout>} />
+
+          {/* Standing Landing Page for NMIT Bangalore */}
+          <Route path="/nmit-bangalore" element={<MainLayout><NmitAdmission /></MainLayout>} />
+
+          {/* Standing Landing Page for BMS College of Engineering (BMSCE) */}
+          <Route path="/bms-college-of-engineering-bangalore" element={<MainLayout><BmsceAdmission /></MainLayout>} />
+
+          {/* Standing Landing Page for BMS Institute of Technology & Management (BMSIT&M) */}
+          <Route path="/bmsit-bangalore" element={<MainLayout><BmsitAdmission /></MainLayout>} />
           {/* Standing Landing Page for Mahatma Gandhi Medical College, Jaipur 2026 */}
           <Route path="/mahatma-gandhi-medical-college-jaipur-admission-2026" element={<MainLayout><MahatmaGandhiJaipurAdmission2026 /></MainLayout>} />
           

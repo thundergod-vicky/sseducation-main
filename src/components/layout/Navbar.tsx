@@ -14,7 +14,18 @@ const NAV_LINKS = [
     children: [
       { label: "B.Tech Engineering", isHeader: true },
       { label: "RV College (RVCE)", href: "/rv-college-btech-admission-2026" },
+      { label: "RVITM Bangalore", href: "/rv-institute-of-technology-management-bangalore" },
+      { label: "RV University", href: "/rv-university-bengaluru" },
       { label: "MS Ramaiah (MSRIT)", href: "/ramaiah-institute-btech-admission-2026" },
+      { label: "BMSCE Bangalore", href: "/bms-college-of-engineering-bangalore" },
+      { label: "BMSIT Bangalore", href: "/bmsit-bangalore" },
+      { label: "Dayananda Sagar (DSCE)", href: "/dayananda-sagar-college-of-engineering-bangalore" },
+      { label: "Sri MVIT Bangalore", href: "/sri-mvit-bangalore" },
+      { label: "VIT Vellore", href: "/vit-vellore" },
+      { label: "MIT Manipal", href: "/mit-manipal" },
+      { label: "Amrita University", href: "/amrita-vishwa-vidyapeetham" },
+      { label: "BITS Pilani", href: "/bits-pilani" },
+      { label: "NMIT Bangalore", href: "/nmit-bangalore" },
       { label: "IEM Kolkata", href: "/iem-kolkata-admission-2026" },
       { label: "Heritage Kolkata", href: "/heritage-institute-of-technology-hitk-kolkata" },
       { label: "Techno Main Salt Lake", href: "/techno-main-salt-lake-tmsl-kolkata" },
@@ -54,6 +65,24 @@ export const Navbar = () => {
   }, [location]);
 
   const isTransparentRoute = ["/", "/engineering", "/mbbs"].includes(location.pathname) || 
+    location.pathname.includes("-admission-2026") || 
+    location.pathname.startsWith("/college/") ||
+    [
+      "/dayananda-sagar-college-of-engineering-bangalore",
+      "/rv-institute-of-technology-management-bangalore",
+      "/heritage-institute-of-technology-hitk-kolkata",
+      "/techno-main-salt-lake-tmsl-kolkata",
+      "/haldia-institute-of-technology-hit-haldia",
+      "/rv-university-bengaluru",
+      "/sri-mvit-bangalore",
+      "/vit-vellore",
+      "/mit-manipal",
+      "/amrita-vishwa-vidyapeetham",
+      "/bits-pilani",
+      "/nmit-bangalore",
+      "/bms-college-of-engineering-bangalore",
+      "/bmsit-bangalore"
+    ].includes(location.pathname);
     (location.pathname.includes("-admission-2026") && location.pathname !== "/mahatma-gandhi-medical-college-jaipur-admission-2026") || 
     location.pathname.startsWith("/college/");
   const isNavVisible = scrolled || !isTransparentRoute;
@@ -110,32 +139,137 @@ export const Navbar = () => {
               {link.children && (
                 <AnimatePresence>
                   {activeDropdown === link.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute top-full left-0 mt-4 w-64 bg-white/95 backdrop-blur-xl rounded-[1.5rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden py-3 px-2"
-                    >
-                      {link.children.map((child, childIdx) => (
-                        (child as any).isHeader ? (
-                          <div
-                            key={childIdx}
-                            className="px-4 py-2 mt-2 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50"
-                          >
-                            {child.label}
+                    link.label === "Colleges" ? (
+                      <motion.div
+                        initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 15, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[850px] bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] border border-slate-100 p-6 grid grid-cols-3 gap-6 text-left"
+                      >
+                        {/* Column 1: B.Tech Karnataka */}
+                        <div className="space-y-2">
+                          <div className="px-4 py-2 text-[10px] font-black text-primary uppercase tracking-widest border-b border-slate-100/80 mb-2">
+                            B.Tech Karnataka
                           </div>
-                        ) : (
-                          <Link
-                            key={child.label}
-                            to={child.href || "#"}
-                            className="block px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-primary/5 hover:text-primary rounded-xl transition-all uppercase tracking-wider pl-6"
-                          >
-                            {child.label}
-                          </Link>
-                        )
-                      ))}
-                    </motion.div>
+                          <div className="flex flex-col gap-1">
+                            {[
+                              { label: "RV College (RVCE)", href: "/rv-college-btech-admission-2026" },
+                              { label: "RVITM Bangalore", href: "/rv-institute-of-technology-management-bangalore" },
+                              { label: "RV University", href: "/rv-university-bengaluru" },
+                              { label: "MS Ramaiah (MSRIT)", href: "/ramaiah-institute-btech-admission-2026" },
+                              { label: "BMSCE Bangalore", href: "/bms-college-of-engineering-bangalore" },
+                              { label: "BMSIT Bangalore", href: "/bmsit-bangalore" },
+                              { label: "Dayananda Sagar (DSCE)", href: "/dayananda-sagar-college-of-engineering-bangalore" },
+                              { label: "Sri MVIT Bangalore", href: "/sri-mvit-bangalore" },
+                              { label: "NMIT Bangalore", href: "/nmit-bangalore" }
+                            ].map((col) => (
+                              <Link
+                                key={col.label}
+                                to={col.href}
+                                className="block px-4 py-2 text-xs font-bold text-slate-655 hover:bg-primary/5 hover:text-primary rounded-xl transition-all uppercase tracking-wider pl-4"
+                              >
+                                {col.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Column 2: B.Tech Other States */}
+                        <div className="space-y-2">
+                          <div className="px-4 py-2 text-[10px] font-black text-primary uppercase tracking-widest border-b border-slate-100/80 mb-2">
+                            B.Tech Other States
+                          </div>
+                          <div className="flex flex-col gap-1 max-h-[350px] overflow-y-auto pr-1 scrollbar-thin">
+                            {[
+                              { label: "VIT Vellore", href: "/vit-vellore" },
+                              { label: "MIT Manipal", href: "/mit-manipal" },
+                              { label: "Amrita University", href: "/amrita-vishwa-vidyapeetham" },
+                              { label: "BITS Pilani", href: "/bits-pilani" },
+                              { label: "IEM Kolkata", href: "/iem-kolkata-admission-2026" },
+                              { label: "Heritage Kolkata", href: "/heritage-institute-of-technology-hitk-kolkata" },
+                              { label: "Techno Main Salt Lake", href: "/techno-main-salt-lake-tmsl-kolkata" },
+                              { label: "HIT Haldia", href: "/haldia-institute-of-technology-hit-haldia" },
+                              { label: "SRM University", href: "/srm-university-btech-admission-2026" },
+                              { label: "KIIT University", href: "/kiit-university-bhubaneswar-admission-2026" },
+                              { label: "SOA University (ITER)", href: "/soa-university-bhubaneswar-admission-2026" }
+                            ].map((col) => (
+                              <Link
+                                key={col.label}
+                                to={col.href}
+                                className="block px-4 py-2 text-xs font-bold text-slate-655 hover:bg-primary/5 hover:text-primary rounded-xl transition-all uppercase tracking-wider pl-4"
+                              >
+                                {col.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Column 3: Medical & Management */}
+                        <div className="space-y-6">
+                          <div>
+                            <div className="px-4 py-2 text-[10px] font-black text-primary uppercase tracking-widest border-b border-slate-100/80 mb-2">
+                              Medical Admissions
+                            </div>
+                            <div className="flex flex-col gap-1">
+                              <Link
+                                to="/mbbs"
+                                className="block px-4 py-2 text-xs font-bold text-slate-655 hover:bg-primary/5 hover:text-primary rounded-xl transition-all uppercase tracking-wider pl-4"
+                              >
+                                MBBS Admission India
+                              </Link>
+                            </div>
+                          </div>
+
+                          <div>
+                            <div className="px-4 py-2 text-[10px] font-black text-primary uppercase tracking-widest border-b border-slate-100/80 mb-2">
+                              Management & Others
+                            </div>
+                            <div className="flex flex-col gap-1">
+                              <Link
+                                to="/courses#mba"
+                                className="block px-4 py-2 text-xs font-bold text-slate-655 hover:bg-primary/5 hover:text-primary rounded-xl transition-all uppercase tracking-wider pl-4"
+                              >
+                                MBA / Management
+                              </Link>
+                              <Link
+                                to="/courses"
+                                className="block px-4 py-2 text-xs font-bold text-slate-655 hover:bg-primary/5 hover:text-primary rounded-xl transition-all uppercase tracking-wider pl-4"
+                              >
+                                Law & Commerce & Others
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 15, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full left-0 mt-4 w-64 bg-white/95 backdrop-blur-xl rounded-[1.5rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden py-3 px-2 text-left"
+                      >
+                        {link.children.map((child, childIdx) => (
+                          (child as any).isHeader ? (
+                            <div
+                              key={childIdx}
+                              className="px-4 py-2 mt-2 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50"
+                            >
+                              {child.label}
+                            </div>
+                          ) : (
+                            <Link
+                              key={child.label}
+                              to={child.href || "#"}
+                              className="block px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-primary/5 hover:text-primary rounded-xl transition-all uppercase tracking-wider pl-6"
+                            >
+                              {child.label}
+                            </Link>
+                          )
+                        ))}
+                      </motion.div>
+                    )
                   )}
                 </AnimatePresence>
               )}
