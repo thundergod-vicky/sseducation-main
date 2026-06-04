@@ -3,6 +3,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "../landing/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import ChatbotWidget from "../chatbot/ChatbotWidget";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ export const MainLayout = ({ children, showNav = true, showFooter = true }: Main
       {showFooter && <Footer />}
       <Toaster />
       <Sonner />
+      <ChatbotWidget />
     </div>
   );
 };
