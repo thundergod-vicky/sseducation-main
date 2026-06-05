@@ -1,6 +1,16 @@
+import { useState } from "react";
+import { z } from "zod";
+import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, MessageCircle, Send, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, MessageCircle, Send, Clock, CheckCircle2 } from "lucide-react";
 import { useSeo } from "@/hooks/useSeo";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(2, "Enter your full name").max(80),
+  phone: z.string().trim().regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit mobile"),
+  course: z.string().min(1, "Select interested course"),
+  message: z.string().trim().min(5, "Message must be at least 5 characters"),
+});
 
 const OFFICES = [
   {
@@ -31,6 +41,49 @@ const Contact = () => {
     title: "Contact Us | SS Educational Services",
     description: "Get in touch with SS Educational Services. Visit our head office in Durgapur, or branches in Patna and Kolkata. Get 24/7 expert admission support."
   });
+
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    const parsed = contactSchema.safeParse(data);
+    if (!parsed.success) {
+      const fieldErrors: Record<string, string> = {};
+      parsed.error.issues.forEach((i) => {
+        if (i.path[0]) fieldErrors[String(i.path[0])] = i.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    setErrors({});
+    setSubmitting(true);
+
+    const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLoigxaiQ05jssy6oUcVgENjCRBFjE1yFBmmCmB1EnPVZghw/formResponse";
+    const googleFormData = new FormData();
+    googleFormData.append("entry.1502716309", parsed.data.name);
+    googleFormData.append("entry.1202722742", parsed.data.phone);
+    googleFormData.append("entry.267493369", "No Email Provided");
+    googleFormData.append("entry.921865976", "Other");
+    googleFormData.append("entry.85122333", `Contact Page Inquiry - Course: ${parsed.data.course} - Message: ${parsed.data.message}`);
+
+    try {
+      await fetch(FORM_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: googleFormData
+      });
+      setSubmitting(false);
+      setSubmitted(true);
+      toast.success("Thank you! Your message has been sent successfully.");
+    } catch (error) {
+      setSubmitting(false);
+      toast.error("Something went wrong. Please try again later.");
+    }
+  };
 
   return (
     <main className="pt-24">
@@ -98,36 +151,58 @@ const Contact = () => {
             {/* Contact Form */}
             <div>
               <div className="bg-slate-900 rounded-[3rem] p-10 lg:p-16 text-white sticky top-28 shadow-2xl">
-                <h2 className="text-3xl font-bold mb-8 text-center lg:text-left">Send Us a Message</h2>
-                <form className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-400 uppercase tracking-widest">Full Name</label>
-                      <input type="text" className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary transition-colors" placeholder="John Doe" />
+                {submitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-10"
+                  >
+                    <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500/15 ring-8 ring-emerald-500/10">
+                      <CheckCircle2 className="h-10 w-10 text-emerald-400" />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-400 uppercase tracking-widest">Phone Number</label>
-                      <input type="tel" className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary transition-colors" placeholder="+91 99330 85333" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-400 uppercase tracking-widest">Interested Course</label>
-                    <select className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-primary transition-colors appearance-none">
-                      <option className="bg-slate-900">Select a Course</option>
-                      <option className="bg-slate-900">B.Tech Engineering</option>
-                      <option className="bg-slate-900">MBBS / Medical</option>
-                      <option className="bg-slate-900">MBA / Management</option>
-                      <option className="bg-slate-900">Law / BCA / Others</option>
-                    </select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-400 uppercase tracking-widest">Message</label>
-                    <textarea rows={4} className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary transition-colors" placeholder="How can we help you?"></textarea>
-                  </div>
-                  <button className="w-full py-5 rounded-2xl bg-primary text-white font-extrabold text-lg flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-primary/20">
-                    Submit Inquiry <Send className="h-5 w-5" />
-                  </button>
-                </form>
+                    <h3 className="text-2xl font-black text-white tracking-tight">Message Sent!</h3>
+                    <p className="mt-4 text-slate-400 font-medium leading-relaxed text-sm">
+                      Thank you! Your inquiry has been received. Our counselor will contact you shortly.
+                    </p>
+                  </motion.div>
+                ) : (
+                  <>
+                    <h2 className="text-3xl font-bold mb-8 text-center lg:text-left">Send Us a Message</h2>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label htmlFor="contact-name" className="text-sm font-bold text-slate-400 uppercase tracking-widest">Full Name *</label>
+                          <input id="contact-name" name="name" type="text" className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary transition-colors" placeholder="John Doe" />
+                          {errors.name && <p className="text-xs text-red-400 mt-1">{errors.name}</p>}
+                        </div>
+                        <div className="space-y-2">
+                          <label htmlFor="contact-phone" className="text-sm font-bold text-slate-400 uppercase tracking-widest">Phone Number *</label>
+                          <input id="contact-phone" name="phone" type="tel" maxLength={10} className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary transition-colors" placeholder="10-digit mobile" />
+                          {errors.phone && <p className="text-xs text-red-400 mt-1">{errors.phone}</p>}
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <label htmlFor="contact-course" className="text-sm font-bold text-slate-400 uppercase tracking-widest">Interested Course *</label>
+                        <select id="contact-course" name="course" className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-primary transition-colors appearance-none">
+                          <option value="" className="bg-slate-900">Select a Course</option>
+                          <option value="B.Tech Engineering" className="bg-slate-900">B.Tech Engineering</option>
+                          <option value="MBBS / Medical" className="bg-slate-900">MBBS / Medical</option>
+                          <option value="MBA / Management" className="bg-slate-900">MBA / Management</option>
+                          <option value="Law / BCA / Others" className="bg-slate-900">Law / BCA / Others</option>
+                        </select>
+                        {errors.course && <p className="text-xs text-red-400 mt-1">{errors.course}</p>}
+                      </div>
+                      <div className="space-y-2">
+                        <label htmlFor="contact-message" className="text-sm font-bold text-slate-400 uppercase tracking-widest">Message *</label>
+                        <textarea id="contact-message" name="message" rows={4} className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary transition-colors" placeholder="How can we help you?"></textarea>
+                        {errors.message && <p className="text-xs text-red-400 mt-1">{errors.message}</p>}
+                      </div>
+                      <button type="submit" disabled={submitting} className="w-full py-5 rounded-2xl bg-primary text-white font-extrabold text-lg flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed">
+                        {submitting ? "Sending..." : (<>Submit Inquiry <Send className="h-5 w-5" /></>)}
+                      </button>
+                    </form>
+                  </>
+                )}
 
                 <div className="mt-12 pt-12 border-t border-white/10 flex flex-wrap justify-center gap-8">
                   <a href="https://wa.me/919933085333" className="flex items-center gap-2 text-green-400 font-bold hover:text-green-300 transition-colors">

@@ -25,7 +25,7 @@ export function CollegeLeadForm({ collegeShort }: Props) {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
@@ -40,11 +40,28 @@ export function CollegeLeadForm({ collegeShort }: Props) {
     }
     setErrors({});
     setSubmitting(true);
-    setTimeout(() => {
+
+    const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLoigxaiQ05jssy6oUcVgENjCRBFjE1yFBmmCmB1EnPVZghw/formResponse";
+    const googleFormData = new FormData();
+    googleFormData.append("entry.1502716309", parsed.data.name);
+    googleFormData.append("entry.1202722742", parsed.data.phone);
+    googleFormData.append("entry.267493369", parsed.data.email || "");
+    googleFormData.append("entry.921865976", parsed.data.state);
+    googleFormData.append("entry.85122333", `College Page (${collegeShort}) - Preferred Branch: ${parsed.data.branch}`);
+
+    try {
+      await fetch(FORM_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: googleFormData
+      });
       setSubmitting(false);
       setSubmitted(true);
-      toast.success("Thank you! Our counsellor will call you within 30 minutes.");
-    }, 800);
+      toast.success(`Thank you! Our ${collegeShort} counsellor will call you within 30 minutes.`);
+    } catch (error) {
+      setSubmitting(false);
+      toast.error("Something went wrong. Please try again later.");
+    }
   };
 
   if (submitted) {
