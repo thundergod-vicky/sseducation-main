@@ -11,6 +11,7 @@ import kiitImg from "@/assets/rvce-campus.jpg"; // Placeholder
 import rvceImg from "@/assets/rvce-building.jpg";
 import ramaiahImg from "@/assets/ramaiah-campus.jpg";
 import iemImg from "@/assets/iem-campus.jpg";
+import buildingsImg from "@/assets/buildings.png";
 
 const FEATURED_COLLEGES = [
   {
@@ -348,6 +349,22 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Building Reveal Section */}
+      <section className="relative bg-white overflow-hidden border-b border-slate-100 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="w-full"
+        >
+          <img 
+            src={buildingsImg} 
+            alt="SS Education Campus" 
+            className="w-full h-auto block"
+          />
+        </motion.div>
+      </section>
 
       {/* Trusted by Leading Colleges Section */}
       <section className="py-20 bg-[#0B1D4B] text-white relative z-20">
@@ -1002,3 +1019,4 @@ const Home = () => {
 };
 
 export default Home;
+
