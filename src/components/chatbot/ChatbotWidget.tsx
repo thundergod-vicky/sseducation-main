@@ -74,7 +74,7 @@ export default function ChatbotWidget() {
       /^(hi|hello|hey|greetings|good\s*morning|good\s*afternoon|good\s*evening|yo|hola|hello\s*bot)/.test(query);
     if (isGreeting) {
       return {
-        text: `Hello! 👋 How can I help you today? I am fully prepared to answer questions about:\n\n- **Colleges:** RVCE, MS Ramaiah, IEM Kolkata, SRM University, KIIT, MGMCH Jaipur, NIMS Jaipur, and MBBS guides.\n- **Admissions:** Fee structures, highest & average packages, eligibility criteria, and step-by-step processes.\n- **Support:** Direct/Management quota seat availability.\n\nLet me know what is on your mind!`
+        text: `Hello! 👋 How can I help you today? I am fully prepared to answer questions about:\n\n- **Colleges:** RVCE, MS Ramaiah, IEM Kolkata, SRM University, KIIT, MGMCH Jaipur, NIMS Jaipur, JNU Jaipur, and MBBS guides.\n- **Admissions:** Fee structures, highest & average packages, eligibility criteria, and step-by-step processes.\n- **Support:** Direct/Management quota seat availability.\n\nLet me know what is on your mind!`
       };
     }
 
@@ -143,6 +143,7 @@ export default function ChatbotWidget() {
     const isMBBS = query.includes("mbbs") || query.includes("medical") || query.includes("neet") || query.includes("doctor");
     const isMGMCH = query.includes("mahatma gandhi") || query.includes("mgmch") || query.includes("mgumst") || query.includes("jaipur medical");
     const isNIMS = query.includes("nims") || query.includes("national institute of medical sciences") || query.includes("national institute");
+    const isJNU = query.includes("jnu") || query.includes("jaipur national university") || query.includes("jnu-imsrc") || query.includes("jnu medical");
 
     // Topic indicators
     const isFee = query.includes("fee") || query.includes("cost") || query.includes("expensive") || query.includes("price") || query.includes("charge");
@@ -267,6 +268,23 @@ export default function ChatbotWidget() {
       }
       return {
         text: "**National Institute of Medical Sciences and Research (NIMS), Jaipur:**\n- Constituent unit of Nims University, Jaipur.\n- **Total Seats:** 250 MBBS seats approved by the NMC.\n- **Clinical Support:** Attached 1350+ bed tertiary care hospital with massive daily patient flow.\n- We provide full counseling assistance, choice-entry checklist mapping, and eligibility checks.\n- **Call us at +91 99456 67977** to check seat matrix allocations!"
+      };
+    }
+
+    // Jaipur National University Medical College (JNU-IMSRC), Jaipur
+    if (isJNU) {
+      if (isFee) {
+        return {
+          text: "**JNU Medical College Jaipur Fees:**\n- **Government/State Quota:** ₹23,0,000 per year.\n- **Management Quota:** ₹28,0,000 per year.\n- **NRI Quota:** ₹31,50,000 per year (Approx).\n- Hostel fees range from ₹1.5 Lakhs to ₹3.0 Lakhs per year. Contact our counsellors to verify current caution money guidelines and bank guarantee formats."
+        };
+      }
+      if (isEligibility || query.includes("cutoff") || query.includes("cut-off") || query.includes("rank")) {
+        return {
+          text: "**JNU-IMSRC Jaipur Cutoff & Eligibility:**\n- **Eligibility:** Must qualify NEET UG 2026.\n- **Expected Cutoff Scores:** State Quota General: **530-560 marks**, Management Quota: **300-410 marks**.\n- Admissions are handled via the Rajasthan State NEET UG counselling portal."
+        };
+      }
+      return {
+        text: "**Jaipur National University Institute for Medical Sciences and Research Centre (JNU-IMSRC), Jaipur:**\n- Constituent unit of Jaipur National University (JNU), Jaipur.\n- **Total Seats:** 150 MBBS seats approved by the NMC.\n- **Clinical Exposure:** Attached 810+ bed super-specialty hospital with excellent diagnostic resources.\n- We provide complete profile evaluation, state/management choice filling advice, and seat matrix tracking.\n- **Call us at +91 99456 67977** to verify JNU seat matrices!"
       };
     }
 

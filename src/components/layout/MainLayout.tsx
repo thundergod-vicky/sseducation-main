@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Footer } from "../landing/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -12,6 +13,13 @@ interface MainLayoutProps {
 }
 
 export const MainLayout = ({ children, showNav = true, showFooter = true }: MainLayoutProps) => {
+  const location = useLocation();
+  const hideChatbot = [
+    "/mahatma-gandhi-medical-college-jaipur-admission-2026",
+    "/national-institute-of-medical-sciences-jaipur-admission-2026",
+    "/jnu-medical-college-jaipur-admission-2026"
+  ].includes(location.pathname);
+
   return (
     <div className="flex flex-col min-h-screen">
       {showNav && <Navbar />}
@@ -21,7 +29,7 @@ export const MainLayout = ({ children, showNav = true, showFooter = true }: Main
       {showFooter && <Footer />}
       <Toaster />
       <Sonner />
-      <ChatbotWidget />
+      {!hideChatbot && <ChatbotWidget />}
     </div>
   );
 };
