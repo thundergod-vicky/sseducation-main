@@ -6,26 +6,19 @@ import { CollegeCard } from "@/components/landing/CollegeCard";
 import { LeadForm } from "@/components/landing/LeadForm";
 import { useSeo } from "@/hooks/useSeo";
 
-// Sample images (I'll use placeholder-like paths or existing ones)
-import kiitImg from "@/assets/rvce-campus.jpg"; // Placeholder
-import rvceImg from "@/assets/rvce-building.jpg";
-import ramaiahImg from "@/assets/ramaiah-campus.jpg";
-import iemImg from "@/assets/iem-campus.jpg";
-import buildingsImg from "@/assets/buildings.png";
-
 const FEATURED_COLLEGES = [
   {
     name: "KIIT University",
     location: "Bhubaneswar, Odisha",
-    image: kiitImg,
+    image: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEX7wsAbj4tKbwb687ZB9fJs5VTb6WQRNGjrGvCC1-EVjs1lFn0gNvfahnmaTLT9l12EaDt_zh_ogQpvuhFQuqoC1KiNFIqVsfDW2ScYi4gPsSmyPXmJLxomMRzpGXoQ9veUza=s1360-w1360-h1020-rw",
     rating: "4.8",
     tags: ["NIRF 36", "Direct Admission"],
-    href: "/rv-college-btech-admission-2026", // Existing path
+    href: "/kiit-university-bhubaneswar-admission-2026",
   },
   {
     name: "RV College of Engineering",
     location: "Bangalore, Karnataka",
-    image: rvceImg,
+    image: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEx0UK5WQUUa-VWaRS3TW8-1l7wqNGdJOypsW1nM96jy83XHIlsqkCBxecnluFurb9_YW5i-M6jCuPYP9qxOJRA4DjCKqgadsfpgEOpJ4bl6tRKX7615ajmDvmviqrf927k6bI1ew=s1360-w1360-h1020-rw",
     rating: "4.9",
     tags: ["Top 50", "Bangalore Hub"],
     href: "/rv-college-btech-admission-2026",
@@ -33,7 +26,7 @@ const FEATURED_COLLEGES = [
   {
     name: "MS Ramaiah Institute",
     location: "Bangalore, Karnataka",
-    image: ramaiahImg,
+    image: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGGD3fvYb_WEXBwBPdM1ocePlPnARW3IPF18BMab8s3pSOjYKyey4SMYq4UDEZaogXzUS0tv5UwM58lkwN9DIs0mdj9YJD8fHDTOZkiZ4gsDV710mmgtFqzyItR7iSBrcbNGb_UyQ=s1360-w1360-h1020-rw",
     rating: "4.7",
     tags: ["60+ Yrs Legacy", "Premium"],
     href: "/ramaiah-institute-btech-admission-2026",
@@ -41,7 +34,7 @@ const FEATURED_COLLEGES = [
   {
     name: "IEM Kolkata",
     location: "Kolkata, WB",
-    image: iemImg,
+    image: "https://framerusercontent.com/images/9OZvs0INvcLrw9U1dccGhJttfMU.png?width=660&height=330",
     rating: "4.6",
     tags: ["Affordable", "Best Placements"],
     href: "/iem-kolkata-btech-admission-2026",
@@ -53,6 +46,109 @@ const COURSES = [
   { title: "MBA & Management", icon: BookOpen, color: "bg-blue-600", desc: "Premium MBA/PGDM colleges with placements." },
   { title: "Medical (MBBS)", icon: Users, color: "bg-slate-900", desc: "NMC approved medical colleges admission guidance." },
   { title: "Law & BCA/MCA", icon: Globe, color: "bg-indigo-600", desc: "Specialized guidance for law and computer applications." },
+];
+
+const ALL_COLLEGES = [
+  {
+    abbrev: "RVCE",
+    fullName: "RV College of Engineering",
+    link: "/rv-college-btech-admission-2026"
+  },
+  {
+    abbrev: "MSRIT",
+    fullName: "MS Ramaiah Institute",
+    link: "/ramaiah-institute-btech-admission-2026"
+  },
+  {
+    abbrev: "BMSCE",
+    fullName: "BMS College of Engineering",
+    link: "/bms-college-of-engineering-bangalore"
+  },
+  {
+    abbrev: "BMSIT",
+    fullName: "BMSIT&M Bangalore",
+    link: "/bmsit-bangalore"
+  },
+  {
+    abbrev: "KIIT",
+    fullName: "KIIT University",
+    link: "/kiit-university-bhubaneswar-admission-2026"
+  },
+  {
+    abbrev: "SOA",
+    fullName: "SOA University",
+    link: "/soa-university-bhubaneswar-admission-2026"
+  },
+  {
+    abbrev: "IEM",
+    fullName: "IEM Kolkata",
+    link: "/iem-kolkata-admission-2026"
+  },
+  {
+    abbrev: "HITK",
+    fullName: "Heritage Institute",
+    link: "/heritage-institute-of-technology-hitk-kolkata"
+  },
+  {
+    abbrev: "TMSL",
+    fullName: "Techno Main Salt Lake",
+    link: "/techno-main-salt-lake-tmsl-kolkata"
+  },
+  {
+    abbrev: "HIT",
+    fullName: "Haldia Institute",
+    link: "/haldia-institute-of-technology-hit-haldia"
+  },
+  {
+    abbrev: "VIT",
+    fullName: "VIT Vellore",
+    link: "/vit-vellore"
+  },
+  {
+    abbrev: "MIT",
+    fullName: "MIT Manipal",
+    link: "/mit-manipal"
+  },
+  {
+    abbrev: "BITS",
+    fullName: "BITS Pilani",
+    link: "/bits-pilani"
+  },
+  {
+    abbrev: "AMRITA",
+    fullName: "Amrita University",
+    link: "/amrita-vishwa-vidyapeetham"
+  },
+  {
+    abbrev: "DSCE",
+    fullName: "Dayananda Sagar",
+    link: "/dayananda-sagar-college-of-engineering-bangalore"
+  },
+  {
+    abbrev: "NMIT",
+    fullName: "NMIT Bangalore",
+    link: "/nmit-bangalore"
+  },
+  {
+    abbrev: "RVITM",
+    fullName: "RVITM Bangalore",
+    link: "/rv-institute-of-technology-management-bangalore"
+  },
+  {
+    abbrev: "RVU",
+    fullName: "RV University",
+    link: "/rv-university-bengaluru"
+  },
+  {
+    abbrev: "MVIT",
+    fullName: "Sri MVIT Bangalore",
+    link: "/sri-mvit-bangalore"
+  },
+  {
+    abbrev: "MGMC",
+    fullName: "Mahatma Gandhi Medical",
+    link: "/mahatma-gandhi-medical-college-jaipur-admission-2026"
+  }
 ];
 
 const Home = () => {
@@ -157,7 +253,7 @@ const Home = () => {
                     {[1,2,3].map(i => (
                       <div key={i} className="h-7 w-7 rounded-full border-2 border-red-600 bg-white/10" />
                     ))}
-                    <div className="h-7 w-7 rounded-full bg-blue-500 flex items-center justify-center text-[8px] font-bold border-2 border-red-600">12K+</div>
+                    <div className="h-7 w-7 rounded-full bg-blue-500 flex items-center justify-center text-[8px] font-bold border-2 border-red-600">5K+</div>
                   </div>
                 </div>
                 
@@ -166,7 +262,7 @@ const Home = () => {
                   <div>
                     <h3 className="text-lg font-bold mb-2 leading-tight">Student Success Rate</h3>
                     <p className="text-white/90 text-xs leading-relaxed">
-                      More than <span className="font-bold">12,000+ students</span> successfully secured admissions.
+                      More than <span className="font-bold">5,000+ students</span> successfully secured admissions.
                     </p>
                   </div>
                 </div>
@@ -280,7 +376,7 @@ const Home = () => {
                     transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
                     className="text-4xl font-bold text-[#0066B2] mb-1"
                   >
-                    12K+
+                    5K+
                   </motion.p>
                   <p className="text-[10px] font-bold text-slate-500 uppercase leading-tight">Students Guided Across India</p>
                 </div>
@@ -349,22 +445,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Building Reveal Section */}
-      <section className="relative bg-white overflow-hidden border-b border-slate-100 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="w-full"
-        >
-          <img 
-            src={buildingsImg} 
-            alt="SS Education Campus" 
-            className="w-full h-auto block"
-          />
-        </motion.div>
-      </section>
+
 
       {/* Trusted by Leading Colleges Section */}
       <section className="py-20 bg-[#0B1D4B] text-white relative z-20">
@@ -387,71 +468,33 @@ const Home = () => {
             </div>
           </div>
 
-          {/* College Logos Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-            {/* KIIT */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="flex flex-col items-center gap-4 group cursor-pointer"
-            >
-              <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-2xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg">KIIT</span>
-                <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500">KIIT University</p>
-            </motion.div>
+          {/* College Logos Sliding Marquee */}
+          <div className="relative w-full overflow-hidden py-10">
+            {/* Left/Right Fading Gradients */}
+            <div className="absolute top-0 left-0 h-full w-20 md:w-32 bg-gradient-to-r from-[#0B1D4B] to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 right-0 h-full w-20 md:w-32 bg-gradient-to-l from-[#0B1D4B] to-transparent z-10 pointer-events-none" />
 
-            {/* RVCE */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col items-center gap-4 group cursor-pointer"
-            >
-              <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-2xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg">RVCE</span>
-                <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500">RV College of Engineering</p>
-            </motion.div>
-
-            {/* MS Ramaiah */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col items-center gap-4 group cursor-pointer"
-            >
-              <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-2xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg">MSRIT</span>
-                <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500">MS Ramaiah Institute</p>
-            </motion.div>
-
-            {/* IEM Kolkata */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-col items-center gap-4 group cursor-pointer"
-            >
-              <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-2xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg">IEM</span>
-                <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500">IEM Kolkata</p>
-            </motion.div>
+            <div className="flex flex-row flex-nowrap gap-12 animate-marquee hover:[animation-play-state:paused] w-max">
+              {[...ALL_COLLEGES, ...ALL_COLLEGES].map((college, idx) => (
+                <div 
+                  key={idx}
+                  className="flex flex-col items-center gap-4 group shrink-0 w-36"
+                >
+                  <Link to={college.link} className="flex flex-col items-center gap-4 w-full">
+                    <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <span className="text-xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg text-center px-1">
+                        {college.abbrev}
+                      </span>
+                      <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
+                    </div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500 text-center min-h-[30px] leading-tight">
+                      {college.fullName}
+                    </p>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
