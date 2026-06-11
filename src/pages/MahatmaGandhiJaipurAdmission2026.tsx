@@ -248,6 +248,301 @@ const college: CollegeData = {
   counselingNote: "Counseling guidelines are subject to official notifications.",
   formDeskLabel: "Registration Desk",
 };
+  ];
+
+  return (
+    <main className="min-h-screen bg-slate-100 font-sans text-slate-800 antialiased selection:bg-[#002d62] selection:text-white pt-20">
+      
+      {/* 2. BILINGUAL INSTITUTION LOGO HEADER (AIIMS Style) */}
+      <header className="bg-white border-b-4 border-[#d4af37] py-4 relative z-40 shadow-sm">
+        <div className="container mx-auto px-4 max-w-7xl flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-4 text-center md:text-left">
+            {/* Mock crest/shield */}
+            <div className="h-16 w-16 bg-[#002d62] text-white rounded-full flex items-center justify-center border-2 border-[#d4af37] shrink-0 font-serif font-black shadow-md text-xl">
+              MG
+            </div>
+            <div className="flex flex-col">
+              <h2 className="text-[#002d62] text-base font-black tracking-wide font-sans block leading-none">
+                महात्मा गांधी चिकित्सा महाविद्यालय एवं अस्पताल, जयपुर
+              </h2>
+              <h1 className="text-[#002d62] text-xl sm:text-2xl font-serif font-black tracking-tight leading-tight mt-1">
+                MAHATMA GANDHI MEDICAL COLLEGE & HOSPITAL, JAIPUR
+              </h1>
+              <p className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5 leading-none">
+                Constituent Unit of Mahatma Gandhi University of Medical Sciences & Technology (MGUMST)
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="bg-[#f0f4fa] border border-[#d2dbe5] rounded-xl px-4 py-2 flex items-center gap-3">
+              <ShieldCheck className="h-8 w-8 text-[#002d62]" />
+              <div>
+                <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-widest leading-none">Academic status</span>
+                <span className="block text-xs font-black text-[#002d62] mt-0.5 font-sans">NMC APPROVED PORTAL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* 3. PRIMARY BLUE NAV BAR (AIIMS Style) */}
+      <nav className="bg-[#002d62] text-white sticky top-[64px] z-45 shadow-md border-b border-[#00214d]">
+        <div className="container mx-auto px-4 max-w-7xl flex justify-between items-center py-1">
+          <div className="flex overflow-x-auto whitespace-nowrap scrollbar-hide flex-grow mr-4">
+            {menuItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`py-3.5 px-5 text-xs font-black uppercase tracking-widest transition-colors relative border-r border-[#001f4d] ${
+                    isActive 
+                      ? "bg-[#d4af37] text-slate-900" 
+                      : "hover:bg-[#001f4d] text-white/90 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-amber-400" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          <button
+            onClick={scrollToForm}
+            className="bg-amber-400 text-slate-900 hover:bg-amber-500 font-sans font-black text-[10px] uppercase tracking-widest px-5 py-2.5 rounded-lg border border-amber-500 shadow-md transition-all active:scale-95 ml-4 shrink-0 hidden md:block"
+          >
+            Counseling Desk
+          </button>
+        </div>
+      </nav>
+
+      {/* 4. CAROUSEL BANNER & NOTICE TICKER */}
+      <section className="relative z-10 overflow-hidden bg-slate-900 text-white h-[260px] sm:h-[360px] md:h-[440px]">
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={bgIndex}
+            src={backgroundImages[bgIndex]}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            alt="Mahatma Gandhi Medical College Banner"
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-slate-950/50 z-10" />
+        
+        <div className="container mx-auto px-4 max-w-7xl h-full relative z-20 flex flex-col justify-end pb-8 sm:pb-12">
+          <div className="max-w-3xl space-y-4">
+            <span className="inline-block bg-amber-400 text-slate-900 font-sans font-black text-[9px] uppercase tracking-[0.2em] px-4 py-1.5 rounded-md">
+              ADMISSIONS & INFORMATION CENTER 2026-27
+            </span>
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif font-black tracking-tight leading-tight text-white drop-shadow-md">
+              MBBS Admission Guide & Counseling Seat Matrix mapping
+            </h1>
+            <p className="text-slate-200 text-xs sm:text-sm font-sans font-semibold max-w-2xl drop-shadow-sm leading-relaxed">
+              Explore Mahatma Gandhi Medical College, Jaipur. Direct interface to check seat availabilities, actual annual fees, category eligibility matrices, and live NEET UG state-quota cutoffs.
+            </p>
+            <div className="pt-2">
+              <Button
+                onClick={scrollToForm}
+                className="bg-amber-400 hover:bg-amber-500 text-slate-900 border border-amber-500 font-sans font-black text-xs uppercase tracking-widest px-6 py-2.5 rounded-lg active:scale-95 shadow-lg"
+              >
+                Apply Online Counseling <ArrowRight className="h-4 w-4 ml-1" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. NOTICE TICKER BAR (AIIMS Style) */}
+      <div className="bg-amber-400 text-slate-900 py-3 relative z-30 font-bold border-y border-amber-500 shadow-sm overflow-hidden text-xs">
+        <div className="container mx-auto px-4 max-w-7xl flex items-center gap-4">
+          <span className="bg-slate-900 text-amber-400 px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded flex items-center gap-1.5 shrink-0 animate-pulse">
+            <Bell className="h-3.5 w-3.5" /> LATEST NOTICE
+          </span>
+          <div className="overflow-hidden relative w-full h-5">
+            <marquee behavior="scroll" direction="left" className="absolute inset-0 font-sans font-bold text-xs uppercase tracking-wide">
+              📢 NEET UG 2026 Rajasthan state counseling registrations started. | MGMCH Jaipur seat matrix mapping is live. | Submit profile below for eligibility checks. | Hostel allotments scheduled.
+            </marquee>
+          </div>
+        </div>
+      </div>
+
+      {/* 6. DOUBLE-COLUMN ADMINISTRATIVE INFO GRID (AIIMS Style) */}
+      <div className="container mx-auto px-4 max-w-7xl py-12">
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          
+          {/* LEFT: DEAN'S WELCOME DESK */}
+          <div className="lg:col-span-4 bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-6">
+            <div className="border-b border-slate-100 pb-4">
+              <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.22em]">Welcome Desk</span>
+              <h3 className="text-lg font-serif font-black text-[#002d62] mt-1">Dean's Message</h3>
+            </div>
+            
+            <div className="space-y-4">
+              {/* Profile image container */}
+              <div className="relative rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 aspect-[4/3] flex items-center justify-center">
+                <Stethoscope className="h-16 w-16 text-slate-350 text-slate-300 absolute" />
+                <img 
+                  src={mbbs3}
+                  className="w-full h-full object-cover object-center opacity-70 relative z-10"
+                  alt="Dean Portrait"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-[#002d62]/90 text-white p-3 z-20 text-center">
+                  <span className="block text-xs font-bold font-sans">Dr. G.N. Saxena</span>
+                  <span className="block text-[9px] text-amber-300 uppercase tracking-widest font-sans font-black mt-0.5">Dean Academics</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-slate-650 leading-relaxed font-sans font-medium text-slate-500 italic">
+                "Welcome to Mahatma Gandhi Medical College, Jaipur. Our mission is to educate and cultivate compassionate, clinically sound medical practitioners who are prepared to meet global clinical challenges. Our attached 1000-bed hospital provides our students with a rigorous, patient-centered learning platform."
+              </p>
+              <div className="border-t border-slate-100 pt-4 flex gap-4 text-xs font-sans text-slate-700">
+                <div>
+                  <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-widest">Office Desk</span>
+                  <span className="block font-bold text-slate-900 mt-0.5">MGUMST Campus</span>
+                </div>
+                <div className="border-l border-slate-200 pl-4">
+                  <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-widest">Inquiries</span>
+                  <a href="mailto:info@mgumst.org" className="block font-bold text-teal-800 hover:underline mt-0.5">dean@mgumst.org</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CENTER/RIGHT: NOTICES BOARD + LIVE PREDICTOR PORTAL */}
+          <div className="lg:col-span-8 space-y-8">
+            
+            {/* NOTICES LIST CARD */}
+            <div className="bg-white border border-slate-200/85 rounded-3xl p-6 shadow-sm">
+              <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-4">
+                <div>
+                  <span className="block text-[8px] font-sans font-black text-teal-600 uppercase tracking-[0.2em]">Counselling Updates</span>
+                  <h3 className="text-lg font-serif font-black text-[#002d62] mt-0.5">Admissions Notice Board</h3>
+                </div>
+                <span className="text-[9px] font-sans font-black uppercase text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                  SESSION 2026
+                </span>
+              </div>
+
+              <div className="divide-y divide-slate-100 text-xs font-sans text-slate-700 font-semibold">
+                {[
+                  { text: "Detailed Fee guidelines and concessions for Management Quota MBBS seats", date: "June 04, 2026", tag: "FEE NOTICE" },
+                  { text: "NMC Seat Matrix verification for Mahatma Gandhi University Medical Programs", date: "June 02, 2026", tag: "SEAT MATRIX" },
+                  { text: "Rajasthan NEET UG State counseling registration steps and option-entry guide", date: "May 29, 2026", tag: "COUNSELING" },
+                  { text: "Hostel rooms allocation criteria (Single / Double sharing) for MBBS 1st Year", date: "May 25, 2026", tag: "HOSTEL" },
+                ].map((item, idx) => (
+                  <div key={idx} className="py-3 flex justify-between items-start gap-4 hover:bg-slate-50/50 rounded-xl px-2 transition-colors">
+                    <div className="space-y-1">
+                      <span className="text-[8px] font-sans font-black text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded uppercase tracking-wider mr-2">{item.tag}</span>
+                      <a href="#predictor" onClick={() => scrollToSection("predictor")} className="text-[#002d62] hover:text-blue-900 font-bold hover:underline">{item.text}</a>
+                    </div>
+                    <span className="text-[9px] text-slate-400 font-sans font-bold whitespace-nowrap">{item.date}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* LIVE PREDICTOR WIDGET (Styled as Online Mapping System) */}
+            <section id="predictor" ref={sectionsRef["predictor"]} className="scroll-mt-28 bg-[#001f4d] text-white rounded-3xl p-6 sm:p-8 shadow-md border border-[#002d62]">
+              <div className="border-b border-white/10 pb-4 mb-6">
+                <span className="block text-[8px] font-sans font-black text-amber-400 uppercase tracking-widest">MGMCH Online Portal</span>
+                <h3 className="text-xl font-serif font-bold text-white mt-0.5 flex items-center gap-1.5">
+                  NEET UG Score Predictor & Eligibility Matcher
+                </h3>
+              </div>
+
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <Label className="text-xs font-bold uppercase tracking-wider text-slate-300 font-sans">Slide Your NEET Score</Label>
+                    <span className="text-xl font-black font-serif text-slate-900 bg-amber-400 px-3.5 py-1 rounded-xl shadow border border-amber-500">
+                      {predictorScore} <span className="text-[9px] font-sans font-bold text-slate-700">/ 720</span>
+                    </span>
+                  </div>
+                  
+                  <input
+                    type="range"
+                    min="100"
+                    max="720"
+                    step="5"
+                    value={predictorScore}
+                    onChange={(e) => handlePredictorScoreChange(Number(e.target.value))}
+                    className="w-full h-1.5 bg-[#002d62] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                  />
+                  <div className="flex justify-between text-[9px] text-white/50 font-sans font-bold">
+                    <span>Min (100)</span>
+                    <span>State Cutoff (550+)</span>
+                    <span>Perfect (720)</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label className="text-[9px] font-black uppercase tracking-widest text-white/50 mb-1 block">Your Category</Label>
+                    <Select
+                      onValueChange={(val) => {
+                        setPredictorCategory(val);
+                        setFormData((prev) => ({ ...prev, category: val }));
+                      }}
+                      value={predictorCategory}
+                    >
+                      <SelectTrigger className="h-9 rounded-xl bg-white/5 border-white/10 text-white font-semibold">
+                        <SelectValue placeholder="Select Category" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-xl">
+                        <SelectItem value="General">General (UR)</SelectItem>
+                        <SelectItem value="OBC">OBC-NCL</SelectItem>
+                        <SelectItem value="SC">SC (Scheduled Caste)</SelectItem>
+                        <SelectItem value="ST">ST (Scheduled Tribe)</SelectItem>
+                        <SelectItem value="EWS">EWS</SelectItem>
+                        <SelectItem value="NRI">NRI Quota</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex items-end">
+                    <div className="text-[9px] font-sans font-bold text-white/40 italic mb-2 leading-none">
+                      Estimations modeled on state counseling reports.
+                    </div>
+                  </div>
+                </div>
+
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`${predictorScore}-${predictorCategory}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className={`p-4.5 rounded-2xl border bg-white/5 border-white/10 text-white space-y-2`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-amber-400" />
+                      <h4 className="font-extrabold text-xs uppercase tracking-wide font-sans text-amber-400">{currentAnalysis.status}</h4>
+                    </div>
+                    <p className="text-xs leading-relaxed font-sans text-white/80 font-semibold">{currentAnalysis.text}</p>
+                    <div className="pt-2 border-t border-white/5 flex flex-wrap justify-between items-center gap-2">
+                      <div className="text-[10px] font-sans font-black text-slate-300">
+                        Action Advice: <span className="underline text-white font-bold">{currentAnalysis.quotaAdvice}</span>
+                      </div>
+                      <button
+                        onClick={scrollToForm}
+                        className={`text-[9px] font-sans font-black uppercase tracking-widest px-3.5 py-1.5 rounded-lg transition-all shadow ${currentAnalysis.btnStyle}`}
+                      >
+                        Secure Counselling Booklet
+                      </button>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
 
 export default function MahatmaGandhiJaipurAdmission2026() {
   return <MbbsCollegeLayout theme={THEME_SAFFRON} college={college} />;

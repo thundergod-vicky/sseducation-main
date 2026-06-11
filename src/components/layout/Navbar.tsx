@@ -276,6 +276,10 @@ export const Navbar = () => {
        "/hi-tech-medical-college-rourkela-admission-2026",
        "/driems-institute-of-health-sciences-cuttack-admission-2026"
      ].includes(location.pathname)) || 
+  const isTransparentRoute =
+    ["/", "/engineering", "/mbbs"].includes(location.pathname) ||
+    (location.pathname.includes("-admission-2026") &&
+      location.pathname !== "/mahatma-gandhi-medical-college-jaipur-admission-2026") ||
     location.pathname.startsWith("/college/") ||
     [
       "/dayananda-sagar-college-of-engineering-bangalore",
