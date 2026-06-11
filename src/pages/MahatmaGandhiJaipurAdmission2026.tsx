@@ -1,82 +1,12 @@
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Stethoscope,
-  HeartPulse,
-  Activity,
-  Award,
-  GraduationCap,
-  FileText,
-  ShieldCheck,
-  Users,
-  TrendingUp,
-  Clock,
-  MapPin,
-  BookOpen,
-  Layers,
-  HelpCircle,
-  AlertTriangle,
-  DollarSign,
-  Briefcase,
-  Calendar,
-  ArrowRight,
-  MessageCircle,
-  Star,
-  ChevronDown,
-  ChevronUp,
-  CheckCircle2,
-  Sparkles,
-  UserCheck,
-  Check,
-  Building,
-  ArrowUpRight,
-  ShieldAlert,
-  Search,
-  Bell,
-  Mail,
-  Home
-} from "lucide-react";
-import { z } from "zod";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useJsonLd } from "@/hooks/useJsonLd";
-import { useSeo } from "@/hooks/useSeo";
+import MbbsCollegeLayout from "@/components/college/MbbsCollegeLayout";
+import { THEME_SAFFRON } from "@/components/college/MbbsThemes";
+import type { CollegeData } from "@/components/college/MbbsCollegeLayout";
+import { HeartPulse, Activity, FileText, ShieldCheck, Users, MapPin, BookOpen, Sparkles, Building, Calendar } from "lucide-react";
 
-// Medical assets from project
-import medicalBuilding from "@/assets/medical-building.png";
-import mbbsHero from "@/assets/mbbs-hero.png";
-import mbbs1 from "@/assets/mbbs1.webp";
-import mbbs2 from "@/assets/mbbs2.webp";
-import mbbs3 from "@/assets/mbbs3.webp";
-
-const backgroundImages = [mbbsHero, medicalBuilding, mbbs2];
-
-// Form Validation Schema
-const leadFormSchema = z.object({
-  name: z.string().trim().min(2, "Enter your full name").max(80),
-  phone: z.string().trim().regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit mobile number"),
-  email: z.string().trim().email("Enter a valid email address").max(120).optional().or(z.literal("")),
-  neetScore: z.string().trim().refine((val) => {
-    const num = Number(val);
-    return !isNaN(num) && num >= 0 && num <= 720;
-  }, { message: "Score must be between 0 and 720" }),
-  category: z.string().min(1, "Select category"),
-  state: z.string().min(1, "Select state of domicile"),
-  preferredQuota: z.string().min(1, "Select preferred quota"),
-});
-
-type FormDataType = z.infer<typeof leadFormSchema>;
-
-export default function MahatmaGandhiJaipurAdmission2026() {
-  useSeo({
-    title: "Mahatma Gandhi Medical College (MGMCH) Jaipur MBBS Admission 2026",
-    description: "Explore MBBS Admission at Mahatma Gandhi Medical College and Hospital (MGMCH), Jaipur. Get details on fees, seat intake, Rajasthan NEET cutoff, and counseling support."
-  });
-
-  useJsonLd({
+const college: CollegeData = {
+  seoTitle: "Mahatma Gandhi Medical College (MGMCH) Jaipur MBBS Admission 2026",
+  seoDescription: "Explore MBBS Admission at Mahatma Gandhi Medical College and Hospital (MGMCH), Jaipur. Get details on fees, seat intake, Rajasthan NEET cutoff, and counseling support.",
+  jsonLd: {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -97,165 +27,45 @@ export default function MahatmaGandhiJaipurAdmission2026() {
         }
       }
     ]
-  });
-
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [activeFAQ, setActiveFAQ] = useState<number | null>(null);
-  const [activeSection, setActiveSection] = useState<string>("overview");
-  const [bgIndex, setBgIndex] = useState(0);
-
-  // Predictor state
-  const [predictorScore, setPredictorScore] = useState<number>(480);
-  const [predictorCategory, setPredictorCategory] = useState<string>("General");
-
-  // Form state
-  const [formData, setFormData] = useState<Partial<FormDataType>>({
-    name: "",
-    phone: "",
-    email: "",
-    neetScore: "480",
-    category: "General",
-    state: "",
-    preferredQuota: "",
-  });
-
-  const formRef = useRef<HTMLDivElement>(null);
-  
-  const sectionsRef = {
-    "overview": useRef<HTMLElement>(null),
-    "highlights": useRef<HTMLElement>(null),
-    "predictor": useRef<HTMLElement>(null),
-    "fees": useRef<HTMLElement>(null),
-    "cutoff": useRef<HTMLElement>(null),
-    "process": useRef<HTMLElement>(null),
-    "facilities": useRef<HTMLElement>(null),
-    "faqs": useRef<HTMLElement>(null),
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBgIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 240;
-      for (const [key, ref] of Object.entries(sectionsRef)) {
-        if (ref.current) {
-          const offsetTop = ref.current.offsetTop;
-          const offsetHeight = ref.current.offsetHeight;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(key);
-            break;
-          }
-        }
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToForm = () => {
-    formRef.current?.scrollIntoView({ behavior: "smooth" });
-    setTimeout(() => {
-      const nameInput = document.getElementById("mgmch-lead-name");
-      nameInput?.focus();
-    }, 800);
-  };
-
-  const scrollToSection = (id: keyof typeof sectionsRef) => {
-    const element = sectionsRef[id].current;
-    if (element) {
-      const headerOffset = 180;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-      setActiveSection(id);
-    }
-  };
-
-  const handleInputChange = (field: keyof FormDataType, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-    if (field === "neetScore") {
-      const parsedNum = parseInt(value);
-      if (!isNaN(parsedNum) && parsedNum >= 0 && parsedNum <= 720) {
-        setPredictorScore(parsedNum);
-      }
-    }
-    if (field === "category") {
-      setPredictorCategory(value);
-    }
-    if (errors[field]) {
-      setErrors((prev) => {
-        const copy = { ...prev };
-        delete copy[field];
-        return copy;
-      });
-    }
-  };
-
-  const handlePredictorScoreChange = (score: number) => {
-    setPredictorScore(score);
-    setFormData((prev) => ({ ...prev, neetScore: String(score) }));
-  };
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const parsed = leadFormSchema.safeParse(formData);
-    if (!parsed.success) {
-      const fieldErrors: Record<string, string> = {};
-      parsed.error.issues.forEach((i) => {
-        if (i.path[0]) fieldErrors[String(i.path[0])] = i.message;
-      });
-      setErrors(fieldErrors);
-      toast.error("Please fill in all required fields correctly.");
-      return;
-    }
-
-    setErrors({});
-    setSubmitting(true);
-
-    const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLoigxaiQ05jssy6oUcVgENjCRBFjE1yFBmmCmB1EnPVZghw/formResponse";
-
-    const googleFormData = new FormData();
-    googleFormData.append("entry.1502716309", parsed.data.name);
-    googleFormData.append("entry.1202722742", parsed.data.phone);
-    googleFormData.append("entry.267493369", parsed.data.email || "No Email Provided");
-    googleFormData.append("entry.921865976", parsed.data.state);
-    googleFormData.append(
-      "entry.85122333",
-      `MGMCH Jaipur - NEET Score: ${parsed.data.neetScore} | Category: ${parsed.data.category} | Preferred Quota: ${parsed.data.preferredQuota} | (AIIMS Format)`
-    );
-
-    try {
-      await fetch(FORM_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: googleFormData
-      });
-      setSubmitting(false);
-      setSubmitted(true);
-      toast.success("Counseling profile saved! Our medical advisor will contact you shortly.");
-    } catch (error) {
-      setSubmitting(false);
-      setSubmitted(true);
-      toast.success("Counseling profile saved! Our medical advisor will contact you shortly.");
-    }
-  };
-
-  const toggleFAQ = (index: number) => {
-    setActiveFAQ(activeFAQ === index ? null : index);
-  };
-
-  // Predictor algorithm
-  const getEligibilityAnalysis = (score: number, cat: string) => {
+  },
+  abbreviation: "MG",
+  fullName: "MAHATMA GANDHI MEDICAL COLLEGE & HOSPITAL, JAIPUR",
+  hindiName: "महात्मा गांधी चिकित्सा महाविद्यालय एवं अस्पताल, जयपुर",
+  affiliation: "Constituent Unit of Mahatma Gandhi University of Medical Sciences & Technology (MGUMST)",
+  location: "Sitapura Institutional Corridor, Tonk Road, Jaipur",
+  heroTitle: "MBBS Admission Guide & Counseling Seat Matrix mapping",
+  heroSubtitle: "Explore Mahatma Gandhi Medical College, Jaipur. Direct interface to check seat availabilities, actual annual fees, category eligibility matrices, and live NEET UG state-quota cutoffs.",
+  heroBadgeText: "ADMISSIONS & INFORMATION CENTER 2026-27",
+  tickerMessage: "NEET UG 2026 Rajasthan state counseling registrations started. | MGMCH Jaipur seat matrix mapping is live. | Submit profile below for eligibility checks. | Hostel allotments scheduled.",
+  deanName: "Dr. G.N. Saxena",
+  deanDesignation: "Dean Academics",
+  deanQuote: "",
+  contactEmail: "info@mgumst.org",
+  notices: [
+  {
+    "text": "Detailed Fee guidelines and concessions for Management Quota MBBS seats",
+    "date": "June 04, 2026",
+    "tag": "FEE NOTICE"
+  },
+  {
+    "text": "NMC Seat Matrix verification for Mahatma Gandhi University Medical Programs",
+    "date": "June 02, 2026",
+    "tag": "SEAT MATRIX"
+  },
+  {
+    "text": "Rajasthan NEET UG State counseling registration steps and option-entry guide",
+    "date": "May 29, 2026",
+    "tag": "COUNSELING"
+  },
+  {
+    "text": "Hostel rooms allocation criteria (Single / Double sharing) for MBBS 1st Year",
+    "date": "May 25, 2026",
+    "tag": "HOSTEL"
+  }
+],
+  initialScore: 480,
+  predictorMidLabel: "State Cutoff (550+)",
+  getEligibilityAnalysis: (score, _cat) => {
     if (score >= 580) {
       return {
         status: "Excellent Merit Score",
@@ -297,61 +107,108 @@ export default function MahatmaGandhiJaipurAdmission2026() {
         btnStyle: "bg-red-900 hover:bg-red-950 text-white"
       };
     }
-  };
-
-  const currentAnalysis = getEligibilityAnalysis(predictorScore, predictorCategory);
-
-  const menuItems = [
-    { id: "overview", label: "Overview" },
-    { id: "highlights", label: "Highlights" },
-    { id: "predictor", label: "Eligibility Predictor" },
-    { id: "fees", label: "Fees Structure" },
-    { id: "cutoff", label: "NEET Cutoff" },
-    { id: "process", label: "Admission Steps" },
-    { id: "facilities", label: "Facilities" },
-    { id: "faqs", label: "FAQs" },
-  ] as const;
-
-  const highlights = [
-    { title: "Established Year", value: "2000", desc: "Two decades of academic legacy", icon: Calendar },
-    { title: "Affiliated Body", value: "MGUMST University", desc: "Constituent unit of a premium deemed university", icon: Building },
-    { title: "NMC Approval Status", value: "Approved", desc: "Recognized by National Medical Commission", icon: ShieldCheck },
-    { title: "MBBS Intake Capacity", value: "250 Seats", desc: "Largest approved seat matrix in Rajasthan", icon: Users },
-    { title: "Clinical Support", value: "1000+ Beds", desc: "Attached super-specialty hospital with heavy OPD flow", icon: HeartPulse },
-    { title: "Aesthetic Location", value: "Jaipur", desc: "Sitapura Institutional Corridor, Tonk Road, Jaipur", icon: MapPin },
-  ];
-
-  const feeStructure = [
+  },
+  overviewTitle: "Overview of MAHATMA GANDHI MEDICAL COLLEGE & HOSPITAL, JAIPUR",
+  overviewParagraphs: [
+  "Established in the year 2000, <strong>Mahatma Gandhi Medical College and Hospital (MGMCH), Jaipur</strong> is one of the premier private medical colleges in Rajasthan and North India. As a constituent unit of the Mahatma Gandhi University of Medical Sciences and Technology (MGUMST), the college is fully approved by the <strong>National Medical Commission (NMC)</strong>.",
+  "MGMCH Jaipur has evolved into a premier center for advanced healthcare and high-quality medical pedagogy. Spanning an expansive urban campus in Jaipur's institutional Sitapura area, the college is attached to a 1000+ bed multi-specialty tertiary care hospital, ensuring students receive exceptional hands-on clinical exposure and practical diagnostics training."
+],
+  highlights: [
+    {
+      title: "Established Year",
+      value: "2000",
+      desc: "Two decades of academic legacy",
+      icon: Calendar,
+    },
+    {
+      title: "Affiliated Body",
+      value: "MGUMST University",
+      desc: "Constituent unit of a premium deemed university",
+      icon: Building,
+    },
+    {
+      title: "NMC Approval Status",
+      value: "Approved",
+      desc: "Recognized by National Medical Commission",
+      icon: ShieldCheck,
+    },
+    {
+      title: "MBBS Intake Capacity",
+      value: "250 Seats",
+      desc: "Largest approved seat matrix in Rajasthan",
+      icon: Users,
+    },
+    {
+      title: "Clinical Support",
+      value: "1000+ Beds",
+      desc: "Attached super-specialty hospital with heavy OPD flow",
+      icon: HeartPulse,
+    },
+    {
+      title: "Aesthetic Location",
+      value: "Jaipur",
+      desc: "Sitapura Institutional Corridor, Tonk Road, Jaipur",
+      icon: MapPin,
+    },
+  ],
+  feeStructure: [
     { quota: "State / Government Quota", annualFee: "₹19,50,000", remark: "Reserved for Rajasthan Domicile merit holders" },
     { quota: "Management Quota (All India)", annualFee: "₹26,75,000", remark: "Open to candidates from all Indian States" },
     { quota: "NRI / Sponsored Quota", annualFee: "$45,000 (Approx ₹31.5L)", remark: "NRI sponsored seats & global applicants" },
-  ];
-
-  const cutoffs = [
+  ],
+  feeNotes: [
+  "<strong>Hostel Fees:</strong> Double sharing charges from ₹2.24 Lakhs to ₹3.92 Lakhs per year depending on AC preferences.",
+  "<strong>Security Deposit:</strong> A one-time refundable security deposit of ₹2,00,000 is required at admission.",
+  "<strong>Bank Guarantee:</strong> A bank guarantee for remaining course years is mandatory as per state directives."
+],
+  cutoffSectionTitle: "Estimated NEET UG Cutoff Ranges",
+  cutoffs: [
     { category: "State Quota - General (UR)", scoreRange: "560 - 590 Marks", percentile: "96.5%+" },
     { category: "State Quota - OBC", scoreRange: "540 - 570 Marks", percentile: "95.2%+" },
     { category: "State Quota - SC / ST", scoreRange: "410 - 450 Marks", percentile: "85.0%+" },
     { category: "Management Quota (All India Open)", scoreRange: "350 - 480 Marks", percentile: "80.0%+" },
-  ];
-
-  const admissionSteps = [
+  ],
+  processSectionTitle: "Admission Counseling Steps",
+  admissionSteps: [
     { title: "Appearing for NEET UG", desc: "Must qualify the NTA NEET-UG exam with the minimum required category-wise percentile." },
     { title: "State Counseling Registration", desc: "Register on the Rajasthan State Medical Counselling portal as a Domicile or All-India Management candidate." },
     { title: "Preference Choice-Filling", desc: "Select Mahatma Gandhi Medical College, Jaipur (MGMCH) as your high-priority choice during active rounds." },
     { title: "Seat Allotment & Document Verification", desc: "Report to the counseling board for verification of scorecards, domicile certificates, and physical fitness certificates." },
     { title: "Fee Remittance & Final Enrollment", desc: "Pay the first-year annual tuition fee and submit the bank guarantee to secure the MBBS seat." }
-  ];
-
-  const facilities = [
-    { title: "1000+ Bed Attached Hospital", desc: "State-of-the-art diagnostic suites, critical care units, and surgery wings handling heavy outpatient volume.", icon: HeartPulse },
-    { title: "High-Fidelity Simulation Unit", desc: "Interactive medical simulator mannequins, providing advanced virtual training environments for surgical procedures.", icon: Activity },
-    { title: "AC Smart Classrooms", desc: "Auditorium-style lecture theatres featuring electronic screens and digital acoustic systems.", icon: BookOpen },
-    { title: "24/7 Central Library", desc: "Spanning thousands of square feet, equipped with international journal indices, high-speed Wi-Fi, and cubicle spaces.", icon: FileText },
-    { title: "In-Campus Hostels", desc: "Hygienic living blocks with modern double sharing AC rooms, standard mess, recreation lounge, and round-the-clock wardens.", icon: Building },
-    { title: "Elite Sports Center", desc: "Lush outdoor playfields, indoor games club, and fitness gymnasium to promote physical well-being.", icon: Sparkles }
-  ];
-
-  const faqItems = [
+  ],
+  facilities: [
+    {
+      title: "1000+ Bed Attached Hospital",
+      desc: "State-of-the-art diagnostic suites, critical care units, and surgery wings handling heavy outpatient volume.",
+      icon: HeartPulse,
+    },
+    {
+      title: "High-Fidelity Simulation Unit",
+      desc: "Interactive medical simulator mannequins, providing advanced virtual training environments for surgical procedures.",
+      icon: Activity,
+    },
+    {
+      title: "AC Smart Classrooms",
+      desc: "Auditorium-style lecture theatres featuring electronic screens and digital acoustic systems.",
+      icon: BookOpen,
+    },
+    {
+      title: "24/7 Central Library",
+      desc: "Spanning thousands of square feet, equipped with international journal indices, high-speed Wi-Fi, and cubicle spaces.",
+      icon: FileText,
+    },
+    {
+      title: "In-Campus Hostels",
+      desc: "Hygienic living blocks with modern double sharing AC rooms, standard mess, recreation lounge, and round-the-clock wardens.",
+      icon: Building,
+    },
+    {
+      title: "Elite Sports Center",
+      desc: "Lush outdoor playfields, indoor games club, and fitness gymnasium to promote physical well-being.",
+      icon: Sparkles,
+    },
+  ],
+  faqs: [
     {
       q: "Where is Mahatma Gandhi Medical College (MGMCH) located?",
       a: "MGMCH is located in Sitapura Institutional Area, Tonk Road, Jaipur, Rajasthan - 302022. It is highly accessible via the Jaipur International Airport and the railway junctions."
@@ -372,6 +229,25 @@ export default function MahatmaGandhiJaipurAdmission2026() {
       q: "Which university is MGMCH affiliated with?",
       a: "MGMCH is a constituent college of Mahatma Gandhi University of Medical Sciences and Technology (MGUMST), Jaipur, which is a recognized private medical university."
     }
+  ],
+  formId: "mgmch",
+  quotaOptions: [
+  {
+    "value": "Govt Quota",
+    "label": "Government Quota Seat"
+  },
+  {
+    "value": "Private Seat",
+    "label": "Private Open Merit Seat"
+  },
+  {
+    "value": "Management / NRI",
+    "label": "Management / NRI Quota"
+  }
+],
+  counselingNote: "Counseling guidelines are subject to official notifications.",
+  formDeskLabel: "Registration Desk",
+};
   ];
 
   return (
@@ -668,380 +544,6 @@ export default function MahatmaGandhiJaipurAdmission2026() {
         </div>
       </div>
 
-      {/* 7. REGISTRATION INTEGRATION & TABS (AIIMS Style double column) */}
-      <div className="container mx-auto px-4 max-w-7xl py-12">
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
-          
-          {/* Main Info Blocks */}
-          <div className="lg:col-span-8 space-y-16">
-            
-            {/* OVERVIEW SECTION */}
-            <section id="overview" ref={sectionsRef["overview"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Institutional Matrix</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Overview of Mahatma Gandhi Medical College</h3>
-              </div>
-              
-              <div className="text-xs sm:text-sm text-slate-600 font-semibold leading-relaxed font-sans space-y-4">
-                <p>
-                  Established in the year 2000, <strong>Mahatma Gandhi Medical College and Hospital (MGMCH), Jaipur</strong> is one of the premier private medical colleges in Rajasthan and North India. As a constituent unit of the Mahatma Gandhi University of Medical Sciences and Technology (MGUMST), the college is fully approved by the <strong>National Medical Commission (NMC)</strong>.
-                </p>
-                <p>
-                  MGMCH Jaipur has evolved into a premier center for advanced healthcare and high-quality medical pedagogy. Spanning an expansive urban campus in Jaipur's institutional Sitapura area, the college is attached to a 1000+ bed multi-specialty tertiary care hospital, ensuring students receive exceptional hands-on clinical exposure and practical diagnostics training.
-                </p>
-              </div>
-            </section>
-
-            {/* KEY HIGHLIGHTS GRID */}
-            <section id="highlights" ref={sectionsRef["highlights"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Operational Indicators</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Key Institutional Highlights</h3>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                {highlights.map((hl, idx) => {
-                  const IconComp = hl.icon;
-                  return (
-                    <div key={idx} className="bg-slate-50 border border-slate-200/50 p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition-all duration-300">
-                      <div className="h-8 w-8 rounded-xl bg-slate-100 flex items-center justify-center text-[#002d62] border border-slate-200 mb-4 shrink-0">
-                        <IconComp className="h-4.5 w-4.5" />
-                      </div>
-                      <div>
-                        <span className="block text-base font-serif font-black text-[#002d62] leading-none mb-1">{hl.value}</span>
-                        <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-wider">{hl.title}</span>
-                        <span className="block text-[9px] font-sans font-semibold text-slate-500 leading-tight mt-1">{hl.desc}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-
-            {/* FEE STRUCTURE SECTION */}
-            <section id="fees" ref={sectionsRef["fees"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Financial Matrix</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Tuition Fee Details</h3>
-              </div>
-
-              <div className="bg-white border border-slate-250 rounded-2xl overflow-hidden">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse min-w-[500px]">
-                    <thead>
-                      <tr className="bg-[#002d62] text-white text-[9px] font-sans font-bold uppercase tracking-widest border-b border-slate-200">
-                        <th className="p-4">Seat Quota Category</th>
-                        <th className="p-4">Annual Tuition Fee</th>
-                        <th className="p-4">Remarks</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-150 text-xs font-sans text-slate-700 font-semibold">
-                      {feeStructure.map((f, idx) => (
-                        <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
-                          <td className="p-4 font-bold text-slate-900">{f.quota}</td>
-                          <td className="p-4 text-[#002d62] font-black text-sm">{f.annualFee}</td>
-                          <td className="p-4 text-slate-500 text-[10px]">{f.remark}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="bg-amber-50 border border-amber-200 p-4.5 rounded-xl space-y-1">
-                <div className="flex items-center gap-1.5 text-amber-800 text-[10px] font-black uppercase tracking-wider font-sans">
-                  <AlertTriangle className="h-4.5 w-4.5" /> Additional Fee Guidelines
-                </div>
-                <ul className="list-disc list-inside text-[11px] text-slate-650 leading-relaxed font-sans font-medium text-slate-600 space-y-1">
-                  <li><strong>Hostel Fees:</strong> Double sharing charges from ₹2.24 Lakhs to ₹3.92 Lakhs per year depending on AC preferences.</li>
-                  <li><strong>Security Deposit:</strong> A one-time refundable security deposit of ₹2,00,000 is required at admission.</li>
-                  <li><strong>Bank Guarantee:</strong> A bank guarantee for remaining course years is mandatory as per state directives.</li>
-                </ul>
-              </div>
-            </section>
-
-            {/* CUTOFFS SECTION */}
-            <section id="cutoff" ref={sectionsRef["cutoff"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Merit benchmarks</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Rajasthan State NEET UG Cutoff Ranges</h3>
-              </div>
-
-              <div className="bg-white border border-slate-250 rounded-2xl overflow-hidden">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse min-w-[500px]">
-                    <thead>
-                      <tr className="bg-[#002d62] text-white text-[9px] font-sans font-bold uppercase tracking-widest border-b border-slate-200">
-                        <th className="p-4">Category Quota</th>
-                        <th className="p-4">Estimated NEET Score Range</th>
-                        <th className="p-4">Percentile Requirement</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-150 text-xs font-sans text-slate-700 font-semibold">
-                      {cutoffs.map((c, idx) => (
-                        <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
-                          <td className="p-4 font-bold text-slate-900">{c.category}</td>
-                          <td className="p-4 text-[#002d62] font-black">{c.scoreRange}</td>
-                          <td className="p-4">{c.percentile}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </section>
-
-            {/* STEPS SECTION */}
-            <section id="process" ref={sectionsRef["process"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Workflow Matrix</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Counselling & Allocation Steps</h3>
-              </div>
-
-              <div className="relative border-l border-slate-200 pl-6 ml-4 space-y-8">
-                {admissionSteps.map((step, idx) => (
-                  <div key={idx} className="relative">
-                    <div className="absolute -left-[35px] top-0 h-6.5 w-6.5 rounded-full bg-[#002d62] text-white flex items-center justify-center text-xs font-sans font-black shadow">
-                      {idx + 1}
-                    </div>
-                    <h4 className="text-sm font-bold text-slate-900 font-sans uppercase tracking-wider">{step.title}</h4>
-                    <p className="text-xs text-slate-500 mt-1 font-medium leading-relaxed font-sans pr-4">{step.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* FACILITIES SECTION */}
-            <section id="facilities" ref={sectionsRef["facilities"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Campus Infrastructure</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Clinical & Student Facilities</h3>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6">
-                {facilities.map((fac, idx) => {
-                  const IconComp = fac.icon;
-                  return (
-                    <div key={idx} className="flex gap-4 items-start bg-slate-50 p-5 rounded-2xl border border-slate-200/50">
-                      <div className="h-8 w-8 rounded-lg bg-slate-100 text-[#002d62] border border-slate-200 flex items-center justify-center shrink-0 mt-0.5">
-                        <IconComp className="h-4.5 w-4.5" />
-                      </div>
-                      <div>
-                        <h4 className="text-xs font-bold text-slate-900 font-sans uppercase tracking-wider">{fac.title}</h4>
-                        <p className="text-[11px] text-slate-500 mt-1 font-medium leading-normal font-sans pr-2">{fac.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-
-            {/* FAQS SECTION */}
-            <section id="faqs" ref={sectionsRef["faqs"]} className="scroll-mt-28 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-sm space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-[#002d62] uppercase tracking-[0.2em]">Notice details</span>
-                <h3 className="text-xl font-serif font-black text-[#002d62] mt-0.5">Frequently Asked Questions</h3>
-              </div>
-
-              <div className="space-y-4">
-                {faqItems.map((faq, idx) => {
-                  const isOpen = activeFAQ === idx;
-                  return (
-                    <div
-                      key={idx}
-                      className="bg-slate-50 border border-slate-200/60 rounded-2xl overflow-hidden transition-all duration-300"
-                    >
-                      <button
-                        onClick={() => toggleFAQ(idx)}
-                        className="w-full flex items-center justify-between p-4 px-5 text-left text-slate-800 hover:text-emerald-950 font-bold"
-                      >
-                        <span className="text-xs sm:text-sm font-bold font-sans uppercase tracking-wide pr-6">{faq.q}</span>
-                        {isOpen ? (
-                          <ChevronUp className="h-4.5 w-4.5 text-slate-700 shrink-0" />
-                        ) : (
-                          <ChevronDown className="h-4.5 w-4.5 text-slate-400 shrink-0" />
-                        )}
-                      </button>
-                      
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="p-5 pt-0 border-t border-slate-200/40 text-xs sm:text-sm text-slate-500 font-medium leading-relaxed font-sans bg-white/40">
-                              {faq.a}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-
-          </div>
-
-          {/* RIGHT: COUNSELING ONLINE PORTAL REGISTRATION */}
-          <div className="lg:col-span-4 w-full sticky top-[100px] self-start space-y-6" ref={formRef}>
-            <div className="bg-white border-t-8 border-t-[#002d62] border border-slate-250 rounded-3xl p-6 shadow-sm space-y-6">
-              <div className="border-b border-slate-100 pb-4">
-                <span className="block text-[8px] font-sans font-black text-amber-600 uppercase tracking-widest">Registration Form</span>
-                <h3 className="text-lg font-serif font-black text-[#002d62] mt-0.5">Online Counseling Portal</h3>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">Submit eligibility check mapping for MBBS allocations.</p>
-              </div>
-
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-6"
-                >
-                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 ring-4 ring-emerald-50/50">
-                    <CheckCircle2 className="h-8 w-8 text-emerald-600" />
-                  </div>
-                  <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Application Complete!</h4>
-                  <p className="mt-2 text-slate-500 font-medium leading-relaxed text-[11px] font-sans">
-                    Your profile has been saved. A counseling representative will contact you shortly to review cutoff margins.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="mgmch-lead-name" className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1 block">Student Full Name *</Label>
-                    <Input
-                      id="mgmch-lead-name"
-                      placeholder="Enter Student Name"
-                      className="h-10 rounded-xl bg-slate-50 border-slate-200 font-medium focus:bg-white text-slate-800"
-                      value={formData.name || ""}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
-                    />
-                    {errors.name && <p className="text-[10px] font-semibold text-rose-500 mt-0.5 uppercase tracking-wide">{errors.name}</p>}
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <Label htmlFor="mgmch-lead-phone" className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1 block">WhatsApp Phone *</Label>
-                      <Input
-                        id="mgmch-lead-phone"
-                        type="tel"
-                        maxLength={10}
-                        placeholder="10-Digit Mobile"
-                        className="h-10 rounded-xl bg-slate-50 border-slate-200 font-medium focus:bg-white text-slate-800"
-                        value={formData.phone || ""}
-                        onChange={(e) => handleInputChange("phone", e.target.value)}
-                      />
-                      {errors.phone && <p className="text-[10px] font-semibold text-rose-500 mt-0.5 uppercase tracking-wide">{errors.phone}</p>}
-                    </div>
-
-                    <div>
-                      <Label htmlFor="mgmch-lead-score" className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1 block">NEET UG Score *</Label>
-                      <Input
-                        id="mgmch-lead-score"
-                        type="text"
-                        maxLength={3}
-                        placeholder="0 to 720"
-                        className="h-10 rounded-xl bg-slate-50 border-slate-200 font-medium focus:bg-white text-slate-800"
-                        value={formData.neetScore || ""}
-                        onChange={(e) => handleInputChange("neetScore", e.target.value)}
-                      />
-                      {errors.neetScore && <p className="text-[10px] font-semibold text-rose-500 mt-0.5 uppercase tracking-wide">{errors.neetScore}</p>}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <Label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1 block">Category *</Label>
-                      <Select
-                        onValueChange={(val) => handleInputChange("category", val)}
-                        value={formData.category || ""}
-                      >
-                        <SelectTrigger className="h-10 rounded-xl bg-slate-50 border-slate-200 text-slate-800">
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                        <SelectContent className="rounded-xl">
-                          <SelectItem value="General">General (UR)</SelectItem>
-                          <SelectItem value="OBC">OBC-NCL</SelectItem>
-                          <SelectItem value="SC">SC (Scheduled Caste)</SelectItem>
-                          <SelectItem value="ST">ST (Scheduled Tribe)</SelectItem>
-                          <SelectItem value="EWS">EWS Quota</SelectItem>
-                          <SelectItem value="NRI">NRI Quota</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {errors.category && <p className="text-[10px] font-semibold text-rose-500 mt-0.5 uppercase tracking-wide">{errors.category}</p>}
-                    </div>
-
-                    <div>
-                      <Label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1 block">Domicile State *</Label>
-                      <Select
-                        onValueChange={(val) => handleInputChange("state", val)}
-                        value={formData.state || ""}
-                      >
-                        <SelectTrigger className="h-10 rounded-xl bg-slate-50 border-slate-200 text-slate-800">
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                        <SelectContent className="rounded-xl">
-                          <SelectItem value="Rajasthan">Rajasthan</SelectItem>
-                          <SelectItem value="Bihar">Bihar</SelectItem>
-                          <SelectItem value="Uttar Pradesh">Uttar Pradesh</SelectItem>
-                          <SelectItem value="Delhi">Delhi</SelectItem>
-                          <SelectItem value="West Bengal">West Bengal</SelectItem>
-                          <SelectItem value="Madhya Pradesh">Madhya Pradesh</SelectItem>
-                          <SelectItem value="Haryana">Haryana</SelectItem>
-                          <SelectItem value="Other">Other State</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {errors.state && <p className="text-[10px] font-semibold text-rose-500 mt-0.5 uppercase tracking-wide">{errors.state}</p>}
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1 block">Preferred Quota *</Label>
-                    <Select
-                      onValueChange={(val) => handleInputChange("preferredQuota", val)}
-                      value={formData.preferredQuota || ""}
-                    >
-                      <SelectTrigger className="h-10 rounded-xl bg-slate-50 border-slate-200 text-slate-800">
-                        <SelectValue placeholder="Select Preference" />
-                      </SelectTrigger>
-                      <SelectContent className="rounded-xl">
-                        <SelectItem value="Government">State Quota Seat (Merit Based)</SelectItem>
-                        <SelectItem value="Management">Management Quota Seat</SelectItem>
-                        <SelectItem value="NRI">NRI Quota Seat</SelectItem>
-                        <SelectItem value="Any">Explore Any Available Quota</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.preferredQuota && <p className="text-[10px] font-semibold text-rose-500 mt-0.5 uppercase tracking-wide">{errors.preferredQuota}</p>}
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full h-11 bg-[#002d62] hover:bg-[#00214d] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
-                    disabled={submitting}
-                  >
-                    {submitting ? "Processing..." : (<>Register Counseling Profile <ArrowRight className="h-4 w-4" /></>)}
-                  </Button>
-
-                  <p className="text-[8px] text-center text-slate-400 font-bold uppercase tracking-wider mt-2.5">
-                    * SS Admissions Counseling Network is private and secure.
-                  </p>
-                </form>
-              )}
-            </div>
-            
-            <div className="bg-[#FAF9F6] border border-slate-250 p-5 rounded-3xl text-[10px] text-slate-500 font-semibold font-sans leading-relaxed shadow-sm">
-              <span className="block text-[8px] font-sans font-black text-slate-400 uppercase tracking-widest mb-1 leading-none">Counselling disclaimer</span>
-              * SS Admissions is an independent advising consultancy service. This portal serves to provide counseling analysis for Mahatma Gandhi Medical College, Jaipur. It is not affiliated with the government RUHS or MCC Rajasthan board.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </main>
-  );
+export default function MahatmaGandhiJaipurAdmission2026() {
+  return <MbbsCollegeLayout theme={THEME_SAFFRON} college={college} />;
 }
