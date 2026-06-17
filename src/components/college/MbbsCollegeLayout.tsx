@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Stethoscope, HeartPulse, Activity, FileText, ShieldCheck,
   Users, MapPin, BookOpen, AlertTriangle, Calendar, ArrowRight,
-  ChevronDown, ChevronUp, Sparkles, Building, Bell, CheckCircle2, Star
+  ChevronDown, ChevronUp, Sparkles, Building, Bell, CheckCircle2, Star,
+  GraduationCap, Award, Home
 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -100,6 +101,8 @@ export interface CollegeData {
   quotaOptions: QuotaOption[];
   counselingNote: string;
   formDeskLabel: string;
+  heroBgImage?: string;
+  heroBgImages?: string[];
 }
 
 interface Props {
@@ -129,10 +132,13 @@ interface HeroProps {
   theme: CollegeTheme;
   bgIndex: number;
   scrollToForm: () => void;
+  heroImages: string[];
+  dynamicH1: React.ReactNode;
+  keyFacts: { label: string; value: string; icon: React.ComponentType<{ className?: string }> }[];
 }
 
 /** Hero A — Split Panel: Text left | Image right */
-const HeroSplit = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
+const HeroSplit = ({ college, theme, bgIndex, scrollToForm, heroImages, dynamicH1, keyFacts }: HeroProps) => (
   <section className="relative z-10 overflow-hidden" style={{ minHeight: 420 }}>
     <div className="grid md:grid-cols-2" style={{ minHeight: 420 }}>
       {/* Left: Text panel */}
@@ -149,12 +155,22 @@ const HeroSplit = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
               <Star className="h-3 w-3" /> {college.heroBadgeText}
             </span>
           )}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black tracking-tight leading-tight text-white drop-shadow-md">
-            {college.heroTitle}
-          </h1>
-          <p className="text-sm leading-relaxed font-semibold" style={{ color: 'rgba(255,255,255,0.8)' }}>
+          {dynamicH1}
+          <p className="text-sm leading-relaxed font-semibold opacity-90" style={{ color: 'rgba(255,255,255,0.8)' }}>
             {college.heroSubtitle}
           </p>
+          {/* Key Facts Row */}
+          <div className="flex flex-wrap gap-2 pt-1 pb-2">
+            {keyFacts.map((fact, idx) => {
+              const Icon = fact.icon;
+              return (
+                <div key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border border-white/10 bg-white/5 text-white/90 animate-fade-in">
+                  <Icon className="h-3 w-3 opacity-75 shrink-0" />
+                  <span>{fact.label}: <strong className="font-extrabold text-white">{fact.value}</strong></span>
+                </div>
+              );
+            })}
+          </div>
           <div className="pt-2">
             <Button onClick={scrollToForm}
               className="font-black text-xs uppercase tracking-widest px-6 py-2.5 rounded-lg shadow-lg border transition-all active:scale-95"
@@ -170,7 +186,7 @@ const HeroSplit = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
       {/* Right: Image */}
       <div className="relative overflow-hidden hidden md:block">
         <AnimatePresence initial={false}>
-          <motion.img key={bgIndex} src={BG_IMAGES[bgIndex]}
+          <motion.img key={bgIndex} src={heroImages[bgIndex % heroImages.length]}
             initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }} transition={{ duration: 1.5 }}
             className="absolute inset-0 w-full h-full object-cover" alt={`${college.fullName} campus`} />
@@ -189,10 +205,10 @@ const HeroSplit = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
 );
 
 /** Hero B — Diagonal Split: Image behind a diagonal color panel */
-const HeroDiagonal = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
+const HeroDiagonal = ({ college, theme, bgIndex, scrollToForm, heroImages, dynamicH1, keyFacts }: HeroProps) => (
   <section className="relative z-10 overflow-hidden" style={{ height: 460 }}>
     <AnimatePresence initial={false}>
-      <motion.img key={bgIndex} src={BG_IMAGES[bgIndex]}
+      <motion.img key={bgIndex} src={heroImages[bgIndex % heroImages.length]}
         initial={{ opacity: 0 }} animate={{ opacity: 0.45 }} exit={{ opacity: 0 }}
         transition={{ duration: 1.5 }}
         className="absolute inset-0 w-full h-full object-cover z-0" alt={college.fullName} />
@@ -203,19 +219,29 @@ const HeroDiagonal = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
     <div className="absolute inset-0 z-5"
       style={{ background: `linear-gradient(to top, ${theme.primaryDark}80, transparent)` }} />
     <div className="container mx-auto px-6 max-w-7xl h-full relative z-20 flex items-center">
-      <div className="max-w-lg space-y-4">
+      <div className="max-w-xl space-y-4">
         {college.heroBadgeText && (
           <span className="inline-block text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded"
             style={{ background: theme.accent, color: theme.accentOnAccent }}>
             {college.heroBadgeText}
           </span>
         )}
-        <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-tight leading-tight text-white">
-          {college.heroTitle}
-        </h1>
-        <p className="text-sm font-semibold leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)' }}>
+        {dynamicH1}
+        <p className="text-sm font-semibold leading-relaxed opacity-90" style={{ color: 'rgba(255,255,255,0.8)' }}>
           {college.heroSubtitle}
         </p>
+        {/* Key Facts Row */}
+        <div className="flex flex-wrap gap-2 pt-1 pb-2">
+          {keyFacts.map((fact, idx) => {
+            const Icon = fact.icon;
+            return (
+              <div key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border border-white/10 bg-white/5 text-white/90">
+                <Icon className="h-3 w-3 opacity-75 shrink-0" />
+                <span>{fact.label}: <strong className="font-extrabold text-white">{fact.value}</strong></span>
+              </div>
+            );
+          })}
+        </div>
         <Button onClick={scrollToForm}
           className="font-black text-xs uppercase tracking-widest px-6 py-2.5 rounded-lg shadow-lg border active:scale-95"
           style={{ background: theme.accent, color: theme.accentOnAccent, borderColor: theme.accentDark }}>
@@ -227,10 +253,10 @@ const HeroDiagonal = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
 );
 
 /** Hero C — Full-Bleed Centred: Central text overlay on full-height image */
-const HeroFullBleed = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
+const HeroFullBleed = ({ college, theme, bgIndex, scrollToForm, heroImages, dynamicH1, keyFacts }: HeroProps) => (
   <section className="relative z-10 overflow-hidden" style={{ height: 480 }}>
     <AnimatePresence initial={false}>
-      <motion.img key={bgIndex} src={BG_IMAGES[bgIndex]}
+      <motion.img key={bgIndex} src={heroImages[bgIndex % heroImages.length]}
         initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} exit={{ opacity: 0 }}
         transition={{ duration: 1.5 }}
         className="absolute inset-0 w-full h-full object-cover z-0" alt={college.fullName} />
@@ -239,19 +265,29 @@ const HeroFullBleed = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => 
       style={{ background: `linear-gradient(to top, ${theme.primaryDark}f5 40%, ${theme.primary}88 80%, ${theme.primary}60 100%)` }} />
     <div className="container mx-auto px-6 max-w-7xl h-full relative z-20 flex flex-col items-center justify-center text-center">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-        className="max-w-2xl space-y-4">
+        className="max-w-3xl space-y-4">
         {college.heroBadgeText && (
           <span className="inline-block text-[9px] font-black uppercase tracking-[0.2em] px-4 py-1.5 rounded-full"
             style={{ background: theme.accent, color: theme.accentOnAccent }}>
             {college.heroBadgeText}
           </span>
         )}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black tracking-tight leading-tight text-white drop-shadow-lg">
-          {college.heroTitle}
-        </h1>
-        <p className="text-sm font-semibold leading-relaxed max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.85)' }}>
+        {dynamicH1}
+        <p className="text-sm font-semibold leading-relaxed max-w-xl mx-auto opacity-90" style={{ color: 'rgba(255,255,255,0.85)' }}>
           {college.heroSubtitle}
         </p>
+        {/* Key Facts Row */}
+        <div className="flex flex-wrap gap-2 pt-1 pb-2 justify-center">
+          {keyFacts.map((fact, idx) => {
+            const Icon = fact.icon;
+            return (
+              <div key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border border-white/10 bg-white/5 text-white/90">
+                <Icon className="h-3 w-3 opacity-75 shrink-0" />
+                <span>{fact.label}: <strong className="font-extrabold text-white">{fact.value}</strong></span>
+              </div>
+            );
+          })}
+        </div>
         <div className="flex justify-center gap-3 pt-2">
           <Button onClick={scrollToForm}
             className="font-black text-xs uppercase tracking-widest px-8 py-3 rounded-full shadow-xl border active:scale-95"
@@ -265,7 +301,7 @@ const HeroFullBleed = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => 
 );
 
 /** Hero D — Geometric: Dark panel with geometric shapes, image fade-in on right */
-const HeroGeometric = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
+const HeroGeometric = ({ college, theme, bgIndex, scrollToForm, heroImages, dynamicH1, keyFacts }: HeroProps) => (
   <section className="relative z-10 overflow-hidden" style={{ height: 440, background: theme.primary }}>
     {/* Geometric circles */}
     <div className="absolute -right-20 -top-20 w-96 h-96 rounded-full opacity-10"
@@ -274,7 +310,7 @@ const HeroGeometric = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => 
       style={{ background: theme.accent }} />
     <div className="absolute right-0 top-0 bottom-0 w-1/2 opacity-30 overflow-hidden hidden md:block">
       <AnimatePresence initial={false}>
-        <motion.img key={bgIndex} src={BG_IMAGES[bgIndex]}
+        <motion.img key={bgIndex} src={heroImages[bgIndex % heroImages.length]}
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           transition={{ duration: 1.5 }}
           className="w-full h-full object-cover" alt={college.fullName} />
@@ -284,19 +320,29 @@ const HeroGeometric = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => 
     <div className="absolute inset-0 opacity-5"
       style={{ backgroundImage: `linear-gradient(${theme.accent} 1px, transparent 1px), linear-gradient(90deg, ${theme.accent} 1px, transparent 1px)`, backgroundSize: '40px 40px' }} />
     <div className="container mx-auto px-6 max-w-7xl h-full relative z-10 flex items-center">
-      <div className="max-w-lg space-y-5">
+      <div className="max-w-xl space-y-5">
         <div className="flex items-center gap-3">
           <div className="w-10 h-0.5" style={{ background: theme.accent }} />
           <span className="text-[9px] font-black uppercase tracking-[0.25em]" style={{ color: theme.accent }}>
             {college.heroBadgeText || 'MBBS Admissions 2026'}
           </span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-tight leading-tight text-white">
-          {college.heroTitle}
-        </h1>
-        <p className="text-sm font-semibold leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+        {dynamicH1}
+        <p className="text-sm font-semibold leading-relaxed opacity-90" style={{ color: 'rgba(255,255,255,0.75)' }}>
           {college.heroSubtitle}
         </p>
+        {/* Key Facts Row */}
+        <div className="flex flex-wrap gap-2 pt-1 pb-2">
+          {keyFacts.map((fact, idx) => {
+            const Icon = fact.icon;
+            return (
+              <div key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border border-white/10 bg-white/5 text-white/90">
+                <Icon className="h-3 w-3 opacity-75 shrink-0" />
+                <span>{fact.label}: <strong className="font-extrabold text-white">{fact.value}</strong></span>
+              </div>
+            );
+          })}
+        </div>
         <Button onClick={scrollToForm}
           className="font-black text-xs uppercase tracking-widest px-6 py-2.5 rounded-lg border active:scale-95 shadow-lg"
           style={{ background: theme.accent, color: theme.accentOnAccent, borderColor: theme.accentDark }}>
@@ -308,10 +354,10 @@ const HeroGeometric = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => 
 );
 
 /** Hero E — Warm: Side gradient over landscape image with warm tones */
-const HeroWarm = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
+const HeroWarm = ({ college, theme, bgIndex, scrollToForm, heroImages, dynamicH1, keyFacts }: HeroProps) => (
   <section className="relative z-10 overflow-hidden" style={{ height: 460 }}>
     <AnimatePresence initial={false}>
-      <motion.img key={bgIndex} src={BG_IMAGES[bgIndex]}
+      <motion.img key={bgIndex} src={heroImages[bgIndex % heroImages.length]}
         initial={{ opacity: 0 }} animate={{ opacity: 0.7 }} exit={{ opacity: 0 }}
         transition={{ duration: 1.5 }}
         className="absolute inset-0 w-full h-full object-cover z-0" alt={college.fullName} />
@@ -326,19 +372,29 @@ const HeroWarm = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
     <div className="absolute top-0 left-0 right-0 h-1 z-30"
       style={{ background: `linear-gradient(to right, ${theme.accent}, ${theme.accentDark}, ${theme.accent})` }} />
     <div className="container mx-auto px-6 max-w-7xl h-full relative z-20 flex items-center">
-      <div className="max-w-lg space-y-4">
+      <div className="max-w-xl space-y-4">
         {college.heroBadgeText && (
           <span className="inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded"
             style={{ background: theme.accent, color: theme.accentOnAccent }}>
             ✦ {college.heroBadgeText}
           </span>
         )}
-        <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-tight leading-tight text-white drop-shadow">
-          {college.heroTitle}
-        </h1>
-        <p className="text-sm font-semibold leading-relaxed" style={{ color: 'rgba(255,255,255,0.82)' }}>
+        {dynamicH1}
+        <p className="text-sm font-semibold leading-relaxed opacity-90" style={{ color: 'rgba(255,255,255,0.82)' }}>
           {college.heroSubtitle}
         </p>
+        {/* Key Facts Row */}
+        <div className="flex flex-wrap gap-2 pt-1 pb-2">
+          {keyFacts.map((fact, idx) => {
+            const Icon = fact.icon;
+            return (
+              <div key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border border-white/10 bg-white/5 text-white/90">
+                <Icon className="h-3 w-3 opacity-75 shrink-0" />
+                <span>{fact.label}: <strong className="font-extrabold text-white">{fact.value}</strong></span>
+              </div>
+            );
+          })}
+        </div>
         <Button onClick={scrollToForm}
           className="font-black text-xs uppercase tracking-widest px-6 py-2.5 rounded-xl shadow-lg border active:scale-95"
           style={{ background: theme.accent, color: theme.accentOnAccent, borderColor: theme.accentDark }}>
@@ -350,7 +406,7 @@ const HeroWarm = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
 );
 
 /** Hero F — Sky Gradient: Indigo-to-purple gradient with dot grid and image */
-const HeroSkyGrad = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
+const HeroSkyGrad = ({ college, theme, bgIndex, scrollToForm, heroImages, dynamicH1, keyFacts }: HeroProps) => (
   <section className="relative z-10 overflow-hidden" style={{ height: 440,
     background: `linear-gradient(135deg, ${theme.primaryDark} 0%, ${theme.primary} 50%, ${theme.accent}88 100%)` }}>
     {/* Dot grid overlay */}
@@ -359,7 +415,7 @@ const HeroSkyGrad = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
     {/* Right-side image */}
     <div className="absolute right-0 top-0 bottom-0 w-5/12 opacity-20 hidden md:block overflow-hidden">
       <AnimatePresence initial={false}>
-        <motion.img key={bgIndex} src={BG_IMAGES[bgIndex]}
+        <motion.img key={bgIndex} src={heroImages[bgIndex % heroImages.length]}
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           transition={{ duration: 1.5 }}
           className="w-full h-full object-cover" alt={college.fullName} />
@@ -376,12 +432,22 @@ const HeroSkyGrad = ({ college, theme, bgIndex, scrollToForm }: HeroProps) => (
             {college.heroBadgeText}
           </span>
         )}
-        <h1 className="text-3xl sm:text-4xl font-serif font-black tracking-tight leading-tight text-white">
-          {college.heroTitle}
-        </h1>
-        <p className="text-sm font-semibold leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)' }}>
+        {dynamicH1}
+        <p className="text-sm font-semibold leading-relaxed opacity-90" style={{ color: 'rgba(255,255,255,0.8)' }}>
           {college.heroSubtitle}
         </p>
+        {/* Key Facts Row */}
+        <div className="flex flex-wrap gap-2 pt-1 pb-2">
+          {keyFacts.map((fact, idx) => {
+            const Icon = fact.icon;
+            return (
+              <div key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border border-white/10 bg-white/5 text-white/90">
+                <Icon className="h-3 w-3 opacity-75 shrink-0" />
+                <span>{fact.label}: <strong className="font-extrabold text-white">{fact.value}</strong></span>
+              </div>
+            );
+          })}
+        </div>
         <div className="flex gap-3">
           <Button onClick={scrollToForm}
             className="font-black text-xs uppercase tracking-widest px-6 py-2.5 rounded-xl border active:scale-95 shadow-lg"
@@ -416,9 +482,9 @@ const HeaderCrest = ({ college, theme }: HeaderProps) => (
               {college.hindiName}
             </span>
           )}
-          <h1 className="text-xl sm:text-2xl font-serif font-black tracking-tight leading-tight mt-1" style={{ color: theme.primary }}>
+          <div className="text-xl sm:text-2xl font-serif font-black tracking-tight leading-tight mt-1" style={{ color: theme.primary }}>
             {college.fullName.toUpperCase()}
-          </h1>
+          </div>
           <p className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5 leading-none">
             {college.affiliation}
           </p>
@@ -454,9 +520,9 @@ const HeaderHorizontal = ({ college, theme }: HeaderProps) => (
               {college.hindiName}
             </span>
           )}
-          <h1 className="text-lg sm:text-xl font-serif font-black tracking-tight leading-tight" style={{ color: theme.primary }}>
+          <div className="text-lg sm:text-xl font-serif font-black tracking-tight leading-tight" style={{ color: theme.primary }}>
             {college.fullName.toUpperCase()}
-          </h1>
+          </div>
           <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mt-0.5">
             {college.affiliation}
           </p>
@@ -481,10 +547,10 @@ const HeaderTypographic = ({ college, theme }: HeaderProps) => (
           {college.hindiName && (
             <p className="text-[11px] font-bold mb-1" style={{ color: theme.accent }}>{college.hindiName}</p>
           )}
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-serif font-black tracking-tight leading-none"
+          <div className="text-xl sm:text-2xl md:text-3xl font-serif font-black tracking-tight leading-none"
             style={{ color: theme.primary }}>
             {college.fullName.toUpperCase()}
-          </h1>
+          </div>
           <div className="flex items-center gap-3 mt-2">
             <div className="h-0.5 w-12" style={{ background: theme.accent }} />
             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{college.affiliation}</p>
@@ -513,9 +579,9 @@ const HeaderMinimal = ({ college, theme }: HeaderProps) => (
           {college.hindiName && (
             <p className="text-[9px] font-bold leading-none mb-0.5" style={{ color: theme.accent }}>{college.hindiName}</p>
           )}
-          <h1 className="text-base sm:text-lg font-sans font-black tracking-tight leading-none" style={{ color: theme.primary }}>
+          <div className="text-base sm:text-lg font-sans font-black tracking-tight leading-none" style={{ color: theme.primary }}>
             {college.fullName.toUpperCase()}
-          </h1>
+          </div>
           <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">{college.affiliation}</p>
         </div>
       </div>
@@ -551,9 +617,9 @@ const HeaderOrnate = ({ college, theme }: HeaderProps) => (
           {college.hindiName && (
             <span className="block text-xs font-bold text-white/70 leading-none">{college.hindiName}</span>
           )}
-          <h1 className="text-lg sm:text-xl font-serif font-black tracking-tight text-white leading-tight">
+          <div className="text-lg sm:text-xl font-serif font-black tracking-tight text-white leading-tight">
             {college.fullName.toUpperCase()}
-          </h1>
+          </div>
           <p className="text-white/60 text-[9px] font-bold uppercase tracking-wider mt-0.5">{college.affiliation}</p>
         </div>
       </div>
@@ -585,9 +651,9 @@ const HeaderModern = ({ college, theme }: HeaderProps) => (
           {college.hindiName && (
             <p className="text-[9px] font-bold leading-none mb-1" style={{ color: theme.accent }}>{college.hindiName}</p>
           )}
-          <h1 className="text-base sm:text-xl font-sans font-black tracking-tight leading-tight" style={{ color: theme.primary }}>
+          <div className="text-base sm:text-xl font-sans font-black tracking-tight leading-tight" style={{ color: theme.primary }}>
             {college.fullName.toUpperCase()}
-          </h1>
+          </div>
           <p className="text-slate-400 text-[9px] font-bold uppercase tracking-wider mt-0.5">{college.affiliation}</p>
         </div>
       </div>
@@ -639,11 +705,89 @@ export default function MbbsCollegeLayout({ theme, college }: Props) {
     faqs: useRef<HTMLElement>(null),
   };
 
+  const heroImages = college.heroBgImages || (college.heroBgImage ? [college.heroBgImage] : BG_IMAGES);
+
+  // Dynamically build the semantic H1 element with visual styling to make the college name the focal point
+  const locationParts = college.location.split(',').map(p => p.trim());
+  const city = locationParts[locationParts.length - 2] || locationParts[0] || '';
+  
+  // Format official name to Title Case if it's currently all-caps
+  const formattedName = college.fullName.toUpperCase() === college.fullName
+    ? college.fullName.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())
+    : college.fullName;
+
+  const shortForm = college.abbreviation ? `(${college.abbreviation})` : '';
+
+  const dynamicH1 = (
+    <h1 className="font-serif tracking-tight leading-tight text-white drop-shadow-md">
+      <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-1.5 uppercase leading-tight">
+        {formattedName}
+      </span>
+      {shortForm && (
+        <span className="inline-block text-base sm:text-lg md:text-xl font-bold bg-white/10 backdrop-blur-sm px-2.5 py-0.5 rounded-md border border-white/10 mr-2 uppercase">
+          {college.abbreviation}
+        </span>
+      )}
+      <span className="inline-block text-base sm:text-lg md:text-xl font-semibold opacity-90 font-sans tracking-wide">
+        {city} – MBBS Admission 2026
+      </span>
+    </h1>
+  );
+
+  // Dynamic Key Facts Badges
+  const getEstablishedYear = () => {
+    const found = college.highlights.find(h => 
+      h.title.toLowerCase().includes('establish') || 
+      h.title.toLowerCase().includes('year')
+    );
+    return found ? found.value : '2013';
+  };
+
+  const getMbbsSeats = () => {
+    const found = college.highlights.find(h => 
+      h.title.toLowerCase().includes('intake') || 
+      h.title.toLowerCase().includes('seat')
+    );
+    return found ? found.value : '250 Seats';
+  };
+
+  const getNmcApproval = () => {
+    const found = college.highlights.find(h => 
+      h.title.toLowerCase().includes('nmc') || 
+      h.title.toLowerCase().includes('approval') ||
+      h.title.toLowerCase().includes('status')
+    );
+    return found ? found.value : 'Approved';
+  };
+
+  const getAffiliatedUniv = () => {
+    const found = college.highlights.find(h => 
+      h.title.toLowerCase().includes('university') ||
+      h.title.toLowerCase().includes('affiliat')
+    );
+    if (found) return found.value.replace(/University/gi, 'Univ.');
+    if (college.affiliation) {
+      const parts = college.affiliation.split('|').map(p => p.trim());
+      const univPart = parts.find(p => p.toLowerCase().includes('affiliated') || p.toLowerCase().includes('wbuhs') || p.toLowerCase().includes('rguhs') || p.toLowerCase().includes('health'));
+      return (univPart || parts[0]).replace(/University/gi, 'Univ.');
+    }
+    return 'Affiliated';
+  };
+
+  const keyFacts = [
+    { label: "Location", value: city, icon: MapPin },
+    { label: "Established", value: getEstablishedYear(), icon: Calendar },
+    { label: "Seats", value: getMbbsSeats(), icon: Users },
+    { label: "NMC Status", value: getNmcApproval(), icon: ShieldCheck },
+    { label: "Affiliation", value: getAffiliatedUniv(), icon: Building }
+  ];
+
   // Image slideshow
   useEffect(() => {
-    const interval = setInterval(() => setBgIndex(p => (p + 1) % BG_IMAGES.length), 6000);
+    if (heroImages.length <= 1) return;
+    const interval = setInterval(() => setBgIndex(p => (p + 1) % heroImages.length), 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages.length]);
 
   // Scroll spy
   useEffect(() => {
@@ -719,8 +863,77 @@ export default function MbbsCollegeLayout({ theme, college }: Props) {
 
   const currentAnalysis = college.getEligibilityAnalysis(predictorScore, predictorCategory);
 
+  // Helper to extract clean content for Why Choose cards
+  const getClinicalExposure = () => {
+    const overviewClinical = college.overviewParagraphs.find(p => 
+      p.toLowerCase().includes('opd') || 
+      p.toLowerCase().includes('patient') || 
+      p.toLowerCase().includes('clinical') ||
+      p.toLowerCase().includes('hands-on')
+    );
+    if (overviewClinical) {
+      const text = overviewClinical.replace(/<[^>]*>/g, '').trim();
+      return text.length > 140 ? text.slice(0, 137) + '...' : text;
+    }
+    const found = college.facilities.find(f => 
+      f.desc.toLowerCase().includes('opd') || 
+      f.desc.toLowerCase().includes('patient') || 
+      f.desc.toLowerCase().includes('clinical')
+    );
+    if (found) return found.desc;
+    return `Hands-on training through intensive clinical rotations in critical care, OPD, and super-specialty departments.`;
+  };
+
+  const getHospitalStrength = () => {
+    const bedHighlight = college.highlights.find(h => 
+      h.title.toLowerCase().includes('bed') || 
+      h.title.toLowerCase().includes('hospital')
+    );
+    const bedFacility = college.facilities.find(f => 
+      f.title.toLowerCase().includes('bed') || 
+      f.title.toLowerCase().includes('hospital')
+    );
+    if (bedHighlight) {
+      return `${bedHighlight.value} tertiary-care hospital: ${bedHighlight.desc}`;
+    }
+    if (bedFacility) {
+      return `${bedFacility.title}: ${bedFacility.desc}`;
+    }
+    return `Fully functional tertiary teaching hospital providing extensive primary-to-tertiary healthcare services.`;
+  };
+
+  const getInfrastructure = () => {
+    const found = college.facilities.find(f => 
+      f.title.toLowerCase().includes('lab') || 
+      f.title.toLowerCase().includes('classroom') || 
+      f.title.toLowerCase().includes('lecture') || 
+      f.title.toLowerCase().includes('library') || 
+      f.title.toLowerCase().includes('infrastructure')
+    );
+    if (found) return `${found.title}: ${found.desc}`;
+    return `Equipped with state-of-the-art smart lecture theaters, advanced labs, skill libraries, and fully-stocked digital databases.`;
+  };
+
+  const getHostel = () => {
+    const found = college.facilities.find(f => 
+      f.title.toLowerCase().includes('hostel') || 
+      f.title.toLowerCase().includes('accommodation') || 
+      f.title.toLowerCase().includes('secure accommodation')
+    );
+    if (found) return found.desc;
+    return `Safe and secure on-campus residential housing for students with modern amenities, study rooms, and hygienic dining mess.`;
+  };
+
+  const getAcademics = () => {
+    return `${college.affiliation}. Rigorous medical program following National Medical Commission guidelines.`;
+  };
+
+  const getCareers = () => {
+    return `Graduates are registered under the NMC/State councils and eligible for PG residency pathways and placements across India and globally.`;
+  };
+
   // Render heroes
-  const heroProps: HeroProps = { college, theme, bgIndex, scrollToForm };
+  const heroProps: HeroProps = { college, theme, bgIndex, scrollToForm, heroImages, dynamicH1, keyFacts };
   const HeroComponent = {
     split: HeroSplit, diagonal: HeroDiagonal, fullbleed: HeroFullBleed,
     geometric: HeroGeometric, warm: HeroWarm, skygrad: HeroSkyGrad,
@@ -788,36 +1001,92 @@ export default function MbbsCollegeLayout({ theme, college }: Props) {
       {/* ── MAIN INFO GRID (Dean + Notices + Predictor) ──────────── */}
       <div className="container mx-auto px-4 max-w-7xl py-10">
         <div className="grid lg:grid-cols-12 gap-8 items-start">
-          {/* Dean's Message */}
-          <div className="lg:col-span-4 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-5">
-            <div className="border-b border-slate-100 pb-3">
-              <span className="block text-[8px] font-black uppercase tracking-[0.22em]" style={{ color: theme.accent }}>
-                Welcome Desk
-              </span>
-              <h3 className="text-lg font-serif font-black mt-1" style={{ color: theme.primary }}>Dean's Message</h3>
-            </div>
-            <div className="space-y-4">
-              <div className="relative rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 aspect-[4/3] flex items-center justify-center">
-                <Stethoscope className="h-14 w-14 text-slate-300 absolute" />
-                <img src={mbbs3} className="w-full h-full object-cover object-center opacity-70 relative z-10" alt="Dean" />
-                <div className="absolute bottom-0 left-0 right-0 p-3 z-20 text-center"
-                  style={{ background: `${theme.primaryDark}e8` }}>
-                  <span className="block text-xs font-bold text-white">{college.deanName}</span>
-                  <span className="block text-[9px] uppercase tracking-widest font-black mt-0.5"
-                    style={{ color: theme.accent }}>{college.deanDesignation}</span>
-                </div>
+          {/* Why Students Choose [College Name] */}
+          <div className="lg:col-span-4 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
+            <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+              <div>
+                <span className="block text-[8px] font-black uppercase tracking-[0.22em]" style={{ color: theme.accent }}>
+                  Student Decision
+                </span>
+                <h3 className="text-lg font-serif font-black mt-1" style={{ color: theme.primary }}>
+                  Why Choose {college.abbreviation}
+                </h3>
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed font-medium italic">"{college.deanQuote}"</p>
-              <div className="border-t border-slate-100 pt-3 flex gap-4 text-xs">
-                <div>
-                  <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest">Campus</span>
-                  <span className="block font-bold text-slate-900 mt-0.5">{college.location.split(',')[0]}</span>
-                </div>
-                <div className="border-l border-slate-200 pl-4">
-                  <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest">Inquiries</span>
-                  <a href={`mailto:${college.contactEmail}`} className="block font-bold hover:underline mt-0.5"
-                    style={{ color: theme.primary }}>{college.contactEmail}</a>
-                </div>
+              <Sparkles className="h-5 w-5 animate-pulse" style={{ color: theme.accent }} />
+            </div>
+            
+            <div className="space-y-3">
+              {[
+                { 
+                  title: "Clinical Exposure", 
+                  desc: getClinicalExposure(), 
+                  icon: Stethoscope 
+                },
+                { 
+                  title: "Hospital Strength", 
+                  desc: getHospitalStrength(), 
+                  icon: HeartPulse 
+                },
+                { 
+                  title: "Infrastructure", 
+                  desc: getInfrastructure(), 
+                  icon: Building 
+                },
+                { 
+                  title: "Hostel Facilities", 
+                  desc: getHostel(), 
+                  icon: Home 
+                },
+                { 
+                  title: "Academic Quality", 
+                  desc: getAcademics(), 
+                  icon: GraduationCap 
+                },
+                { 
+                  title: "Career Pathways", 
+                  desc: getCareers(), 
+                  icon: Award 
+                }
+              ].map((feature, idx) => {
+                const IconComponent = feature.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ scale: 1.01, y: -1 }}
+                    className="p-3 rounded-2xl border border-slate-100 hover:border-slate-200 transition-all shadow-sm flex items-start gap-3 bg-slate-50/20 hover:bg-slate-50/60"
+                  >
+                    <div 
+                      className="p-2 rounded-xl shrink-0 border mt-0.5"
+                      style={{ 
+                        background: `${theme.primary}10`, 
+                        borderColor: `${theme.primary}20`,
+                        color: theme.primary 
+                      }}
+                    >
+                      <IconComponent className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="space-y-0.5">
+                      <h4 className="text-[10px] font-black text-slate-800 uppercase tracking-wide">
+                        {feature.title}
+                      </h4>
+                      <p className="text-[10.5px] text-slate-500 font-semibold leading-relaxed">
+                        {feature.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="border-t border-slate-100 pt-4 flex gap-4 text-xs">
+              <div>
+                <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest">Campus</span>
+                <span className="block font-bold text-slate-900 mt-0.5">{college.location.split(',')[0]}</span>
+              </div>
+              <div className="border-l border-slate-200 pl-4">
+                <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest">Official Email</span>
+                <a href={`mailto:${college.contactEmail}`} className="block font-bold hover:underline mt-0.5"
+                  style={{ color: theme.primary }}>{college.contactEmail}</a>
               </div>
             </div>
           </div>

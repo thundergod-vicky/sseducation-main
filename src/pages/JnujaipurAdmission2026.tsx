@@ -247,6 +247,11 @@ const college: CollegeData = {
 ],
   counselingNote: "Counseling guidelines are subject to official notifications.",
   formDeskLabel: "Registration Desk",
+  heroBgImages: [
+    "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHUOrPd5eGTHzIqBRm1fuoakjmmZp6wbuuMVH0TKKdDscnBkGXWHDi4Q6u_sXAqhCtbJMeeMvPl9X5gay3wstQJQUQLNY6XDcUM17OnjsOGlXVdPrcx9EJP-9vxiBUBEay0Bfnu=s1360-w1360-h1020-rw",
+    "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGmI1TDgBTfU3Si__R98EP5Vu3sgxJEQsXwFZX7X9h99mjO0LP6zqRxysR82h5bEiO_hqvbHEz_6V4VzrZJzYSh_GBLL7p8UYK5_38DjFnwg47yO5SObl4-W0R0zh9gcEQosE7q=s1360-w1360-h1020-rw",
+    "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHUw-cfhItn60i6iiwkULqQ5DK5pVS1UESBRfbRSlIXKyKDpZFeO5tGnFlbQMNwjxo92-P-q9PA6kTI4jLS0VW_hvr-GqDUlrQzNpm8PZ5xEPJSlHZk2zq5_FC7-1irKrJm04HaTA=s1360-w1360-h1020-rw",
+  ],
 };
 
 export default function JnujaipurAdmission2026() {

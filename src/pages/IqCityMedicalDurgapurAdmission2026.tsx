@@ -2,6 +2,7 @@ import MbbsCollegeLayout from "@/components/college/MbbsCollegeLayout";
 import { THEME_SLATE } from "@/components/college/MbbsThemes";
 import type { CollegeData } from "@/components/college/MbbsCollegeLayout";
 import { HeartPulse, Activity, FileText, ShieldCheck, Users, MapPin, BookOpen, Sparkles, Building, Calendar } from "lucide-react";
+import iqCityCampus from "@/assets/iq-city-campus.webp";
 
 const college: CollegeData = {
   seoTitle: "IQ City Medical College Durgapur MBBS Admission 2026 - Fees & Cutoff",
@@ -245,6 +246,7 @@ const college: CollegeData = {
 ],
   counselingNote: "Admissions to IQ City Medical College are processed via WBMCC. Register to track counseling windows, choice locking, and vacancy round updates.",
   formDeskLabel: "WBMCC Registration Desk",
+  heroBgImage: iqCityCampus,
 };
 
 export default function IqCityMedicalDurgapurAdmission2026() {

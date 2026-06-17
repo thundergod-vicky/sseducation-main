@@ -2,6 +2,7 @@ import MbbsCollegeLayout from "@/components/college/MbbsCollegeLayout";
 import { THEME_SAFFRON } from "@/components/college/MbbsThemes";
 import type { CollegeData } from "@/components/college/MbbsCollegeLayout";
 import { HeartPulse, Activity, FileText, ShieldCheck, Users, MapPin, BookOpen, Sparkles, Building, Calendar } from "lucide-react";
+import mahatmaGandhiCampus from "@/assets/mahatma-gandhi-campus.webp";
 
 const college: CollegeData = {
   seoTitle: "Mahatma Gandhi Medical College (MGMCH) Jaipur MBBS Admission 2026",
@@ -247,6 +248,7 @@ const college: CollegeData = {
 ],
   counselingNote: "Counseling guidelines are subject to official notifications.",
   formDeskLabel: "Registration Desk",
+  heroBgImage: mahatmaGandhiCampus,
 };
   ];
 

@@ -6,7 +6,14 @@ import labImg from "@/assets/kiit-students-lab.jpg";
 import gradImg from "@/assets/kiit-graduation.jpg";
 import quadImg from "@/assets/kiit-quad.jpg";
 
+const heroHeroImg = "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHUOrPd5eGTHzIqBRm1fuoakjmmZp6wbuuMVH0TKKdDscnBkGXWHDi4Q6u_sXAqhCtbJMeeMvPl9X5gay3wstQJQUQLNY6XDcUM17OnjsOGlXVdPrcx9EJP-9vxiBUBEay0Bfnu=s1360-w1360-h1020-rw";
+const heroImg2 = "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGmI1TDgBTfU3Si__R98EP5Vu3sgxJEQsXwFZX7X9h99mjO0LP6zqRxysR82h5bEiO_hqvbHEz_6V4VzrZJzYSh_GBLL7p8UYK5_38DjFnwg47yO5SObl4-W0R0zh9gcEQosE7q=s1360-w1360-h1020-rw";
+const heroImg3 = "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHUw-cfhItn60i6iiwkULqQ5DK5pVS1UESBRfbRSlIXKyKDpZFeO5tGnFlbQMNwjxo92-P-q9PA6kTI4jLS0VW_hvr-GqDUlrQzNpm8PZ5xEPJSlHZk2zq5_FC7-1irKrJm04HaTA=s1360-w1360-h1020-rw";
+
 const slides = [
+  { img: heroHeroImg, eyebrow: "NIRF Rank 36", title: "Top Engineering University", subtitle: "400+ acre world-class campus" },
+  { img: heroImg2, eyebrow: "Academic Excellence", title: "NAAC A++ Accredited", subtitle: "Deemed University since 2004" },
+  { img: heroImg3, eyebrow: "Future-Ready Facilities", title: "World-Class Infrastructure", subtitle: "State-of-the-art campus & labs" },
   { img: campusImg, eyebrow: "NIRF Rank 36", title: "Top Engineering University", subtitle: "400+ acre world-class campus" },
   { img: academicImg, eyebrow: "Academic Excellence", title: "NAAC A++ Accredited", subtitle: "Deemed University since 2004" },
   { img: labImg, eyebrow: "Future-Ready Labs", title: "Cutting-Edge Tech Facilities", subtitle: "AI/ML, CSE & Data Science focus" },

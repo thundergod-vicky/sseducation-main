@@ -247,6 +247,7 @@ const college: CollegeData = {
 ],
   counselingNote: "Counseling guidelines are subject to official notifications.",
   formDeskLabel: "Registration Desk",
+  heroBgImage: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFS0oxP1LLFWOqE97SxwM2FsTaHtQcuqF7FhJDmHd0go0A-6KD3QZml8xsbclgXDsDNGwHEWg2Gcv7eSqtJRmkoRafPmV1nPZJyyOpQvyGAcsnpgQomy3iUJmJnmzhUzULRj3E=s1360-w1360-h1020-rw",
 };
 
 export default function NimsJaipurAdmission2026() {
