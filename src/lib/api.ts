@@ -6,8 +6,22 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5050/api'
 export const resolveImageUrl = (imagePath: string | undefined | null): string => {
   if (!imagePath) return '';
   if (imagePath.startsWith('http')) return imagePath;
-  const base = API_BASE_URL.replace('/api', '');
-  return `${base}${imagePath}`;
+  
+  let base = API_BASE_URL.replace('/api', '');
+  
+  // If base doesn't start with protocol, normalize it
+  if (!base.startsWith('http://') && !base.startsWith('https://')) {
+    // Strip leading dots or slashes
+    while (base.startsWith('.') || base.startsWith('/')) {
+      base = base.substring(1);
+    }
+    base = `https://${base}`;
+  }
+  
+  const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+  
+  return `${cleanBase}${cleanPath}`;
 };
 
 /**
