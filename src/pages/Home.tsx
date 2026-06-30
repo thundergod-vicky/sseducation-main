@@ -1,10 +1,12 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, GraduationCap, Users, BookOpen, Globe, MessageCircle, Phone, ShieldCheck, Star, Calendar } from "lucide-react";
+import { ArrowRight, CheckCircle2, GraduationCap, Users, BookOpen, Globe, MessageCircle, Phone, ShieldCheck, Star, Calendar, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Stats } from "@/components/landing/Stats";
 import { CollegeCard } from "@/components/landing/CollegeCard";
 import { LeadForm } from "@/components/landing/LeadForm";
 import { useSeo } from "@/hooks/useSeo";
+import { apiRequest, resolveImageUrl } from "@/lib/api";
 
 const FEATURED_COLLEGES = [
   {
@@ -157,6 +159,81 @@ const Home = () => {
     description: "SS Educational Services is East India's most trusted educational consultancy. We provide expert admission guidance for top B.Tech, MBBS, and MBA colleges in India."
   });
 
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [stories, setStories] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const data = await apiRequest("/blogs");
+        if (data) {
+          setBlogs(data.slice(0, 3));
+        }
+      } catch (error) {
+        console.error("Failed to load home page blogs", error);
+      }
+    };
+    const fetchStories = async () => {
+      try {
+        const data = await apiRequest("/stories");
+        if (data && data.length > 0) {
+          setStories(data);
+        }
+      } catch (error) {
+        console.error("Failed to load home page success stories", error);
+      }
+    };
+    fetchBlogs();
+    fetchStories();
+  }, []);
+
+  const currentStories = stories.length > 0 ? stories : [
+    {
+      studentName: "Kunal Mehta",
+      course: "B.Tech Aspirant",
+      testimonial: "I had no idea how to begin my B.Tech admission. Their team supported me with documents, comparison, and application submission.",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Ananya Verma",
+      course: "MBA Student",
+      testimonial: "The counselling sessions were clear and very helpful. They explained fees, placements, and specialisations in detail. I'm now pursuing my MBA.",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Rahul Sharma",
+      course: "Engineering Student",
+      testimonial: "SS Education made my RVCE admission journey incredibly smooth. From selecting the branch to paperwork, they were with me at every step.",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Priya Das",
+      course: "Medical Aspirant",
+      testimonial: "I was so confused about NEET counseling, but the team here explained everything so simply. I'm finally in my dream medical college!",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Vikram Singh",
+      course: "B.Tech Student",
+      testimonial: "The direct admission support was a lifesaver. No hidden fees, no stress. Just genuine help when I needed it most. Highly recommended!",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Sanya Malhotra",
+      course: "MBA Aspirant",
+      testimonial: "Best consultancy for MBA. They helped me with CAT score analysis and suggested colleges that I actually had a chance with.",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Arjun Reddy",
+      course: "Engineering Student",
+      testimonial: "Their network of colleges is huge. I got options I hadn't even heard of, and one turned out to be the perfect fit for my budget.",
+      image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200&h=200&auto=format&fit=crop"
+    }
+  ];
+
+  const doubledStories = [...currentStories, ...currentStories];
+
   return (
     <main className="overflow-hidden">
       {/* Hero Section - Single Section Landing */}
@@ -240,7 +317,7 @@ const Home = () => {
                 </div>
               </motion.div>
 
-              {/* Top Student Success Rate - Red (Tallest) */}
+              {/* Top Blog Post Intro - Red (Tallest) */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -249,31 +326,31 @@ const Home = () => {
                 className="bg-red-600 p-8 rounded-t-2xl text-white flex flex-col gap-6 relative overflow-hidden min-h-[280px] justify-center shadow-2xl md:rounded-tl-[3rem]"
               >
                 <div className="flex items-center gap-2">
-                  <div className="flex -space-x-2">
-                    {[1,2,3].map(i => (
-                      <div key={i} className="h-7 w-7 rounded-full border-2 border-red-600 bg-white/10" />
-                    ))}
-                    <div className="h-7 w-7 rounded-full bg-blue-500 flex items-center justify-center text-[8px] font-bold border-2 border-red-600">5K+</div>
-                  </div>
+                  <span className="px-2.5 py-0.5 bg-white/15 border border-white/10 rounded text-[9px] font-black uppercase tracking-widest text-white shadow-sm">
+                    Latest Insights
+                  </span>
                 </div>
                 
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-white" />
+                  <FileText className="h-6 w-6 text-white shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="text-lg font-bold mb-2 leading-tight">Student Success Rate</h3>
-                    <p className="text-white/90 text-xs leading-relaxed">
-                      More than <span className="font-bold">5,000+ students</span> successfully secured admissions.
+                    <h3 className="text-lg font-bold mb-2 leading-tight">Our Education Blog</h3>
+                    <p className="text-white/90 text-xs leading-relaxed font-medium">
+                      Explore expert guidance articles, entrance exam updates, college listings, and career reviews.Contact us to make your future brighter and read our blogs.
                     </p>
                   </div>
                 </div>
 
-                {/* WhatsApp Widget */}
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white text-slate-900 px-3 py-1.5 rounded-lg shadow-xl cursor-pointer hover:scale-105 transition-transform group">
-                  <div className="text-[8px] font-bold uppercase tracking-wider whitespace-nowrap text-red-600">Chat</div>
-                  <div className="h-7 w-7 bg-green-500 rounded-full flex items-center justify-center text-white">
-                    <MessageCircle className="h-4 w-4" />
+                {/* Link to Blog Page */}
+                <Link 
+                  to="/blog"
+                  className="absolute bottom-4 right-4 flex items-center gap-2 bg-white text-slate-900 px-3 py-1.5 rounded-lg shadow-xl cursor-pointer hover:scale-105 transition-transform group"
+                >
+                  <div className="text-[8px] font-bold uppercase tracking-wider whitespace-nowrap text-red-600">Our Blog</div>
+                  <div className="h-7 w-7 bg-red-600 rounded-full flex items-center justify-center text-white group-hover:bg-red-700 transition-colors">
+                    <FileText className="h-3.5 w-3.5" />
                   </div>
-                </div>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -877,89 +954,27 @@ const Home = () => {
               }}
               className="flex gap-8 w-max"
             >
-              {[
-                {
-                  name: "Kunal Mehta",
-                  course: "B.Tech Aspirant",
-                  text: "I had no idea how to begin my B.Tech admission. Their team supported me with documents, comparison, and application submission.",
-                  img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Ananya Verma",
-                  course: "MBA Student",
-                  text: "The counselling sessions were clear and very helpful. They explained fees, placements, and specialisations in detail. I'm now pursuing my MBA.",
-                  img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Rahul Sharma",
-                  course: "Engineering Student",
-                  text: "SS Education made my RVCE admission journey incredibly smooth. From selecting the branch to paperwork, they were with me at every step.",
-                  img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Priya Das",
-                  course: "Medical Aspirant",
-                  text: "I was so confused about NEET counseling, but the team here explained everything so simply. I'm finally in my dream medical college!",
-                  img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Vikram Singh",
-                  course: "B.Tech Student",
-                  text: "The direct admission support was a lifesaver. No hidden fees, no stress. Just genuine help when I needed it most. Highly recommended!",
-                  img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Sanya Malhotra",
-                  course: "MBA Aspirant",
-                  text: "Best consultancy for MBA. They helped me with CAT score analysis and suggested colleges that I actually had a chance with.",
-                  img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Arjun Reddy",
-                  course: "Engineering Student",
-                  text: "Their network of colleges is huge. I got options I hadn't even heard of, and one turned out to be the perfect fit for my budget.",
-                  img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                // Duplicate for seamless loop
-                {
-                  name: "Kunal Mehta",
-                  course: "B.Tech Aspirant",
-                  text: "I had no idea how to begin my B.Tech admission. Their team supported me with documents, comparison, and application submission.",
-                  img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Ananya Verma",
-                  course: "MBA Student",
-                  text: "The counselling sessions were clear and very helpful. They explained fees, placements, and specialisations in detail. I'm now pursuing my MBA.",
-                  img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Rahul Sharma",
-                  course: "Engineering Student",
-                  text: "SS Education made my RVCE admission journey incredibly smooth. From selecting the branch to paperwork, they were with me at every step.",
-                  img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Priya Das",
-                  course: "Medical Aspirant",
-                  text: "I was so confused about NEET counseling, but the team here explained everything so simply. I'm finally in my dream medical college!",
-                  img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&auto=format&fit=crop"
-                }
-              ].map((t, idx) => (
+              {doubledStories.map((t, idx) => (
                 <div 
                   key={idx}
                   className="w-[350px] p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-white hover:shadow-2xl hover:border-primary/10 transition-all duration-500 group"
                 >
                   <div className="h-20 w-20 rounded-full overflow-hidden mb-6 border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-500">
-                    <img src={t.img} alt={t.name} className="h-full w-full object-cover" />
+                    <img 
+                      src={t.image ? resolveImageUrl(t.image) : (t.image === '' ? `https://i.pravatar.cc/150?u=${idx}` : (t.image || t.img || `https://i.pravatar.cc/150?u=${idx}`))} 
+                      alt={t.studentName || t.name} 
+                      className="h-full w-full object-cover" 
+                    />
                   </div>
                   <div className="flex gap-1 mb-4 text-amber-400">
                     {[1,2,3,4,5].map(s => <Star key={s} className="h-3 w-3 fill-current" />)}
                   </div>
-                  <h4 className="text-lg font-black text-slate-900 mb-1">{t.name}</h4>
-                  <p className="text-[9px] font-bold text-primary uppercase tracking-widest mb-4">{t.course}</p>
+                  <h4 className="text-lg font-black text-slate-900 mb-1">{t.studentName || t.name}</h4>
+                  <p className="text-[9px] font-bold text-primary uppercase tracking-widest mb-4">
+                    {t.course} {t.college ? `— ${t.college}` : ""}
+                  </p>
                   <p className="text-slate-600 text-sm font-medium leading-relaxed italic">
-                    "{t.text}"
+                    "{t.testimonial || t.text}"
                   </p>
                 </div>
               ))}
@@ -1054,6 +1069,99 @@ const Home = () => {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Blogs Section */}
+      <section className="py-24 bg-slate-50 relative z-20 overflow-hidden">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-16">
+            <div className="lg:w-1/2">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-primary font-black uppercase tracking-[0.2em] text-[10px]">News & Blogs</span>
+                <div className="h-[2px] w-12 bg-primary/20" />
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] tracking-tight">
+                Stay Updated With <br />
+                <span className="text-primary">Latest Career Advice</span>
+              </h2>
+            </div>
+            <div className="lg:w-5/12 text-slate-500 font-medium leading-relaxed">
+              <p>
+                Get expert guidance, details on entrance exams, eligibility, college selection tips, and honest campus reviews written by our leading education counselors.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {blogs.map((blog, idx) => (
+              <motion.article
+                key={blog._id || idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-white rounded-2xl border border-slate-200/60 overflow-hidden flex flex-col justify-between hover:shadow-xl hover:border-slate-300 transition-all duration-300 group"
+              >
+                <div>
+                  <div className="h-48 overflow-hidden bg-slate-100 relative">
+                    {blog.image ? (
+                      <img 
+                        src={resolveImageUrl(blog.image)} 
+                        alt={blog.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs font-bold uppercase tracking-wider">
+                        SS Education
+                      </div>
+                    )}
+                    <span className="absolute top-4 left-4 px-2.5 py-1 bg-white/95 backdrop-blur-sm text-[9px] font-black uppercase tracking-wider text-slate-700 rounded-md shadow-sm">
+                      {blog.category}
+                    </span>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-3">
+                      <Calendar className="h-3 w-3" />
+                      <span>{blog.date || "June 2026"}</span>
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                      {blog.title}
+                    </h3>
+                    <p className="text-slate-500 text-xs leading-relaxed line-clamp-2 font-medium">
+                      {blog.excerpt}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="px-6 pb-6 pt-2">
+                  <Link 
+                    to={`/blog/${blog.slug}`} 
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-red-700 transition-colors"
+                  >
+                    <span>Read Full Article</span>
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </motion.article>
+            ))}
+
+            {blogs.length === 0 && (
+              <div className="col-span-3 py-16 text-center text-slate-400 text-xs font-semibold bg-white rounded-2xl border border-slate-200/60">
+                No blog posts published yet.
+              </div>
+            )}
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/blog"
+              className="inline-flex items-center justify-center px-6 py-3 border-2 border-slate-950 text-slate-950 hover:bg-slate-950 hover:text-white rounded-xl text-xs font-black tracking-wider uppercase transition-colors"
+            >
+              View All Articles
+            </Link>
           </div>
         </div>
       </section>

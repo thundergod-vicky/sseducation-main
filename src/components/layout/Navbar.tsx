@@ -17,6 +17,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import mainLogo from "@/assets/main logo.png";
+import { apiRequest } from "@/lib/api";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -167,6 +168,65 @@ export const Navbar = () => {
   const [mobileStateExpanded, setMobileStateExpanded] = useState<string | null>(null);
 
   const location = useLocation();
+
+  const [dbColleges, setDbColleges] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchColleges = async () => {
+      try {
+        const data = await apiRequest("/colleges");
+        if (data && data.length > 0) {
+          setDbColleges(data.filter((c: any) => c.isVisible));
+        }
+      } catch (error) {
+        console.log("Navbar failed to load dynamic colleges, using static default");
+      }
+    };
+    fetchColleges();
+  }, []);
+
+  const currentCategories = dbColleges.length > 0 ? [
+    {
+      id: "btech-karnataka",
+      title: "B.Tech Karnataka",
+      icon: "GraduationCap",
+      items: dbColleges
+        .filter(c => c.category === "btech-karnataka")
+        .map(c => ({ label: c.name, href: c.href }))
+    },
+    {
+      id: "btech-other-states",
+      title: "B.Tech Other States",
+      icon: "Globe",
+      items: dbColleges
+        .filter(c => c.category === "btech-other-states")
+        .map(c => ({ label: c.name, href: c.href }))
+    },
+    {
+      id: "mbbs-admission-india",
+      title: "MBBS Admission India",
+      icon: "Stethoscope",
+      isNested: true,
+      items: (() => {
+        const mbbsColleges = dbColleges.filter(c => c.category === "mbbs-admission-india");
+        const states = Array.from(new Set(mbbsColleges.map(c => c.state).filter(Boolean)));
+        return states.map(state => ({
+          state,
+          subItems: mbbsColleges
+            .filter(c => c.state === state)
+            .map(c => ({ label: c.name, href: c.href }))
+        }));
+      })()
+    },
+    {
+      id: "management-other-courses",
+      title: "Management & Others",
+      icon: "Briefcase",
+      items: dbColleges
+        .filter(c => c.category === "management-other-courses")
+        .map(c => ({ label: c.name, href: c.href }))
+    }
+  ] : COLLEGE_CATEGORIES;
   const dropdownRef = useRef<HTMLDivElement>(null);
   const megaMenuRef = useRef<HTMLDivElement>(null);
 
@@ -185,7 +245,7 @@ export const Navbar = () => {
   // Expand matching category & state automatically based on route
   useEffect(() => {
     let matched = false;
-    COLLEGE_CATEGORIES.forEach(category => {
+    currentCategories.forEach(category => {
       if (category.isNested) {
         (category.items as any[]).forEach(stateGroup => {
           if (stateGroup.subItems.some((sub: any) => sub.href === location.pathname)) {
@@ -208,7 +268,7 @@ export const Navbar = () => {
       setMobileCategoryExpanded(null);
       setMobileStateExpanded(null);
     }
-  }, [location.pathname]);
+  }, [location.pathname, dbColleges]);
 
   // Click outside and ESC keys listener
   useEffect(() => {
@@ -299,7 +359,7 @@ export const Navbar = () => {
   const isNavVisible = scrolled || !isTransparentRoute;
 
   // Highlight check helpers
-  const isCategoryActive = (category: typeof COLLEGE_CATEGORIES[0]) => {
+  const isCategoryActive = (category: any) => {
     if (category.isNested) {
       return (category.items as any[]).some((stateGroup) =>
         stateGroup.subItems.some((sub: any) => location.pathname === sub.href)
@@ -309,11 +369,11 @@ export const Navbar = () => {
   };
 
   const isCollegesMenuLinkActive = () => {
-    return COLLEGE_CATEGORIES.some(isCategoryActive);
+    return currentCategories.some(isCategoryActive);
   };
 
   // Filter Categories logic
-  const filteredCategories = COLLEGE_CATEGORIES.map(category => {
+  const filteredCategories = currentCategories.map(category => {
     if (category.isNested) {
       const filteredStates = category.items.map(stateGroup => {
         const filteredSubItems = stateGroup.subItems.filter(item =>
@@ -329,9 +389,6 @@ export const Navbar = () => {
       return { ...category, items: filteredItems };
     }
   }).filter(category => {
-    if (category.isNested) {
-      return category.items.length > 0;
-    }
     return category.items.length > 0;
   });
 
@@ -447,9 +504,21 @@ export const Navbar = () => {
                             />
                           </div>
                           <div className="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
-                            <span className="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold text-slate-500">22</span> Engineering Colleges &nbsp;·&nbsp;
-                            <span className="px-2 py-0.5 bg-rose-50 rounded text-[10px] font-bold text-rose-500">39</span> MBBS Colleges &nbsp;·&nbsp;
-                            <span className="px-2 py-0.5 bg-amber-50 rounded text-[10px] font-bold text-amber-600">6</span> Other Courses
+                            <span className="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold text-slate-500">
+                              {dbColleges.length > 0 
+                                ? dbColleges.filter(c => c.category.startsWith("btech")).length 
+                                : 22}
+                            </span> Engineering Colleges &nbsp;·&nbsp;
+                            <span className="px-2 py-0.5 bg-rose-50 rounded text-[10px] font-bold text-rose-500">
+                              {dbColleges.length > 0 
+                                ? dbColleges.filter(c => c.category === "mbbs-admission-india").length 
+                                : 39}
+                            </span> MBBS Colleges &nbsp;·&nbsp;
+                            <span className="px-2 py-0.5 bg-amber-50 rounded text-[10px] font-bold text-amber-600">
+                              {dbColleges.length > 0 
+                                ? dbColleges.filter(c => c.category === "management-other-courses").length 
+                                : 6}
+                            </span> Other Courses
                           </div>
                         </div>
 
