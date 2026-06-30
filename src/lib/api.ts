@@ -7,7 +7,14 @@ export const resolveImageUrl = (imagePath: string | undefined | null): string =>
   if (!imagePath) return '';
   if (imagePath.startsWith('http')) return imagePath;
   
-  let base = API_BASE_URL.replace('/api', '');
+  let base = API_BASE_URL;
+  
+  // Securely strip only the trailing /api or /api/ from the end
+  if (base.endsWith('/api')) {
+    base = base.slice(0, -4);
+  } else if (base.endsWith('/api/')) {
+    base = base.slice(0, -5);
+  }
   
   // If base doesn't start with protocol, normalize it
   if (!base.startsWith('http://') && !base.startsWith('https://')) {
