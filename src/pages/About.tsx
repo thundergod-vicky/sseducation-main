@@ -1,41 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { History, Target, Users, MapPin, Phone, Mail, Clock, ShieldCheck } from "lucide-react";
+import { History, Target, ShieldCheck } from "lucide-react";
 import { useSeo } from "@/hooks/useSeo";
 import { apiRequest, resolveImageUrl } from "@/lib/api";
 
-const STATIC_TEAM = [
-  { name: "S.K. Basu", role: "Founder & Director", bio: "15+ years of experience in educational consultancy.", image: "https://i.pravatar.cc/150?u=1" },
-  { name: "Anita Sharma", role: "Chief Counselor", bio: "Expert in MBBS and Medical admissions.", image: "https://i.pravatar.cc/150?u=2" },
-  { name: "Rahul Verma", role: "Head of Operations", bio: "Specializes in Engineering college placements.", image: "https://i.pravatar.cc/150?u=3" },
-];
-
-const OFFICES = [
-  {
-    city: "Durgapur (H.O)",
-    address: "City Centre, Durgapur, West Bengal - 713216",
-    phone: "+91 99330 85333",
-    email: "info@sseducation.co.in",
-    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117070.36839352758!2d87.21852026131495!3d23.51635392231267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f9199347206121%3A0x67332c96c561b365!2sDurgapur%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1715768000000!5m2!1sen!2sin"
-  },
-  {
-    city: "Patna Office",
-    address: "Boring Road, Patna, Bihar - 800001",
-    phone: "+91 99330 85333",
-    email: "patna@sseducation.co.in",
-    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115132.86107231458!2d85.07340056976826!3d25.60817557116813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f013444850785f%3A0x92f0f49673550e50!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1715768000000!5m2!1sen!2sin"
-  },
-  {
-    city: "Kolkata Office",
-    address: "Salt Lake, Sector V, Kolkata, WB - 700091",
-    phone: "+91 99330 85333",
-    email: "kolkata@sseducation.co.in",
-    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117925.33439927513!2d88.2649511671239!3d22.53542730626352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f882db4908f667%3A0x43e330e68f6c2cbc!2sSalt%20Lake%2C%20Kolkata%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1715768000000!5m2!1sen!2sin"
-  }
-];
-
 const About = () => {
-  const [team, setTeam] = useState<any[]>(STATIC_TEAM);
+  const [team, setTeam] = useState<any[]>([]);
 
   useSeo({
     title: "About Us | SS Educational Services",
@@ -46,11 +16,10 @@ const About = () => {
     const fetchTeam = async () => {
       try {
         const data = await apiRequest("/team");
-        if (data && data.length > 0) {
-          setTeam(data);
-        }
+        setTeam(data || []);
       } catch (error) {
-        console.log("Using static fallback for Team list", error);
+        console.log("Error loading Team list", error);
+        setTeam([]);
       }
     };
     fetchTeam();
@@ -135,85 +104,36 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 bg-slate-50/50 border-y border-slate-100">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-base font-bold uppercase tracking-wider text-slate-400">Our Expert Team</h2>
-            <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">Experienced counselors dedicated to your educational success.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {team.map((member, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -3 }}
-                className="bg-white p-6 rounded-xl border border-slate-200/60 shadow-sm text-center animate-fade-in"
-              >
-                <div className="h-20 w-20 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden border border-slate-100 shadow-inner">
-                  <img 
-                    src={member.image ? resolveImageUrl(member.image) : `https://i.pravatar.cc/150?u=${idx}`} 
-                    alt={member.name} 
-                    className="w-full h-full object-cover" 
-                  />
-                </div>
-                <h3 className="text-sm font-bold text-slate-800 mb-0.5">{member.name}</h3>
-                <div className="text-primary text-[10px] font-bold mb-3 uppercase tracking-wider">{member.role}</div>
-                <p className="text-slate-500 text-xs leading-relaxed">{member.bio}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Offices Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-base font-bold uppercase tracking-wider text-slate-400">Our Presence</h2>
-            <p className="text-xs text-slate-500 mt-1">Visit any of our branch offices for a face-to-face consultation.</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            {OFFICES.map((office, idx) => (
-              <motion.div
-                key={idx}
-                className="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col"
-              >
-                <div className="h-40 overflow-hidden bg-slate-100 border-b border-slate-100">
-                  <iframe
-                    src={office.map}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen={false}
-                    loading="lazy"
-                  ></iframe>
-                </div>
-                <div className="p-5 flex-grow">
-                  <h3 className="text-sm font-bold text-slate-800 mb-3">{office.city}</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-2">
-                      <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                      <span className="text-slate-500 text-xs leading-snug">{office.address}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-primary shrink-0" />
-                      <span className="text-slate-600 text-xs font-bold">{office.phone}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Mail className="h-4 w-4 text-primary shrink-0" />
-                      <span className="text-slate-500 text-xs">{office.email}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-primary shrink-0" />
-                      <span className="text-slate-500 text-xs">Mon - Sat: 10AM - 7PM</span>
-                    </div>
+      {team.length > 0 && (
+        <section className="py-16 bg-slate-50/50 border-y border-slate-100">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="text-center mb-12">
+              <h2 className="text-base font-bold uppercase tracking-wider text-slate-400">Our Expert Team</h2>
+              <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">Experienced counselors dedicated to your educational success.</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {team.map((member, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{ y: -3 }}
+                  className="bg-white p-6 rounded-xl border border-slate-200/60 shadow-sm text-center animate-fade-in"
+                >
+                  <div className="h-20 w-20 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden border border-slate-100 shadow-inner">
+                    <img 
+                      src={member.image ? resolveImageUrl(member.image) : `https://i.pravatar.cc/150?u=${idx}`} 
+                      alt={member.name} 
+                      className="w-full h-full object-cover" 
+                    />
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  <h3 className="text-sm font-bold text-slate-800 mb-0.5">{member.name}</h3>
+                  <div className="text-primary text-[10px] font-bold mb-3 uppercase tracking-wider">{member.role}</div>
+                  <p className="text-slate-500 text-xs leading-relaxed">{member.bio}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
   );
 };
