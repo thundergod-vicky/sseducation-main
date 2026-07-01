@@ -3,6 +3,8 @@ import { Navbar } from "./Navbar";
 import { Footer } from "../landing/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import ChatbotWidget from "../chatbot/ChatbotWidget";
+import { motion } from "framer-motion";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -14,12 +16,19 @@ export const MainLayout = ({ children, showNav = true, showFooter = true }: Main
   return (
     <div className="flex flex-col min-h-screen">
       {showNav && <Navbar />}
-      <main className="flex-grow">
+      <motion.main 
+        className="flex-grow"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
         {children}
-      </main>
+      </motion.main>
       {showFooter && <Footer />}
       <Toaster />
       <Sonner />
+      <ChatbotWidget />
     </div>
   );
 };

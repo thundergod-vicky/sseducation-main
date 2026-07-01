@@ -1,29 +1,26 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, GraduationCap, Users, BookOpen, Globe, MessageCircle, Phone, ShieldCheck, Star, Calendar } from "lucide-react";
+import { ArrowRight, CheckCircle2, GraduationCap, Users, BookOpen, Globe, MessageCircle, Phone, ShieldCheck, Star, Calendar, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Stats } from "@/components/landing/Stats";
 import { CollegeCard } from "@/components/landing/CollegeCard";
 import { LeadForm } from "@/components/landing/LeadForm";
-
-// Sample images (I'll use placeholder-like paths or existing ones)
-import kiitImg from "@/assets/rvce-campus.jpg"; // Placeholder
-import rvceImg from "@/assets/rvce-building.jpg";
-import ramaiahImg from "@/assets/ramaiah-campus.jpg";
-import iemImg from "@/assets/iem-campus.jpg";
+import { useSeo } from "@/hooks/useSeo";
+import { apiRequest, resolveImageUrl } from "@/lib/api";
 
 const FEATURED_COLLEGES = [
   {
     name: "KIIT University",
     location: "Bhubaneswar, Odisha",
-    image: kiitImg,
+    image: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEX7wsAbj4tKbwb687ZB9fJs5VTb6WQRNGjrGvCC1-EVjs1lFn0gNvfahnmaTLT9l12EaDt_zh_ogQpvuhFQuqoC1KiNFIqVsfDW2ScYi4gPsSmyPXmJLxomMRzpGXoQ9veUza=s1360-w1360-h1020-rw",
     rating: "4.8",
     tags: ["NIRF 36", "Direct Admission"],
-    href: "/rv-college-btech-admission-2026", // Existing path
+    href: "/kiit-university-bhubaneswar-admission-2026",
   },
   {
     name: "RV College of Engineering",
     location: "Bangalore, Karnataka",
-    image: rvceImg,
+    image: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEx0UK5WQUUa-VWaRS3TW8-1l7wqNGdJOypsW1nM96jy83XHIlsqkCBxecnluFurb9_YW5i-M6jCuPYP9qxOJRA4DjCKqgadsfpgEOpJ4bl6tRKX7615ajmDvmviqrf927k6bI1ew=s1360-w1360-h1020-rw",
     rating: "4.9",
     tags: ["Top 50", "Bangalore Hub"],
     href: "/rv-college-btech-admission-2026",
@@ -31,7 +28,7 @@ const FEATURED_COLLEGES = [
   {
     name: "MS Ramaiah Institute",
     location: "Bangalore, Karnataka",
-    image: ramaiahImg,
+    image: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGGD3fvYb_WEXBwBPdM1ocePlPnARW3IPF18BMab8s3pSOjYKyey4SMYq4UDEZaogXzUS0tv5UwM58lkwN9DIs0mdj9YJD8fHDTOZkiZ4gsDV710mmgtFqzyItR7iSBrcbNGb_UyQ=s1360-w1360-h1020-rw",
     rating: "4.7",
     tags: ["60+ Yrs Legacy", "Premium"],
     href: "/ramaiah-institute-btech-admission-2026",
@@ -39,7 +36,7 @@ const FEATURED_COLLEGES = [
   {
     name: "IEM Kolkata",
     location: "Kolkata, WB",
-    image: iemImg,
+    image: "https://framerusercontent.com/images/9OZvs0INvcLrw9U1dccGhJttfMU.png?width=660&height=330",
     rating: "4.6",
     tags: ["Affordable", "Best Placements"],
     href: "/iem-kolkata-btech-admission-2026",
@@ -53,7 +50,190 @@ const COURSES = [
   { title: "Law & BCA/MCA", icon: Globe, color: "bg-indigo-600", desc: "Specialized guidance for law and computer applications." },
 ];
 
+const ALL_COLLEGES = [
+  {
+    abbrev: "RVCE",
+    fullName: "RV College of Engineering",
+    link: "/rv-college-btech-admission-2026"
+  },
+  {
+    abbrev: "MSRIT",
+    fullName: "MS Ramaiah Institute",
+    link: "/ramaiah-institute-btech-admission-2026"
+  },
+  {
+    abbrev: "BMSCE",
+    fullName: "BMS College of Engineering",
+    link: "/bms-college-of-engineering-bangalore"
+  },
+  {
+    abbrev: "BMSIT",
+    fullName: "BMSIT&M Bangalore",
+    link: "/bmsit-bangalore"
+  },
+  {
+    abbrev: "KIIT",
+    fullName: "KIIT University",
+    link: "/kiit-university-bhubaneswar-admission-2026"
+  },
+  {
+    abbrev: "SOA",
+    fullName: "SOA University",
+    link: "/soa-university-bhubaneswar-admission-2026"
+  },
+  {
+    abbrev: "IEM",
+    fullName: "IEM Kolkata",
+    link: "/iem-kolkata-admission-2026"
+  },
+  {
+    abbrev: "HITK",
+    fullName: "Heritage Institute",
+    link: "/heritage-institute-of-technology-hitk-kolkata"
+  },
+  {
+    abbrev: "TMSL",
+    fullName: "Techno Main Salt Lake",
+    link: "/techno-main-salt-lake-tmsl-kolkata"
+  },
+  {
+    abbrev: "HIT",
+    fullName: "Haldia Institute",
+    link: "/haldia-institute-of-technology-hit-haldia"
+  },
+  {
+    abbrev: "VIT",
+    fullName: "VIT Vellore",
+    link: "/vit-vellore"
+  },
+  {
+    abbrev: "MIT",
+    fullName: "MIT Manipal",
+    link: "/mit-manipal"
+  },
+  {
+    abbrev: "BITS",
+    fullName: "BITS Pilani",
+    link: "/bits-pilani"
+  },
+  {
+    abbrev: "AMRITA",
+    fullName: "Amrita University",
+    link: "/amrita-vishwa-vidyapeetham"
+  },
+  {
+    abbrev: "DSCE",
+    fullName: "Dayananda Sagar",
+    link: "/dayananda-sagar-college-of-engineering-bangalore"
+  },
+  {
+    abbrev: "NMIT",
+    fullName: "NMIT Bangalore",
+    link: "/nmit-bangalore"
+  },
+  {
+    abbrev: "RVITM",
+    fullName: "RVITM Bangalore",
+    link: "/rv-institute-of-technology-management-bangalore"
+  },
+  {
+    abbrev: "RVU",
+    fullName: "RV University",
+    link: "/rv-university-bengaluru"
+  },
+  {
+    abbrev: "MVIT",
+    fullName: "Sri MVIT Bangalore",
+    link: "/sri-mvit-bangalore"
+  },
+  {
+    abbrev: "MGMC",
+    fullName: "Mahatma Gandhi Medical",
+    link: "/mahatma-gandhi-medical-college-jaipur-admission-2026"
+  }
+];
+
 const Home = () => {
+  useSeo({
+    title: "Direct College Admission & Career Guidance 2026 | SS Educational Services",
+    description: "SS Educational Services is East India's most trusted educational consultancy. We provide expert admission guidance for top B.Tech, MBBS, and MBA colleges in India."
+  });
+
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [stories, setStories] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const data = await apiRequest("/blogs");
+        if (data) {
+          setBlogs(data.slice(0, 3));
+        }
+      } catch (error) {
+        console.error("Failed to load home page blogs", error);
+      }
+    };
+    const fetchStories = async () => {
+      try {
+        const data = await apiRequest("/stories");
+        if (data && data.length > 0) {
+          setStories(data);
+        }
+      } catch (error) {
+        console.error("Failed to load home page success stories", error);
+      }
+    };
+    fetchBlogs();
+    fetchStories();
+  }, []);
+
+  const currentStories = stories.length > 0 ? stories : [
+    {
+      studentName: "Kunal Mehta",
+      course: "B.Tech Aspirant",
+      testimonial: "I had no idea how to begin my B.Tech admission. Their team supported me with documents, comparison, and application submission.",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Ananya Verma",
+      course: "MBA Student",
+      testimonial: "The counselling sessions were clear and very helpful. They explained fees, placements, and specialisations in detail. I'm now pursuing my MBA.",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Rahul Sharma",
+      course: "Engineering Student",
+      testimonial: "SS Education made my RVCE admission journey incredibly smooth. From selecting the branch to paperwork, they were with me at every step.",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Priya Das",
+      course: "Medical Aspirant",
+      testimonial: "I was so confused about NEET counseling, but the team here explained everything so simply. I'm finally in my dream medical college!",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Vikram Singh",
+      course: "B.Tech Student",
+      testimonial: "The direct admission support was a lifesaver. No hidden fees, no stress. Just genuine help when I needed it most. Highly recommended!",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Sanya Malhotra",
+      course: "MBA Aspirant",
+      testimonial: "Best consultancy for MBA. They helped me with CAT score analysis and suggested colleges that I actually had a chance with.",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&h=200&auto=format&fit=crop"
+    },
+    {
+      studentName: "Arjun Reddy",
+      course: "Engineering Student",
+      testimonial: "Their network of colleges is huge. I got options I hadn't even heard of, and one turned out to be the perfect fit for my budget.",
+      image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200&h=200&auto=format&fit=crop"
+    }
+  ];
+
+  const doubledStories = [...currentStories, ...currentStories];
+
   return (
     <main className="overflow-hidden">
       {/* Hero Section - Single Section Landing */}
@@ -137,7 +317,7 @@ const Home = () => {
                 </div>
               </motion.div>
 
-              {/* Top Student Success Rate - Red (Tallest) */}
+              {/* Top Blog Post Intro - Red (Tallest) */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -146,31 +326,31 @@ const Home = () => {
                 className="bg-red-600 p-8 rounded-t-2xl text-white flex flex-col gap-6 relative overflow-hidden min-h-[280px] justify-center shadow-2xl md:rounded-tl-[3rem]"
               >
                 <div className="flex items-center gap-2">
-                  <div className="flex -space-x-2">
-                    {[1,2,3].map(i => (
-                      <div key={i} className="h-7 w-7 rounded-full border-2 border-red-600 bg-white/10" />
-                    ))}
-                    <div className="h-7 w-7 rounded-full bg-blue-500 flex items-center justify-center text-[8px] font-bold border-2 border-red-600">12K+</div>
-                  </div>
+                  <span className="px-2.5 py-0.5 bg-white/15 border border-white/10 rounded text-[9px] font-black uppercase tracking-widest text-white shadow-sm">
+                    Latest Insights
+                  </span>
                 </div>
                 
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-white" />
+                  <FileText className="h-6 w-6 text-white shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="text-lg font-bold mb-2 leading-tight">Student Success Rate</h3>
-                    <p className="text-white/90 text-xs leading-relaxed">
-                      More than <span className="font-bold">12,000+ students</span> successfully secured admissions.
+                    <h3 className="text-lg font-bold mb-2 leading-tight">Our Education Blog</h3>
+                    <p className="text-white/90 text-xs leading-relaxed font-medium">
+                      Explore expert guidance articles, entrance exam updates, college listings, and career reviews.Contact us to make your future brighter and read our blogs.
                     </p>
                   </div>
                 </div>
 
-                {/* WhatsApp Widget */}
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white text-slate-900 px-3 py-1.5 rounded-lg shadow-xl cursor-pointer hover:scale-105 transition-transform group">
-                  <div className="text-[8px] font-bold uppercase tracking-wider whitespace-nowrap text-red-600">Chat</div>
-                  <div className="h-7 w-7 bg-green-500 rounded-full flex items-center justify-center text-white">
-                    <MessageCircle className="h-4 w-4" />
+                {/* Link to Blog Page */}
+                <Link 
+                  to="/blog"
+                  className="absolute bottom-4 right-4 flex items-center gap-2 bg-white text-slate-900 px-3 py-1.5 rounded-lg shadow-xl cursor-pointer hover:scale-105 transition-transform group"
+                >
+                  <div className="text-[8px] font-bold uppercase tracking-wider whitespace-nowrap text-red-600">Our Blog</div>
+                  <div className="h-7 w-7 bg-red-600 rounded-full flex items-center justify-center text-white group-hover:bg-red-700 transition-colors">
+                    <FileText className="h-3.5 w-3.5" />
                   </div>
-                </div>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -273,7 +453,7 @@ const Home = () => {
                     transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
                     className="text-4xl font-bold text-[#0066B2] mb-1"
                   >
-                    12K+
+                    5K+
                   </motion.p>
                   <p className="text-[10px] font-bold text-slate-500 uppercase leading-tight">Students Guided Across India</p>
                 </div>
@@ -342,22 +522,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Building Reveal Section */}
-      <section className="relative bg-white overflow-hidden border-b border-slate-100 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="w-full"
-        >
-          <img 
-            src="/src/assets/buildings.png" 
-            alt="SS Education Campus" 
-            className="w-full h-auto block"
-          />
-        </motion.div>
-      </section>
+
 
       {/* Trusted by Leading Colleges Section */}
       <section className="py-20 bg-[#0B1D4B] text-white relative z-20">
@@ -380,71 +545,33 @@ const Home = () => {
             </div>
           </div>
 
-          {/* College Logos Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-            {/* KIIT */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="flex flex-col items-center gap-4 group cursor-pointer"
-            >
-              <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-2xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg">KIIT</span>
-                <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500">KIIT University</p>
-            </motion.div>
+          {/* College Logos Sliding Marquee */}
+          <div className="relative w-full overflow-hidden py-10">
+            {/* Left/Right Fading Gradients */}
+            <div className="absolute top-0 left-0 h-full w-20 md:w-32 bg-gradient-to-r from-[#0B1D4B] to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 right-0 h-full w-20 md:w-32 bg-gradient-to-l from-[#0B1D4B] to-transparent z-10 pointer-events-none" />
 
-            {/* RVCE */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col items-center gap-4 group cursor-pointer"
-            >
-              <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-2xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg">RVCE</span>
-                <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500">RV College of Engineering</p>
-            </motion.div>
-
-            {/* MS Ramaiah */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col items-center gap-4 group cursor-pointer"
-            >
-              <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-2xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg">MSRIT</span>
-                <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500">MS Ramaiah Institute</p>
-            </motion.div>
-
-            {/* IEM Kolkata */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-col items-center gap-4 group cursor-pointer"
-            >
-              <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="text-2xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg">IEM</span>
-                <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500">IEM Kolkata</p>
-            </motion.div>
+            <div className="flex flex-row flex-nowrap gap-12 animate-marquee hover:[animation-play-state:paused] w-max">
+              {[...ALL_COLLEGES, ...ALL_COLLEGES].map((college, idx) => (
+                <div 
+                  key={idx}
+                  className="flex flex-col items-center gap-4 group shrink-0 w-36"
+                >
+                  <Link to={college.link} className="flex flex-col items-center gap-4 w-full">
+                    <div className="h-28 w-28 bg-white/5 rounded-full flex flex-col items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/10 group-hover:border-white/30 group-hover:scale-110 transition-all duration-500 shadow-xl overflow-hidden relative">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <span className="text-xl font-black tracking-tighter text-white/40 group-hover:text-white transition-all duration-500 drop-shadow-lg text-center px-1">
+                        {college.abbrev}
+                      </span>
+                      <div className="w-8 h-[2px] bg-red-600/40 group-hover:bg-red-600 transition-colors mt-1" />
+                    </div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 group-hover:text-white transition-colors duration-500 text-center min-h-[30px] leading-tight">
+                      {college.fullName}
+                    </p>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -827,89 +954,27 @@ const Home = () => {
               }}
               className="flex gap-8 w-max"
             >
-              {[
-                {
-                  name: "Kunal Mehta",
-                  course: "B.Tech Aspirant",
-                  text: "I had no idea how to begin my B.Tech admission. Their team supported me with documents, comparison, and application submission.",
-                  img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Ananya Verma",
-                  course: "MBA Student",
-                  text: "The counselling sessions were clear and very helpful. They explained fees, placements, and specialisations in detail. I'm now pursuing my MBA.",
-                  img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Rahul Sharma",
-                  course: "Engineering Student",
-                  text: "SS Education made my RVCE admission journey incredibly smooth. From selecting the branch to paperwork, they were with me at every step.",
-                  img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Priya Das",
-                  course: "Medical Aspirant",
-                  text: "I was so confused about NEET counseling, but the team here explained everything so simply. I'm finally in my dream medical college!",
-                  img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Vikram Singh",
-                  course: "B.Tech Student",
-                  text: "The direct admission support was a lifesaver. No hidden fees, no stress. Just genuine help when I needed it most. Highly recommended!",
-                  img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Sanya Malhotra",
-                  course: "MBA Aspirant",
-                  text: "Best consultancy for MBA. They helped me with CAT score analysis and suggested colleges that I actually had a chance with.",
-                  img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Arjun Reddy",
-                  course: "Engineering Student",
-                  text: "Their network of colleges is huge. I got options I hadn't even heard of, and one turned out to be the perfect fit for my budget.",
-                  img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                // Duplicate for seamless loop
-                {
-                  name: "Kunal Mehta",
-                  course: "B.Tech Aspirant",
-                  text: "I had no idea how to begin my B.Tech admission. Their team supported me with documents, comparison, and application submission.",
-                  img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Ananya Verma",
-                  course: "MBA Student",
-                  text: "The counselling sessions were clear and very helpful. They explained fees, placements, and specialisations in detail. I'm now pursuing my MBA.",
-                  img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Rahul Sharma",
-                  course: "Engineering Student",
-                  text: "SS Education made my RVCE admission journey incredibly smooth. From selecting the branch to paperwork, they were with me at every step.",
-                  img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
-                },
-                {
-                  name: "Priya Das",
-                  course: "Medical Aspirant",
-                  text: "I was so confused about NEET counseling, but the team here explained everything so simply. I'm finally in my dream medical college!",
-                  img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&auto=format&fit=crop"
-                }
-              ].map((t, idx) => (
+              {doubledStories.map((t, idx) => (
                 <div 
                   key={idx}
                   className="w-[350px] p-10 rounded-[2.5rem] bg-slate-50 border border-slate-100 flex flex-col items-center text-center hover:bg-white hover:shadow-2xl hover:border-primary/10 transition-all duration-500 group"
                 >
                   <div className="h-20 w-20 rounded-full overflow-hidden mb-6 border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-500">
-                    <img src={t.img} alt={t.name} className="h-full w-full object-cover" />
+                    <img 
+                      src={t.image ? resolveImageUrl(t.image) : (t.image === '' ? `https://i.pravatar.cc/150?u=${idx}` : (t.image || t.img || `https://i.pravatar.cc/150?u=${idx}`))} 
+                      alt={t.studentName || t.name} 
+                      className="h-full w-full object-cover" 
+                    />
                   </div>
                   <div className="flex gap-1 mb-4 text-amber-400">
                     {[1,2,3,4,5].map(s => <Star key={s} className="h-3 w-3 fill-current" />)}
                   </div>
-                  <h4 className="text-lg font-black text-slate-900 mb-1">{t.name}</h4>
-                  <p className="text-[9px] font-bold text-primary uppercase tracking-widest mb-4">{t.course}</p>
+                  <h4 className="text-lg font-black text-slate-900 mb-1">{t.studentName || t.name}</h4>
+                  <p className="text-[9px] font-bold text-primary uppercase tracking-widest mb-4">
+                    {t.course} {t.college ? `— ${t.college}` : ""}
+                  </p>
                   <p className="text-slate-600 text-sm font-medium leading-relaxed italic">
-                    "{t.text}"
+                    "{t.testimonial || t.text}"
                   </p>
                 </div>
               ))}
@@ -1007,8 +1072,102 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Latest Blogs Section */}
+      <section className="py-24 bg-slate-50 relative z-20 overflow-hidden">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-16">
+            <div className="lg:w-1/2">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-primary font-black uppercase tracking-[0.2em] text-[10px]">News & Blogs</span>
+                <div className="h-[2px] w-12 bg-primary/20" />
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] tracking-tight">
+                Stay Updated With <br />
+                <span className="text-primary">Latest Career Advice</span>
+              </h2>
+            </div>
+            <div className="lg:w-5/12 text-slate-500 font-medium leading-relaxed">
+              <p>
+                Get expert guidance, details on entrance exams, eligibility, college selection tips, and honest campus reviews written by our leading education counselors.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {blogs.map((blog, idx) => (
+              <motion.article
+                key={blog._id || idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-white rounded-2xl border border-slate-200/60 overflow-hidden flex flex-col justify-between hover:shadow-xl hover:border-slate-300 transition-all duration-300 group"
+              >
+                <div>
+                  <div className="h-48 overflow-hidden bg-slate-100 relative">
+                    {blog.image ? (
+                      <img 
+                        src={resolveImageUrl(blog.image)} 
+                        alt={blog.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs font-bold uppercase tracking-wider">
+                        SS Education
+                      </div>
+                    )}
+                    <span className="absolute top-4 left-4 px-2.5 py-1 bg-white/95 backdrop-blur-sm text-[9px] font-black uppercase tracking-wider text-slate-700 rounded-md shadow-sm">
+                      {blog.category}
+                    </span>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-3">
+                      <Calendar className="h-3 w-3" />
+                      <span>{blog.date || "June 2026"}</span>
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                      {blog.title}
+                    </h3>
+                    <p className="text-slate-500 text-xs leading-relaxed line-clamp-2 font-medium">
+                      {blog.excerpt}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="px-6 pb-6 pt-2">
+                  <Link 
+                    to={`/blog/${blog.slug}`} 
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-red-700 transition-colors"
+                  >
+                    <span>Read Full Article</span>
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </motion.article>
+            ))}
+
+            {blogs.length === 0 && (
+              <div className="col-span-3 py-16 text-center text-slate-400 text-xs font-semibold bg-white rounded-2xl border border-slate-200/60">
+                No blog posts published yet.
+              </div>
+            )}
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/blog"
+              className="inline-flex items-center justify-center px-6 py-3 border-2 border-slate-950 text-slate-950 hover:bg-slate-950 hover:text-white rounded-xl text-xs font-black tracking-wider uppercase transition-colors"
+            >
+              View All Articles
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };
 
 export default Home;
+

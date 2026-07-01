@@ -1,0 +1,27 @@
+# SS Educational Services
+
+SS Educational Services is a premium career consulting and admissions guidance service provider in India. It assists students in securing admissions in top engineering (B.Tech) and medical (MBBS) colleges across India, focusing on states like West Bengal, Karnataka, and Odisha.
+
+## Key Admissions Resources
+- Homepage: https://ssadmission.in/
+- About Services: https://ssadmission.in/about
+- Professional Courses Guide: https://ssadmission.in/courses
+- College Comparison Panel: https://ssadmission.in/results
+- Contact Help Desk: https://ssadmission.in/contact
+
+## Standalone B.Tech Engineering Guides (2026 Admissions)
+- IEM Kolkata: https://ssadmission.in/iem-kolkata-admission-2026
+- Heritage Institute of Technology (HITK), Kolkata: https://ssadmission.in/heritage-institute-of-technology-hitk-kolkata
+- Techno Main Salt Lake (TMSL), Kolkata: https://ssadmission.in/techno-main-salt-lake-tmsl-kolkata
+- Haldia Institute of Technology (HIT), Haldia: https://ssadmission.in/haldia-institute-of-technology-hit-haldia
+- KIIT University, Bhubaneswar: https://ssadmission.in/kiit-university-bhubaneswar-admission-2026
+- SOA University / ITER, Bhubaneswar: https://ssadmission.in/soa-university-bhubaneswar-admission-2026
+- MS Ramaiah Institute of Technology (MSRIT), Bangalore: https://ssadmission.in/ramaiah-institute-btech-admission-2026
+- RV College of Engineering (RVCE), Bangalore: https://ssadmission.in/rv-college-btech-admission-2026
+- SRM University, Chennai: https://ssadmission.in/srm-university-btech-admission-2026
+- B.Tech Admission Bangalore Central Guide: https://ssadmission.in/btech-admission-bengaluru-2026
+
+## Standalone Medical (MBBS) Guides
+- MBBS Admission General Portal: https://ssadmission.in/mbbs
+- MBBS Admission Guide India: https://ssadmission.in/mbbs-admission-guide-india
+- Mahatma Gandhi Medical College (MGMCH), Jaipur: https://ssadmission.in/mahatma-gandhi-medical-college-jaipur-admission-2026

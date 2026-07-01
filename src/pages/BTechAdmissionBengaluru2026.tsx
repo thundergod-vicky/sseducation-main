@@ -30,6 +30,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 import bsmrImg from "@/assets/bsmr.webp";
 import ramaiahImg from "@/assets/ramaiah.webp";
@@ -49,6 +51,88 @@ const leadFormSchema = z.object({
 type FormDataType = z.infer<typeof leadFormSchema>;
 
 export default function BTechAdmissionBengaluru2026() {
+  useSeo({
+    title: "Top B.Tech Colleges in Bangalore Direct Admission 2026 — RVCE, MSRIT, BMSCE",
+    description: "Get expert admission guidance for top B.Tech colleges in Bangalore including RVCE, MS Ramaiah (MSRIT), and BMSCE. Secure direct seats under management quota. Register for free counselling."
+  });
+
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://ssadmission.in/btech-admission-bengaluru-2026/#webpage",
+        "url": "https://ssadmission.in/btech-admission-bengaluru-2026",
+        "name": "Top B.Tech Colleges in Bangalore Direct Admission 2026 — RVCE, MSRIT, BMSCE",
+        "description": "Get expert admission guidance for top B.Tech colleges in Bangalore including RVCE, MS Ramaiah (MSRIT), and BMSCE. Secure direct seats under management quota. Register for free counselling."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/btech-admission-bengaluru-2026/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "B.Tech Bengaluru",
+            "item": "https://ssadmission.in/btech-admission-bengaluru-2026"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/btech-admission-bengaluru-2026/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the eligibility criteria for BTech admissions in Bengaluru's top colleges?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Candidates must have completed 10+2 or equivalent with Physics, Mathematics, and English as compulsory subjects. You need a minimum aggregate of 45% (for general category) in Physics, Mathematics, and one optional subject (Chemistry/Bio-Tech/Biology) from a recognized board. Minimum age is 17 years."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are COMEDK and KCET seat quotas divided in RVCE, Ramaiah, and BMSCE?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Typically, for private aided/unaided autonomous colleges in Karnataka like BMSCE, RVCE, and MSRIT: 45% to 50% seats are reserved for local Karnataka students via KCET counselling; 30% seats are open to all-India students via COMEDK counselling; and the remaining 15% to 20% seats are processed through institutional/Management Quota seats."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can out-of-state students apply for direct admission under Management Quota?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Students from any part of India (Non-Karnataka aspirants) can secure direct seats in RVCE, MS Ramaiah, and BMSCE under the Management Quota. Admissions are entirely merit-based, considering your 10+2 PCM marks and entrance test parameters. Booking registrations open early to secure tech branches."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the average and highest placement package in Bengaluru's top colleges?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "RVCE leads with a stellar ₹92 LPA highest package and a robust ₹11.4 LPA average package. MS Ramaiah and BMSCE are highly competitive, boasting average packages between ₹8.5 LPA to ₹9.5 LPA, with tech branch averages consistently exceeding ₹14 LPA."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What documents are required during counselling and verification?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Crucial documents include: Class 10th and 12th original marks cards, Entrance Exam rank cards (KCET/COMEDK/JEE), Transfer Certificate (TC), Migration Certificate (for out-of-state students), Character Certificate, Category certificate (if applicable), and Passport size photographs."
+            }
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -218,7 +302,7 @@ export default function BTechAdmissionBengaluru2026() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-50 overflow-x-hidden font-sans text-slate-800">
+    <main className="min-h-screen bg-slate-50 font-sans text-slate-800">
       
       {/* Search Ads Callout Banner */}
       <div className="bg-slate-900 py-3 text-center border-b border-white/5 relative z-30">

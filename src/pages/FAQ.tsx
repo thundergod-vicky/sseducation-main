@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Plus, Minus, Search, HelpCircle } from "lucide-react";
 import { useState } from "react";
+import { useSeo } from "@/hooks/useSeo";
 
 const FAQS = [
   {
@@ -59,6 +60,11 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
 };
 
 const FAQ = () => {
+  useSeo({
+    title: "Frequently Asked Questions (FAQ) | SS Educational Services",
+    description: "Got questions about college admissions or our consultancy services? Read our frequently asked questions about B.Tech, MBBS, and MBA admissions."
+  });
+
   const [searchTerm, setSearchTerm] = useState("");
 
   return (

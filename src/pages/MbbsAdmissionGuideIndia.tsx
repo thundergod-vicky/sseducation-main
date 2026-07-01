@@ -38,6 +38,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useJsonLd } from "@/hooks/useJsonLd";
+import { useSeo } from "@/hooks/useSeo";
 
 import mbbs1 from "@/assets/mbbs1.webp";
 import mbbs2 from "@/assets/mbbs2.webp";
@@ -61,6 +63,102 @@ const mbbsLeadFormSchema = z.object({
 type FormDataType = z.infer<typeof mbbsLeadFormSchema>;
 
 export default function MbbsAdmissionGuideIndia() {
+  useSeo({
+    title: "MBBS Admission in India 2026 — Fees, Cutoffs, Quotas & Counselling Guide",
+    description: "Get a complete guide on MBBS admission in India for 2026. Explore fees, cutoffs, quotas, and state-wise counselling steps. Get free expert guidance now."
+  });
+
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://ssadmission.in/mbbs-admission-guide-india/#webpage",
+        "url": "https://ssadmission.in/mbbs-admission-guide-india",
+        "name": "MBBS Admission in India 2026 — Fees, Cutoffs, Quotas & Counselling Guide",
+        "description": "Get a complete guide on MBBS admission in India for 2026. Explore fees, cutoffs, quotas, and state-wise counselling steps. Get free expert guidance now."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ssadmission.in/mbbs-admission-guide-india/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ssadmission.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "MBBS Admission",
+            "item": "https://ssadmission.in/mbbs"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "MBBS Guide India 2026",
+            "item": "https://ssadmission.in/mbbs-admission-guide-india"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ssadmission.in/mbbs-admission-guide-india/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between Government, Private, and Deemed medical colleges in India?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Government Medical Colleges are heavily funded by State and Central governments, with fees ranging from ₹1,000 to ₹2.5 Lakhs/year and very competitive cutoffs (600+). Private Colleges are owned by private trusts, governed by state regulatory committees, with fees from ₹6 Lakhs to ₹18 Lakhs/year and moderate cutoffs. Deemed Universities are autonomous institutions accredited by UGC, having uniform All-India open quota seats, premium facilities, fees of ₹15 Lakhs to ₹26 Lakhs/year, and lower qualifying cutoffs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I get an MBBS seat in India with a NEET score of 400 or 450?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! A NEET score of 400 to 450 is highly competitive for Private Medical Colleges under merit-guided state quota allocations and Deemed Universities. In some states like Karnataka, Kerala, or Chhattisgarh, private college open merit quotas are highly accessible at this score with highly optimized tuition budgets. Registering early and doing strategic choice-filling is essential."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the common mistakes to avoid during NEET UG Choice Filling?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Common mistakes include: 1) Listing colleges without verifying their current NMC recognition. 2) Putting high-budget deemed institutions above affordable state quota colleges by accident. 3) Not understanding the compulsory service bond structure of different states. 4) Leaving choice-locking to the last minute and experiencing technical errors. 5) Completely missing the choice-filling dates of individual open state portals."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the compulsory rural service bond in government medical colleges?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most states in India implement a mandatory service bond ranging from 1 to 5 years in rural/public hospitals after completing your MBBS. If you choose to break this agreement to pursue post-graduation or private practice immediately, you are liable to pay a penalty set by the state (ranging from ₹5 Lakhs to ₹40 Lakhs). We help parents evaluate which state bond models are most favorable."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the All India Quota (15%) differ from the State Quota (85%)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "15% of all seats in every government medical college across India are contributed to the All India Quota (AIQ), which is open to all NEET eligible students regardless of domicile and is conducted by the MCC. The remaining 85% of seats are reserved strictly for students who have domicile eligibility in that specific state, conducted by the state's counselling body. Cutoffs for the 85% State Quota are consistently lower than the All India Quota."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there any upper age limit to appear for the NEET UG exam?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, the National Medical Commission (NMC) has officially removed the upper age limit for appearing in the NEET-UG examination. Any candidate who has completed 17 years of age by December 31st of the admission year is eligible to apply, making it accessible for parents and mature aspirants researching medical transitions."
+            }
+          }
+        ]
+      }
+    ]
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -349,7 +447,7 @@ export default function MbbsAdmissionGuideIndia() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-50 overflow-x-hidden font-sans text-slate-800 antialiased">
+    <main className="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
       
       {/* Dynamic Ad Callout Banner */}
       <div className="bg-[#0f172a] py-3 text-center border-b border-teal-500/20 relative z-30">
