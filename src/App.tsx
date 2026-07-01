@@ -25,6 +25,7 @@ import HeritageKolkataAdmission2026 from "./pages/HeritageKolkataAdmission2026.t
 import TechnoMainSaltLakeAdmission2026 from "./pages/TechnoMainSaltLakeAdmission2026.tsx";
 import HaldiaAdmission2026 from "./pages/HaldiaAdmission2026.tsx";
 import KiitBhubaneswarAdmission2026 from "./pages/KiitBhubaneswarAdmission2026.tsx";
+import KiitAdmissionLanding from "./pages/KiitAdmissionLanding.tsx";
 import SoaBhubaneswarAdmission2026 from "./pages/SoaBhubaneswarAdmission2026.tsx";
 import MsRamaiahBangaloreAdmission2026 from "./pages/MsRamaiahBangaloreAdmission2026.tsx";
 import RvceBangaloreAdmission2026 from "./pages/RvceBangaloreAdmission2026.tsx";
@@ -121,7 +122,7 @@ const AnimatedAppRoutes = () => {
         <Route path="/apply/:college" element={<AdLandingPage />} />
         
         {/* Specific Ad Landing Aliases */}
-        <Route path="/apply/kiit" element={<AdLandingPage />} />
+        <Route path="/apply/kiit" element={<KiitAdmissionLanding />} />
         <Route path="/apply/rvce" element={<AdLandingPage />} />
         <Route path="/apply/ramaiah" element={<AdLandingPage />} />
         <Route path="/apply/iem" element={<AdLandingPage />} />

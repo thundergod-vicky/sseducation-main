@@ -14,25 +14,25 @@ const contactSchema = z.object({
 
 const OFFICES = [
   {
-    city: "Durgapur (Head Office)",
-    address: "City Centre, Durgapur, West Bengal - 713216",
+    city: "DURGAPUR BRANCH OFFICE",
+    address: "1st Floorm UCP-004 Bengal Ambuja, city Centre, Durgapur, West Bengal - 713216",
     phone: "+91 99330 85333",
-    email: "info@sseducation.co.in",
+    email: "info@sseducationalservices.com",
     map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117070.36839352758!2d87.21852026131495!3d23.51635392231267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f9199347206121%3A0x67332c96c561b365!2sDurgapur%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1715768000000!5m2!1sen!2sin"
   },
   {
-    city: "Patna Branch",
-    address: "Boring Road, Patna, Bihar - 800001",
+    city: "BANGLORE BRANCH",
+    address: "Dwarkangar, Bagalur Main Road, Yelahanka Near Brindavan College of Engineering, Bangalore, Karnataka - 560063",
     phone: "+91 99330 85333",
-    email: "patna@sseducation.co.in",
-    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115132.86107231458!2d85.07340056976826!3d25.60817557116813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f013444850785f%3A0x92f0f49673550e50!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1715768000000!5m2!1sen!2sin"
+    email: "info@sseducationalservices.com",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.641617441584!2d77.6258957!3d13.1224855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1946db5758cf%3A0xb35a0928f090d81!2sBagalur%20Main%20Rd%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1715768000000!5m2!1sen!2sin"
   },
   {
-    city: "Kolkata Branch",
-    address: "Salt Lake, Sector V, Kolkata, WB - 700091",
+    city: "Bhubaneswar BRANCH OFFICE",
+    address: "1st Floor Jena Mansion, shanti Bihar , kiit Squar Bhubaneswar - 751024",
     phone: "+91 99330 85333",
-    email: "kolkata@sseducation.co.in",
-    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117925.33439927513!2d88.2649511671239!3d22.53542730626352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f882db4908f667%3A0x43e330e68f6c2cbc!2sSalt%20Lake%2C%20Kolkata%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1715768000000!5m2!1sen!2sin"
+    email: "info@sseducationalservices.com",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.6729007604313!2d85.816666!3d20.354166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a19091807d9f783%3A0xf6b5b5eaef0a3bb2!2sKIIT%20Square%2C%20Bhubaneswar%2C%20Odisha%20751024!5e0!3m2!1sen!2sin!4v1715768000000!5m2!1sen!2sin"
   }
 ];
 
