@@ -120,6 +120,7 @@ export function Footer() {
                   { label: "RV College BTech", href: "/rv-college-btech-admission-2026" },
                   { label: "MS Ramaiah BTech", href: "/ramaiah-institute-btech-admission-2026" },
                   { label: "KIIT University BTech", href: "/kiit-university-bhubaneswar-admission-2026" },
+                  { label: "KIIT Admission 2026", href: "/apply/kiit" },
                   { label: "SOA University BTech", href: "/soa-university-bhubaneswar-admission-2026" },
                   { label: "IEM Kolkata BTech", href: "/iem-kolkata-admission-2026" },
                   { label: "Heritage Kolkata BTech", href: "/heritage-institute-of-technology-hitk-kolkata" },
