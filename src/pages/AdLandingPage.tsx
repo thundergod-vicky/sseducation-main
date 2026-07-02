@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Phone, MessageCircle, Star, ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
@@ -39,6 +40,62 @@ const COLLEGE_DATA: Record<string, any> = {
 const AdLandingPage = () => {
   const { college } = useParams();
   const data = COLLEGE_DATA[college || "kiit"] || COLLEGE_DATA.kiit;
+
+  useEffect(() => {
+    if (college === "kiit") {
+      // 1. Initialize dataLayer if it doesn't exist, and push GTM start event
+      const windowWithDataLayer = window as any;
+      windowWithDataLayer.dataLayer = windowWithDataLayer.dataLayer || [];
+      windowWithDataLayer.dataLayer.push({
+        "gtm.start": new Date().getTime(),
+        event: "gtm.js",
+      });
+
+      // 2. Inject Google Tag Manager main script
+      const scriptId = "gtm-kiit-script";
+      let script = document.getElementById(scriptId) as HTMLScriptElement;
+      if (!script) {
+        script = document.createElement("script");
+        script.id = scriptId;
+        script.async = true;
+        // Construct code block equivalent
+        script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K59J5S4M');`;
+        document.head.appendChild(script);
+      }
+
+      // 3. Inject Google Tag Manager noscript iframe
+      const noscriptId = "gtm-kiit-noscript";
+      let noscript = document.getElementById(noscriptId);
+      if (!noscript) {
+        noscript = document.createElement("noscript");
+        noscript.id = noscriptId;
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://www.googletagmanager.com/ns.html?id=GTM-K59J5S4M";
+        iframe.height = "0";
+        iframe.width = "0";
+        iframe.style.display = "none";
+        iframe.style.visibility = "hidden";
+        noscript.appendChild(iframe);
+        document.body.appendChild(noscript);
+      }
+
+      // Cleanup logic to remove the script/noscript tags when leaving the page
+      return () => {
+        const scriptToRemove = document.getElementById(scriptId);
+        if (scriptToRemove) {
+          scriptToRemove.remove();
+        }
+        const noscriptToRemove = document.getElementById(noscriptId);
+        if (noscriptToRemove) {
+          noscriptToRemove.remove();
+        }
+      };
+    }
+  }, [college]);
 
   return (
     <main className="min-h-screen bg-white">
